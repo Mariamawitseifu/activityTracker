@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Unit;
 use App\Http\Requests\StoreUnitRequest;
 use App\Http\Requests\UpdateUnitRequest;
+use App\Models\UnitManager;
 
 class UnitController extends Controller
 {
@@ -22,10 +23,19 @@ class UnitController extends Controller
     public function store(StoreUnitRequest $request)
     {
         try {
-        return Unit::create([
+
+        $unit = Unit::create([
             'name' => $request->name,
-            'unit_type_id' => $request->unit_type_id
+            'unit_type_id' => $request->unit_type_id,
+            'parent_id' => $request->parent_id,
         ]);
+            UnitManager::create([
+                'unit_id' => $unit->id,
+                'manager_id' => $request->manager_id,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+            ]);
+            return response()->json($unit, 201);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
@@ -44,15 +54,8 @@ class UnitController extends Controller
      */
     public function update(UpdateUnitRequest $request, Unit $unit)
     {
-        try {
-            $unit->update([
-                'name' => $request->name ?? $unit->name,
-                'unit_type_id' => $request->unit_type_id ?? $unit->unit_type_id
-            ]);
-            return response()->json($unit, 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
-        }
+
+        
     }
 
     /**
