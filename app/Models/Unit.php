@@ -28,4 +28,9 @@ class Unit extends Model
     {
         return $this->hasOne(UnitManager::class);
     }
+
+    public function parent()
+    {
+        return $this->belongsTo(Unit::class, 'parent_id');
+    }
 }
