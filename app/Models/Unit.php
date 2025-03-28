@@ -15,6 +15,9 @@ class Unit extends Model
     protected  $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     protected $guarded = [];
+    protected $casts = [
+        'is_main' => 'boolean',
+    ];
 
     public function unitType()
     {
