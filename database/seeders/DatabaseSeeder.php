@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Objective;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UnitTypeSeeder::class,
             UnitSeeder::class,
+            ObjectiveSeeder::class,
+            InititativeSeeder::class,
         ]);
 
         // User::factory()->create([

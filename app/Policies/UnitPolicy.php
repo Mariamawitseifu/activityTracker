@@ -13,7 +13,9 @@ class UnitPolicy
      */
     public function viewAny(User $user): Response
     {
-        return Response::deny('You do not have permission to view units.');
+        return $user->hasPermissionTo(permission: 'view unit')
+            ? Response::allow()
+            : Response::deny('You do not have permission to view units.');
     }
 
     /**
@@ -21,7 +23,9 @@ class UnitPolicy
      */
     public function view(User $user, Unit $unit): Response
     {
-        return Response::deny('You do not have permission to view this unit.');
+        return $user->hasPermissionTo(permission: 'view unit')
+            ? Response::allow()
+            : Response::deny('You do not have permission to view this unit.');
     }
 
     /**
@@ -29,7 +33,9 @@ class UnitPolicy
      */
     public function create(User $user): Response
     {
-        return Response::deny('You do not have permission to create units.');
+        return $user->hasPermissionTo(permission: 'create unit')
+            ? Response::allow()
+            : Response::deny('You do not have permission to create units.');
     }
 
     /**
@@ -37,7 +43,10 @@ class UnitPolicy
      */
     public function update(User $user, Unit $unit): Response
     {
-        return Response::deny('You do not have permission to update this unit.');
+
+        return $user->hasPermissionTo(permission: 'update unit')
+            ? Response::allow()
+            : Response::deny('You do not have permission to update this unit.');
     }
 
     /**
@@ -45,7 +54,9 @@ class UnitPolicy
      */
     public function delete(User $user, Unit $unit): Response
     {
-        return Response::deny('You do not have permission to delete this unit.');
+        return $user->hasPermissionTo(permission: 'delete unit')
+            ? Response::allow()
+            : Response::deny('You do not have permission to delete this unit.');
     }
 
     /**
