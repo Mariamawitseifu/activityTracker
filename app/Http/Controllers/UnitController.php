@@ -16,7 +16,11 @@ class UnitController extends Controller
     public function index()
     {
         // Gate::authorize('viewAny', Unit::class);
-        return Unit::all()->load(['unitManager.manager']);
+        return Unit::when(request('search'), function ($query, $search) {
+            return $query->where('name', 'like', "%$search%");
+        })->when(request('unit_type_id'), function ($query, $unit_type_id) {
+            return $query->where('unit_type_id', $unit_type_id);
+        })->with('unitType')->latest()->paginate();
     }
 
     /**
@@ -26,11 +30,11 @@ class UnitController extends Controller
     {
         try {
 
-        $unit = Unit::create([
-            'name' => $request->name,
-            'unit_type_id' => $request->unit_type_id,
-            'parent_id' => $request->parent_id,
-        ]);
+            $unit = Unit::create([
+                'name' => $request->name,
+                'unit_type_id' => $request->unit_type_id,
+                'parent_id' => $request->parent_id,
+            ]);
             UnitManager::create([
                 'unit_id' => $unit->id,
                 'manager_id' => $request->manager_id,
@@ -48,17 +52,13 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        return $unit ->load(['unitManager.manager']);
+        return $unit->load(['unitManager.manager']);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUnitRequest $request, Unit $unit)
-    {
-
-        
-    }
+    public function update(UpdateUnitRequest $request, Unit $unit) {}
 
     /**
      * Remove the specified resource from storage.
