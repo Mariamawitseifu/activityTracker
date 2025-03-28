@@ -6,6 +6,7 @@ use App\Models\Unit;
 use App\Http\Requests\StoreUnitRequest;
 use App\Http\Requests\UpdateUnitRequest;
 use App\Models\UnitManager;
+use Illuminate\Support\Facades\Gate;
 
 class UnitController extends Controller
 {
@@ -14,7 +15,8 @@ class UnitController extends Controller
      */
     public function index()
     {
-        return Unit::all();
+        // Gate::authorize('viewAny', Unit::class);
+        return Unit::all()->load(['unitManager.manager']);
     }
 
     /**
@@ -23,11 +25,12 @@ class UnitController extends Controller
     public function store(StoreUnitRequest $request)
     {
         try {
-            $unit = Unit::create([
-                'name' => $request->name,
-                'unit_type_id' => $request->unit_type_id,
-                'parent_id' => $request->parent_id,
-            ]);
+
+        $unit = Unit::create([
+            'name' => $request->name,
+            'unit_type_id' => $request->unit_type_id,
+            'parent_id' => $request->parent_id,
+        ]);
             UnitManager::create([
                 'unit_id' => $unit->id,
                 'manager_id' => $request->manager_id,
@@ -45,13 +48,17 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        return $unit;
+        return $unit ->load(['unitManager.manager']);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUnitRequest $request, Unit $unit) {}
+    public function update(UpdateUnitRequest $request, Unit $unit)
+    {
+
+        
+    }
 
     /**
      * Remove the specified resource from storage.

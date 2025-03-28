@@ -14,7 +14,7 @@ class InititativePolicy
     public function viewAny(User $user): Response
     {
 
-return $user->hasPermissionTo(permission: 'view inititative')
+return $user->hasPermissionTo(permission: 'view:inititative')
             ? Response::allow()
             : Response::deny('You do not have permission to view inititatives.');
     }
@@ -24,7 +24,7 @@ return $user->hasPermissionTo(permission: 'view inititative')
      */
     public function view(User $user, Inititative $inititative): Response
     {
-        return $user->hasPermissionTo(permission: 'view inititative')
+        return $user->hasPermissionTo(permission: 'view:inititative')
             ? Response::allow()
             : Response::deny('You do not have permission to view this inititative.');
     }
@@ -34,7 +34,7 @@ return $user->hasPermissionTo(permission: 'view inititative')
      */
     public function create(User $user): Response
     {
-        return $user->hasPermissionTo(permission: 'create inititative')
+        return $user->hasPermissionTo(permission: 'create:inititative')
             ? Response::allow()
             : Response::deny('You do not have permission to create inititatives.');
     }
@@ -44,7 +44,7 @@ return $user->hasPermissionTo(permission: 'view inititative')
      */
     public function update(User $user, Inititative $inititative): Response
     {
-        return $user->hasPermissionTo(permission: 'update inititative')
+        return $user->hasPermissionTo(permission: 'update:inititative')
             ? Response::allow()
             : Response::deny('You do not have permission to update this inititative.');
     }
@@ -54,7 +54,7 @@ return $user->hasPermissionTo(permission: 'view inititative')
      */
     public function delete(User $user, Inititative $inititative): Response
     {
-        return $user->hasPermissionTo(permission: 'delete inititative')
+        return $user->hasPermissionTo(permission: 'delete:inititative')
             ? Response::allow()
             : Response::deny('You do not have permission to delete this inititative.');
     }

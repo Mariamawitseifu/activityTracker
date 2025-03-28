@@ -13,7 +13,7 @@ class ObjectivePolicy
      */
     public function viewAny(User $user): Response
     {
-return $user->hasPermissionTo(permission: 'view objective')
+return $user->hasPermissionTo(permission: 'view:objective')
             ? Response::allow()
             : Response::deny('You do not have permission to view objectives.');
     }
@@ -23,7 +23,7 @@ return $user->hasPermissionTo(permission: 'view objective')
      */
     public function view(User $user, Objective $objective): Response
     {
-        return $user->hasPermissionTo(permission: 'view objective')
+        return $user->hasPermissionTo(permission: 'view:objective')
             ? Response::allow()
             : Response::deny('You do not have permission to view this objective.');
     }
@@ -33,7 +33,7 @@ return $user->hasPermissionTo(permission: 'view objective')
      */
     public function create(User $user): Response
     {
-        return $user->hasPermissionTo(permission: 'create objective')
+        return $user->hasPermissionTo(permission: 'create:objective')
             ? Response::allow()
             : Response::deny('You do not have permission to create objectives.');
     }
@@ -44,7 +44,7 @@ return $user->hasPermissionTo(permission: 'view objective')
     public function update(User $user, Objective $objective): Response
     {
 
-        return $user->hasPermissionTo(permission: 'update objective')
+        return $user->hasPermissionTo(permission: 'update:objective')
             ? Response::allow()
             : Response::deny('You do not have permission to update this objective.');
     }
@@ -55,7 +55,7 @@ return $user->hasPermissionTo(permission: 'view objective')
     public function delete(User $user, Objective $objective): Response
     {
 
-        return $user->hasPermissionTo(permission: 'delete objective')
+        return $user->hasPermissionTo(permission: 'delete:objective')
             ? Response::allow()
             : Response::deny('You do not have permission to delete this objective.');
     }

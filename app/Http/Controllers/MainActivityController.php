@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Main;
-use App\Http\Requests\StoreMainRequest;
-use App\Http\Requests\UpdateMainRequest;
-use Illuminate\Support\Facades\Gate;
+use App\Models\MainActivity;
+use App\Http\Requests\StoreMainActivityRequest;
+use App\Http\Requests\UpdateMainActivityRequest;
 
-class MainController extends Controller
+class MainActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Main::all();
+        // Gate::authorize('viewAny', MainActivity::class);
+        return MainActivity::all();
     }
 
     /**
@@ -28,18 +28,17 @@ class MainController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMainRequest $request)
+    public function store(StoreMainActivityRequest $request)
     {
         try {
-            $main = Main::create([
+            $mainActivity = MainActivity::create([
                 'title' => $request->title,
                 'inititative_id' => $request->inititative_id,
                 'type' => $request->type,
                 'weight' => $request->weight,
                 'measuring_unit_id' => $request->measuring_unit_id,
-            ])->load(['inititative'
-            ]);
-            return $main;
+            ])->load(['inititative']);
+            return $mainActivity;
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
@@ -48,15 +47,15 @@ class MainController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Main $main)
+    public function show(MainActivity $mainActivity)
     {
-        return $main->load(['inititative']);
+        return $mainActivity->load(['inititative']);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Main $main)
+    public function edit(MainActivity $mainActivity)
     {
         //
     }
@@ -64,17 +63,17 @@ class MainController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMainRequest $request, Main $main)
+    public function update(UpdateMainActivityRequest $request, MainActivity $mainActivity)
     {
         try {
-            $main->update([
+            $mainActivity->update([
                 'title' => $request->title,
                 'inititative_id' => $request->inititative_id,
                 'type' => $request->type,
                 'weight' => $request->weight,
                 'measuring_unit_id' => $request->measuring_unit_id,
             ]);
-            return $main;
+            return $mainActivity;
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
@@ -83,8 +82,8 @@ class MainController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Main $main)
+    public function destroy(MainActivity $mainActivity)
     {
-        Return response()->json(['message' => 'not implemented'], 501);
+        return response ('not implemented', 501);
     }
 }

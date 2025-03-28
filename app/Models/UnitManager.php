@@ -9,14 +9,16 @@ class UnitManager extends Model
 
     protected $guarded = [];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
     public function unitType()
     {
         return $this->belongsTo(UnitType::class);
     }
-    // public function users()
-    // {
-    //     return $this->hasMany(User::class);
-    // }
+
     public function unit()
     {
         return $this->hasMany(Unit::class);

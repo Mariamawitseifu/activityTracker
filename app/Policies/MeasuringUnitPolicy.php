@@ -13,9 +13,9 @@ class MeasuringUnitPolicy
      */
     public function viewAny(User $user): Response
     {
-        return $user->hasPermissionTo('view any measuring unit')
+        return $user->hasPermissionTo(permission: 'view:measuringunit')
             ? Response::allow()
-            : Response::deny('You do not have permission to view any measuring units.');
+            : Response::deny('You do not have permission to view measuringunit.');
     }
 
     /**
@@ -23,7 +23,7 @@ class MeasuringUnitPolicy
      */
     public function view(User $user, MeasuringUnit $measuringUnit): Response
     {
-        return $measuringUnit->unitManager->contains($user)
+        return $user->hasPermissionTo(permission: 'view:measuringunit')
             ? Response::allow()
             : Response::deny('You do not have permission to view this measuring unit.');
     }
@@ -33,9 +33,9 @@ class MeasuringUnitPolicy
      */
     public function create(User $user): Response
     {
-        return $user->hasPermissionTo('create measuring unit')
+        return $user->hasPermissionTo(permission: 'create:measuringunit')
             ? Response::allow()
-            : Response::deny('You do not have permission to create measuring units.');
+            : Response::deny('You do not have permission to create measuring unit.');
     }
 
     /**
@@ -43,9 +43,9 @@ class MeasuringUnitPolicy
      */
     public function update(User $user, MeasuringUnit $measuringUnit): Response
     {
-        return $measuringUnit->unitManager->contains($user)
+        return $user->hasPermissionTo(permission: 'update:measuringunit')
             ? Response::allow()
-            : Response::deny('You do not have permission to update this measuring unit.');
+            : Response::deny('You do not have permission to update measuring unit.');
     }
 
     /**
@@ -53,7 +53,7 @@ class MeasuringUnitPolicy
      */
     public function delete(User $user, MeasuringUnit $measuringUnit): Response
     {
-        return $measuringUnit->unitManager->contains($user)
+        return $user->hasPermissionTo(permission: 'delete:measuringunit')
             ? Response::allow()
             : Response::deny('You do not have permission to delete this measuring unit.');
     }

@@ -13,7 +13,7 @@ class UnitTypePolicy
      */
     public function viewAny(User $user): Response
     {
-        return $user->hasPermissionTo(permission: 'view unit type')
+        return $user->hasPermissionTo(permission: 'view:unittype')
             ? Response::allow()
             : Response::deny('You do not have permission to view unit types.');
     }
@@ -23,7 +23,7 @@ class UnitTypePolicy
      */
     public function view(User $user, UnitType $unitType): Response
     {
-        return $user->hasPermissionTo(permission: 'view unit type')
+        return $user->hasPermissionTo(permission: 'view:unittype')
             ? Response::allow()
             : Response::deny('You do not have permission to view this unit type.');
     }
@@ -34,7 +34,7 @@ class UnitTypePolicy
     public function create(User $user): Response
     {
 
-        return $user->hasPermissionTo(permission: 'create unit type')
+        return $user->hasPermissionTo(permission: 'create:unittype')
             ? Response::allow()
             : Response::deny('You do not have permission to create unit types.');
     }
@@ -44,7 +44,7 @@ class UnitTypePolicy
      */
     public function update(User $user, UnitType $unitType): Response
     {
-        return $user->hasPermissionTo(permission: 'update unit type')
+        return $user->hasPermissionTo(permission: 'update:unittype')
             ? Response::allow()
             : Response::deny('You do not have permission to update this unit type.');
     }
@@ -55,7 +55,7 @@ class UnitTypePolicy
     public function delete(User $user, UnitType $unitType): Response
     {
 
-        return $user->hasPermissionTo(permission: 'delete unit type')
+        return $user->hasPermissionTo(permission: 'delete:unitype')
             ? Response::allow()
             : Response::deny('You do not have permission to delete this unit type.');
     }
