@@ -52,7 +52,7 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
-        return $unit->load(['unitType', 'manager']);
+        return $unit->load(['unitType', 'manager', 'parent']);
     }
 
     /**
