@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('unit_managers', function (Blueprint $table) {
             $table->id();
             $table->foreignUuid('unit_id')->constrained('units');
-            $table->uuid('user_id')->constrained('users');
+            $table->uuid('manager_id');
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->boolean('is_active')->default(true);

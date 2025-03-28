@@ -13,10 +13,10 @@ class UnitManager extends Model
     {
         return $this->belongsTo(UnitType::class);
     }
-    public function users()
-    {
-        return $this->hasMany(User::class);
-    }
+    // public function users()
+    // {
+    //     return $this->hasMany(User::class);
+    // }
     public function unit()
     {
         return $this->hasMany(Unit::class);
