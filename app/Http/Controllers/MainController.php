@@ -14,7 +14,6 @@ class MainController extends Controller
      */
     public function index()
     {
-        Gate::authorize('viewAny', Main::class);
         return Main::all();
     }
 
@@ -31,15 +30,14 @@ class MainController extends Controller
      */
     public function store(StoreMainRequest $request)
     {
-        Gate::authorize('create', Main::class);
         try {
             $main = Main::create([
                 'title' => $request->title,
                 'inititative_id' => $request->inititative_id,
-                'main_type' => $request->main_type,
+                'type' => $request->type,
                 'weight' => $request->weight,
-                'measuring_unit' => $request->measuring_unit,
-            ])->load(['inititative', 'unitType', 'unitManager'
+                'measuring_unit_id' => $request->measuring_unit_id,
+            ])->load(['inititative'
             ]);
             return $main;
         } catch (\Exception $e) {
@@ -52,8 +50,7 @@ class MainController extends Controller
      */
     public function show(Main $main)
     {
-        Gate::authorize('view', $main);
-        return $main->load(['inititative', 'unitType', 'unitManager']);
+        return $main->load(['inititative']);
     }
 
     /**
@@ -69,14 +66,13 @@ class MainController extends Controller
      */
     public function update(UpdateMainRequest $request, Main $main)
     {
-        Gate::authorize('update', $main);
         try {
             $main->update([
                 'title' => $request->title,
                 'inititative_id' => $request->inititative_id,
-                'main_type' => $request->main_type,
+                'type' => $request->type,
                 'weight' => $request->weight,
-                'measuring_unit' => $request->measuring_unit,
+                'measuring_unit_id' => $request->measuring_unit_id,
             ]);
             return $main;
         } catch (\Exception $e) {

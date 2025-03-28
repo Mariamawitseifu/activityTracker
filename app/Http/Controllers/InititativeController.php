@@ -14,7 +14,6 @@ class InititativeController extends Controller
      */
     public function index()
     {
-        Gate::authorize('viewAny', Inititative::class);
         return Inititative::all();
     }
 
@@ -23,7 +22,6 @@ class InititativeController extends Controller
      */
     public function store(StoreInititativeRequest $request)
     {
-        Gate::authorize('create', Inititative::class);
         try {
             $inititative = Inititative::create([
                 'title' => $request->title,
@@ -40,7 +38,6 @@ class InititativeController extends Controller
      */
     public function show(Inititative $inititative)
     {
-        Gate::authorize('view', $inititative);
         return $inititative;
     }
 
@@ -49,7 +46,6 @@ class InititativeController extends Controller
      */
     public function update(UpdateInititativeRequest $request, Inititative $inititative)
     {
-        Gate::authorize('update', $inititative);
         try {
             $inititative->update([
                 'title' => $request->title,
@@ -66,7 +62,6 @@ class InititativeController extends Controller
      */
     public function destroy(Inititative $inititative)
     {
-        Gate::authorize('delete', $inititative);
         return response('not implemented', 501);
     }
 }

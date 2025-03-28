@@ -17,7 +17,7 @@ class Main extends Model
         'end_date' => 'datetime',
     ];
 
-    public function initiative()
+    public function inititative()
     {
         return $this->belongsTo(Inititative::class);
     }

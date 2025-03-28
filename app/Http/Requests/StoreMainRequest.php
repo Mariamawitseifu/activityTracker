@@ -23,10 +23,10 @@ class StoreMainRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
-            'inititative_id' => ['required', 'exists:inititives,id'],
-            'main_type'=> ['required', 'string', 'in:main activity,KPI'],
+            'inititative_id' => ['required', 'exists:inititatives,id'],
+            'type'=> ['required', 'string', 'in:main activity,KPI'],
             'weight' => ['required', 'integer'],
-            'measuring_unit' => ['required', 'string'],
+            'measuring_unit_id' => ['required', 'uuid', 'exists:measuring_units,id'],
         ];
     }
 }

@@ -24,9 +24,9 @@ class UpdateMainRequest extends FormRequest
         return [
             'title' => ['nullable', 'string', 'max:255'],
             'inititative_id' => ['nullable', 'exists:inititives,id'],
-            'main_type'=> ['nullable', 'string', 'in:main activity,KPI'],
+            'type'=> ['nullable', 'string', 'in:main activity,KPI'],
             'weight' => ['nullable', 'integer'],
-            'measuring_unit' => ['nullable', 'string'],
+            'measuring_unit_id' => ['nullable', 'uuid', 'exists:measuring_units,id'],
         ];
     }
 }

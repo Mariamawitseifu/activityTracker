@@ -14,9 +14,9 @@ class InititativePolicy
     public function viewAny(User $user): Response
     {
 
-return $user->hasPermissionTo(permission: 'view initiative')
+return $user->hasPermissionTo(permission: 'view inititative')
             ? Response::allow()
-            : Response::deny('You do not have permission to view initiatives.');
+            : Response::deny('You do not have permission to view inititatives.');
     }
 
     /**
@@ -24,9 +24,9 @@ return $user->hasPermissionTo(permission: 'view initiative')
      */
     public function view(User $user, Inititative $inititative): Response
     {
-        return $user->hasPermissionTo(permission: 'view initiative')
+        return $user->hasPermissionTo(permission: 'view inititative')
             ? Response::allow()
-            : Response::deny('You do not have permission to view this initiative.');
+            : Response::deny('You do not have permission to view this inititative.');
     }
 
     /**
@@ -34,9 +34,9 @@ return $user->hasPermissionTo(permission: 'view initiative')
      */
     public function create(User $user): Response
     {
-        return $user->hasPermissionTo(permission: 'create initiative')
+        return $user->hasPermissionTo(permission: 'create inititative')
             ? Response::allow()
-            : Response::deny('You do not have permission to create initiatives.');
+            : Response::deny('You do not have permission to create inititatives.');
     }
 
     /**
@@ -44,9 +44,9 @@ return $user->hasPermissionTo(permission: 'view initiative')
      */
     public function update(User $user, Inititative $inititative): Response
     {
-        return $user->hasPermissionTo(permission: 'update initiative')
+        return $user->hasPermissionTo(permission: 'update inititative')
             ? Response::allow()
-            : Response::deny('You do not have permission to update this initiative.');
+            : Response::deny('You do not have permission to update this inititative.');
     }
 
     /**
@@ -54,9 +54,9 @@ return $user->hasPermissionTo(permission: 'view initiative')
      */
     public function delete(User $user, Inititative $inititative): Response
     {
-        return $user->hasPermissionTo(permission: 'delete initiative')
+        return $user->hasPermissionTo(permission: 'delete inititative')
             ? Response::allow()
-            : Response::deny('You do not have permission to delete this initiative.');
+            : Response::deny('You do not have permission to delete this inititative.');
     }
 
     /**
