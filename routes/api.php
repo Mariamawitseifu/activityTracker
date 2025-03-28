@@ -9,7 +9,7 @@ use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
-    'middleware' => 'api',
+    'middleware' => 'auth:api',
 ], function () {
     Route::resource('unit-types', UnitTypeController::class);
     Route::resource('units', UnitController::class);
@@ -19,5 +19,4 @@ Route::group([
     Route::resource('inititatives', InititativeController::class);
     Route::resource('mains', MainController::class);
     Route::resource('measuring-units', MeasuringUnitController::class);
-    
 });
