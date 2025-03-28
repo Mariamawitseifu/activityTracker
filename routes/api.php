@@ -12,6 +12,7 @@ Route::group([
 ], function () {
     Route::resource('unit-types', UnitTypeController::class);
     Route::resource('units', UnitController::class);
+    Route::get('all-units', [UnitController::class, 'all']);
 
     Route::resource('objectives', ObjectiveController::class);
 

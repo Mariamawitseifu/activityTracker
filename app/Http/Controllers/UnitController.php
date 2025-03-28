@@ -23,6 +23,22 @@ class UnitController extends Controller
         })->with('unitType', 'manager', 'parent')->latest()->paginate();
     }
 
+    public function all()
+    {
+        // Gate::authorize('viewAny', Unit::class);
+        return Unit::when(request('search'), function ($query, $search) {
+            return $query->where('name', 'like', "%$search%");
+        })->when(request('unit_type_id'), function ($query, $unit_type_id) {
+            return $query->where('unit_type_id', $unit_type_id);
+        })->latest()->all()->map(function ($unit) {
+            return [
+                'id' => $unit->id,
+                'name' => $unit->name,
+            ];
+        });
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */
