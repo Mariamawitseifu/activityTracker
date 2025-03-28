@@ -20,7 +20,7 @@ class UnitController extends Controller
             return $query->where('name', 'like', "%$search%");
         })->when(request('unit_type_id'), function ($query, $unit_type_id) {
             return $query->where('unit_type_id', $unit_type_id);
-        })->with('unitType')->latest()->paginate();
+        })->with('unitType', 'manager')->latest()->paginate();
     }
 
     /**
