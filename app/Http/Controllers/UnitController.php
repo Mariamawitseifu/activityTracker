@@ -23,12 +23,11 @@ class UnitController extends Controller
     public function store(StoreUnitRequest $request)
     {
         try {
-
-        $unit = Unit::create([
-            'name' => $request->name,
-            'unit_type_id' => $request->unit_type_id,
-            'parent_id' => $request->parent_id,
-        ]);
+            $unit = Unit::create([
+                'name' => $request->name,
+                'unit_type_id' => $request->unit_type_id,
+                'parent_id' => $request->parent_id,
+            ]);
             UnitManager::create([
                 'unit_id' => $unit->id,
                 'manager_id' => $request->manager_id,
@@ -52,11 +51,7 @@ class UnitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUnitRequest $request, Unit $unit)
-    {
-
-        
-    }
+    public function update(UpdateUnitRequest $request, Unit $unit) {}
 
     /**
      * Remove the specified resource from storage.
