@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\InititativeController;
+use App\Http\Controllers\MainActivityController;
 use App\Http\Controllers\MeasuringUnitController;
 use App\Http\Controllers\ObjectiveController;
 use App\Http\Controllers\UnitTypeController;
@@ -17,5 +18,7 @@ Route::group([
     Route::resource('objectives', ObjectiveController::class);
 
     Route::resource('inititatives', InititativeController::class);
+    Route::resource('main-activities',MainActivityController::class);
+
     Route::resource('measuring-units', MeasuringUnitController::class);
 });

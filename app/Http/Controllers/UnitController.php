@@ -74,7 +74,23 @@ class UnitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUnitRequest $request, Unit $unit) {}
+    public function update(UpdateUnitRequest $request, Unit $unit) {
+        try {
+            $unit->update([
+                'name' => $request->name,
+                'unit_type_id' => $request->unit_type_id,
+                'parent_id' => $request->parent_id,
+            ]);
+            $unit->manager()->update([
+                'manager_id' => $request->manager_id,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+            ]);
+            return response()->json($unit, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
