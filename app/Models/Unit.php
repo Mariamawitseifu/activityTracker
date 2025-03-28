@@ -24,7 +24,7 @@ class Unit extends Model
         return $this->belongsTo(UnitType::class);
     }
 
-    public function unitManager()
+    public function manager()
     {
         return $this->hasOne(UnitManager::class);
     }
