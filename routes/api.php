@@ -9,4 +9,3 @@ use Illuminate\Support\Facades\Route;
     Route::resource('unit-types', UnitTypeController::class);
     Route::resource('units', UnitController::class);    
 // });
-

@@ -24,6 +24,10 @@ class UpdateUnitRequest extends FormRequest
         return [
             'name' => ['nullable', 'string', 'max:255'],
             'unit_type_id' => ['nullable', 'exists:unit_types,id'],
+            'parent_id' => ['nullable', 'exists:units,id'],
+            'manager_id' => ['nullable', 'exists:users,id'],
+            'start_date' => ['nullable', 'date'],
+            'end_date' => ['nullable', 'date', 'after:start_date'],
         ];
     }
 }
