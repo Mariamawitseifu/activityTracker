@@ -30,7 +30,7 @@ class UnitController extends Controller
             return $query->where('name', 'like', "%$search%");
         })->when(request('unit_type_id'), function ($query, $unit_type_id) {
             return $query->where('unit_type_id', $unit_type_id);
-        })->latest()->all()->map(function ($unit) {
+        })->latest()->get()->map(function ($unit) {
             return [
                 'id' => $unit->id,
                 'name' => $unit->name,
