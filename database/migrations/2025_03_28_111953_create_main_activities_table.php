@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignUuid('initiative_id')->constrained('initiatives');
             $table->enum('type', ['KPI', 'main activity']);
             $table->foreignUuid('measuring_unit_id')->constrained('measuring_units');
-            $table->integer('weight');
+            $table->string('weight');
             $table->timestamps();
         });
     }
