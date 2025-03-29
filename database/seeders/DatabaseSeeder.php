@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             UnitTypeSeeder::class,
             UnitSeeder::class,
             ObjectiveSeeder::class,
-            InititativeSeeder::class,
+            InitiativeSeeder::class,
         ]);
     }
 }
