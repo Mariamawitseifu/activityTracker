@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Inititative>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Initiative>
  */
-class InititativeFactory extends Factory
+class InitiativeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class InititativeFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(3),
+            'title' => $this->faker->sentence(),
             'objective_id' => \App\Models\Objective::factory(),
         ];
     }

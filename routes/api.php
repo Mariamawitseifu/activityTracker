@@ -17,7 +17,6 @@ Route::group([
 
     Route::resource('objectives', ObjectiveController::class);
 
-    Route::resource('inititatives', InititativeController::class);
     Route::resource('main-activities',MainActivityController::class);
 
     Route::resource('measuring-units', MeasuringUnitController::class);

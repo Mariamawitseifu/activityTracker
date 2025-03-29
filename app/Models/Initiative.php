@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Inititative extends Model
+class Initiative extends Model
 {
-    /** @use HasFactory<\Database\Factories\InititativeFactory> */
+    /** @use HasFactory<\Database\Factories\InitiativeFactory> */
     use HasFactory,HasUuids, SoftDeletes;
+    
     protected $guarded = [];
 
     protected $hidden = [
