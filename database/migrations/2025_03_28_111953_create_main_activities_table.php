@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignUuid('measuring_unit_id')->constrained('measuring_units');
             $table->string('weight');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

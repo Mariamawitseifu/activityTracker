@@ -12,6 +12,6 @@ class MeasuringUnitSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\MeasuringUnit::factory(10)->create();
     }
 }

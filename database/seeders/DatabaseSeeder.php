@@ -17,8 +17,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UnitTypeSeeder::class,
             UnitSeeder::class,
+            MeasuringUnitSeeder::class,
             ObjectiveSeeder::class,
             InitiativeSeeder::class,
+            MainActivitySeeder::class,
+            // PlanSeeder::class,
         ]);
     }
 }

@@ -12,6 +12,6 @@ class MainActivitySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\MainActivity::factory(10)->create();
     }
 }

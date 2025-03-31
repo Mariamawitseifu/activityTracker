@@ -4,6 +4,7 @@ use App\Http\Controllers\InitiativeController;
 use App\Http\Controllers\MainActivityController;
 use App\Http\Controllers\MeasuringUnitController;
 use App\Http\Controllers\ObjectiveController;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\UnitTypeController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,7 @@ Route::group([
 
     Route::resource('main-activities',MainActivityController::class);
     Route::resource('initiatives',InitiativeController::class);
-    //
-
     Route::resource('measuring-units', MeasuringUnitController::class);
+
+    Route::resource('plans', PlanController::class);
 });

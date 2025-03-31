@@ -11,41 +11,51 @@ class PlanPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user): Response
     {
-        return false;
+        return $user->hasPermissionTo('read:plan')
+            ? Response::allow()
+            : Response::deny('You do not have permission to view any plans.');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Plan $plan): bool
+    public function view(User $user, Plan $plan): Response
     {
-        return false;
+        return $user->hasPermissionTo('read:plan')
+            ? Response::allow()
+            : Response::deny('You do not have permission to view this plan.');
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user): Response
     {
-        return false;
+        return $user->hasPermissionTo('create:plan')
+            ? Response::allow()
+            : Response::deny('You do not have permission to create plans.');
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Plan $plan): bool
+    public function update(User $user, Plan $plan): Response
     {
-        return false;
+        return $user->hasPermissionTo('update:plan')
+            ? Response::allow()
+            : Response::deny('You do not have permission to update this plan.');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Plan $plan): bool
+    public function delete(User $user, Plan $plan): Response
     {
-        return false;
+        return $user->hasPermissionTo('delete:plan')
+            ? Response::allow()
+            : Response::deny('You do not have permission to delete this plan.');
     }
 
     /**

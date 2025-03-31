@@ -11,7 +11,7 @@ class UpdatePlanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdatePlanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'main_activity_id' => ['nullable', 'exists:main_activities,id'],
+            'main_activity_id.*' => ['nullable', 'array', 'exists:main_activities,id'],
+            'unit_id' => ['nullable', 'exists:units,id'],
+            'parent_id' => ['nullable', 'exists:plans,id'],
         ];
     }
 }

@@ -25,6 +25,6 @@ class MainActivity extends Model
 
     public function inititative()
     {
-        return $this->belongsTo(Inititative::class);
+        return $this->belongsTo(Initiative::class);
     }
 }
