@@ -19,6 +19,7 @@ Route::group([
 
     Route::resource('main-activities',MainActivityController::class);
     Route::resource('initiatives',InitiativeController::class);
+    //
 
     Route::resource('measuring-units', MeasuringUnitController::class);
 });
