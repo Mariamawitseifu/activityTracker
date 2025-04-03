@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,14 +18,11 @@ class PlanFactory extends Factory
     public function definition(): array
     {
         $mainActivity = \App\Models\MainActivity::factory()->create();
+        $unit = Unit::where('name', 'Health System Innovation & Quality')->first();
 
         return [
             'main_activity_id' => $mainActivity->id,
-            'unit_id' => $this->faker->uuid(),
-            'parent_id' => $mainActivity->id,
-            'created_at' => now(),
-            'updated_at' => now(),
-            'deleted_at' => null,
+            'unit_id' => $unit->id,
         ];
     }
 }

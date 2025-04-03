@@ -6,6 +6,7 @@ use App\Models\Unit;
 use App\Http\Requests\StoreUnitRequest;
 use App\Http\Requests\UpdateUnitRequest;
 use App\Models\UnitManager;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class UnitController extends Controller
@@ -38,7 +39,28 @@ class UnitController extends Controller
         });
     }
 
+    public function myChildUnits()
+    {
+        // Gate::authorize('viewAny', Unit::class);
+        $myUnit = UnitManager::where('manager_id', Auth::id())
+        ->whereNot('end_date', null)
+        ->latest()->first();
 
+        if (!$myUnit) {
+            return response()->json(['message' => 'You are not a manager of any unit'], 403);
+        }
+        return Unit::when(request('search'), function ($query, $search) {
+            return $query->where('name', 'like', "%$search%");
+        })->where('parent_id', $myUnit->unit_id)
+        ->when(request('unit_type_id'), function ($query, $unit_type_id) {
+            return $query->where('unit_type_id', $unit_type_id);
+        })->latest()->get()->map(function ($unit) {
+            return [
+                'id' => $unit->id,
+                'name' => $unit->name,
+            ];
+        });
+    }
     /**
      * Store a newly created resource in storage.
      */
