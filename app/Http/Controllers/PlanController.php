@@ -17,10 +17,11 @@ class PlanController extends Controller
      */
     public function index()
     {
-        return Plan::when(request('search'), function ($query, $search) {
-            return $query->where('main_activity_id', 'like', "%$search%")
-                ->orWhere('unit_id', 'like', "%$search%");
-        })->with(['mainActivity', 'unit'])->latest()->paginate(15);
+        return response('not implemented', 501);
+        // return Plan::when(request('search'), function ($query, $search) {
+        //     return $query->where('main_activity_id', 'like', "%$search%")
+        //         ->orWhere('unit_id', 'like', "%$search%");
+        // })->with(['mainActivity', 'unit'])->latest()->paginate(15);
     }
 
     public function myPlans()
