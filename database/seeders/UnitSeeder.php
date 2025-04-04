@@ -231,6 +231,7 @@ class UnitSeeder extends Seeder
             'manager_id' => $user9->id,
             'start_date' => now(),
         ]);
+
         $unit16 = Unit::create([
             'name' => 'Infection Prevention and Control (IPC) Program',
             'unit_type_id' => UnitType::where('name', 'Team')->first()->id,
