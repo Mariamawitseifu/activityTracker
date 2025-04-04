@@ -23,6 +23,7 @@ Route::group([
     Route::get('units-i-manage', [MyUnitController::class, 'index']);
     Route::post('active-unit/{unit}', [UnitStatusController::class, 'store']);
 
+
     Route::resource('objectives', ObjectiveController::class);
 
     Route::resource('main-activities', MainActivityController::class);

@@ -12,13 +12,13 @@ trait UnitTrait
 {
     public function getMyUnit()
     {
-        $lastActive = $this->lastActive();
-        $myUnit = UnitManager::where('manager_id', Auth::id())
-            ->where('end_date', null)
-            ->latest()->first()->unit;
+        // $lastActive = $this->lastActive();
+        // $myUnit = UnitManager::where('manager_id', Auth::id())
+        //     ->where('end_date', null)
+        //     ->latest()->first()->unit;
 
 
-        return $myUnit ?? null;
+        // return $myUnit ?? null;
     }
 
     public function getMyParentUnit()

@@ -42,23 +42,22 @@ class UnitController extends Controller
 
     public function myChildUnits()
     {
-        // Gate::authorize('viewAny', Unit::class);
-        $myUnit = UnitManager::where('manager_id', Auth::id())
-            ->whereNot('end_date', null)
-            ->latest()->first();
+        $lastActive = $this->lastActive();
+        $myUnit = Unit::find($lastActive->unit_id);
 
         if (!$myUnit) {
             return response()->json(['message' => 'You are not a manager of any unit'], 403);
         }
         return Unit::when(request('search'), function ($query, $search) {
             return $query->where('name', 'like', "%$search%");
-        })->where('parent_id', $myUnit->unit_id)
+        })->where('parent_id', $myUnit->id)
             ->when(request('unit_type_id'), function ($query, $unit_type_id) {
                 return $query->where('unit_type_id', $unit_type_id);
             })->latest()->get()->map(function ($unit) {
                 return [
                     'id' => $unit->id,
                     'name' => $unit->name,
+                    'unit_type' => $unit->unitType->name,
                 ];
             });
     }
