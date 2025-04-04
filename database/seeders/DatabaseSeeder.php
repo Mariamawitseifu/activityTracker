@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
             ObjectiveSeeder::class,
             InitiativeSeeder::class,
             MainActivitySeeder::class,
-            PlanSeeder::class,
         ]);
     }
 }
