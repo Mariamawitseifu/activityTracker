@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('unit_managers', function (Blueprint $table) {
+        Schema::create('unit_statuses', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('unit_id')->constrained('units');
-            $table->uuid('manager_id');
-            $table->date('start_date');
-            $table->date('end_date')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->foreignUuid('unit_id')->constrained('units')->onDelete('cascade');
+            $table->unsignedBigInteger('status')->default(0);
             $table->timestamps();
         });
     }
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('unit_managers');
+        Schema::dropIfExists('unit_statuses');
     }
 };

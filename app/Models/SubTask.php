@@ -7,25 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Plan extends Model
+class SubTask extends Model
 {
-    /** @use HasFactory<\Database\Factories\PlanFactory> */
+    /** @use HasFactory<\Database\Factories\SubTaskFactory> */
     use HasFactory, HasUuids, SoftDeletes;
 
     protected  $hidden = ['created_at', 'updated_at', 'deleted_at'];
     
     protected $guarded = [];
-
-    public function mainActivity()
-    {
-        return $this->belongsTo(MainActivity::class);
-    }
-    public function unit()
-    {
-        return $this->belongsTo(Unit::class);
-    }
-    public function parent()
-    {
-        return $this->belongsTo(Plan::class, 'parent_id');
-    }
 }

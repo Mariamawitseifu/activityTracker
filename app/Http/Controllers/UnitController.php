@@ -6,6 +6,7 @@ use App\Models\Unit;
 use App\Http\Requests\StoreUnitRequest;
 use App\Http\Requests\UpdateUnitRequest;
 use App\Models\UnitManager;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class UnitController extends Controller
@@ -20,7 +21,7 @@ class UnitController extends Controller
             return $query->where('name', 'like', "%$search%");
         })->when(request('unit_type_id'), function ($query, $unit_type_id) {
             return $query->where('unit_type_id', $unit_type_id);
-        })->with('unitType', 'manager', 'parent')->latest()->paginate();
+        })->with('unitType', 'manager.user', 'parent')->latest()->paginate();
     }
 
     public function all()
@@ -34,11 +35,32 @@ class UnitController extends Controller
             return [
                 'id' => $unit->id,
                 'name' => $unit->name,
+                'manager' => $unit->manager ? $unit->manager->user->name : null,
             ];
         });
     }
 
+    public function myChildUnits()
+    {
+        $lastActive = $this->lastActive();
+        $myUnit = Unit::find($lastActive->unit_id);
 
+        if (!$myUnit) {
+            return response()->json(['message' => 'You are not a manager of any unit'], 403);
+        }
+        return Unit::when(request('search'), function ($query, $search) {
+            return $query->where('name', 'like', "%$search%");
+        })->where('parent_id', $myUnit->id)
+            ->when(request('unit_type_id'), function ($query, $unit_type_id) {
+                return $query->where('unit_type_id', $unit_type_id);
+            })->latest()->get()->map(function ($unit) {
+                return [
+                    'id' => $unit->id,
+                    'name' => $unit->name,
+                    'unit_type' => $unit->unitType->name,
+                ];
+            });
+    }
     /**
      * Store a newly created resource in storage.
      */
@@ -51,6 +73,7 @@ class UnitController extends Controller
                 'unit_type_id' => $request->unit_type_id,
                 'parent_id' => $request->parent_id,
             ]);
+
             UnitManager::create([
                 'unit_id' => $unit->id,
                 'manager_id' => $request->manager_id,
@@ -74,19 +97,23 @@ class UnitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUnitRequest $request, Unit $unit) {
+    public function update(UpdateUnitRequest $request, Unit $unit)
+    {
         try {
             $unit->update([
-                'name' => $request->name,
-                'unit_type_id' => $request->unit_type_id,
-                'parent_id' => $request->parent_id,
+                'name' => $request->name ?? $unit->name,
+                'unit_type_id' => $request->unit_type_id ?? $unit->unit_type_id,
+                'parent_id' => $request->parent_id ?? $unit->parent_id,
             ]);
-            $unit->manager()->update([
-                'manager_id' => $request->manager_id,
-                'start_date' => $request->start_date,
-                'end_date' => $request->end_date,
+
+
+            UnitManager::updateOrCreate([
+                'unit_id' => $unit->id,
+            ], [
+                'manager_id' => $request->manager_id ?? $unit->manager->manager_id,
+                'start_date' => $request->start_date ?? now(),
             ]);
-            return response()->json($unit, 200);
+            return response()->json($unit->load('manager.user'), 200);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }

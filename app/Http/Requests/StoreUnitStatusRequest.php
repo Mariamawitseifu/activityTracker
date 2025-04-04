@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePlanRequest extends FormRequest
+class StoreUnitStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,9 +22,7 @@ class StorePlanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'main_activities' => ['required', 'array'],
-            'main_activities.*' => ['required', 'exists:plans,id'],
-            'unit_id' => ['required', 'exists:units,id'],
+            //
         ];
     }
 }
