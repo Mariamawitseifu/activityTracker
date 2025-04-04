@@ -30,9 +30,13 @@ Route::group([
     Route::resource('initiatives', InitiativeController::class);
     Route::resource('measuring-units', MeasuringUnitController::class);
 
-    Route::resource('plans', PlanController::class);
-
+    Route::post('plans', [PlanController::class, 'store']);
+    Route::post('remove-plans', [PlanController::class, 'removePlan']);
+    Route::post('plans/{plan}', [PlanController::class, 'show']);
     Route::get('my-plans', [PlanController::class, 'myPlans']);
+    Route::get('unit-plan/{unit}', [PlanController::class, 'unitPlan']);
+
+
     Route::get('my-child-units', [UnitController::class, 'myChildUnits']);
 
     Route::resource('tasks', TaskController::class);

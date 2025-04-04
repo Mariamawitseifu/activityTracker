@@ -46,6 +46,25 @@ class PlanController extends Controller
             });
     }
 
+    public function unitPlan(Unit $unit)
+    {
+
+        if (!$unit) {
+            return response()->json(['message' => 'You are not a manager of any unit'], 403);
+        }
+
+        return Plan::when(request('search'), function ($query, $search) {
+            return $query->where('main_activity_id', 'like', "%$search%")
+                ->orWhere('unit_id', 'like', "%$search%");
+        })
+            ->where('unit_id', $unit->id)->latest()->get()->map(function ($plan) {
+                return [
+                    'id' => $plan->id,
+                    'title' => $plan->mainActivity->title,
+                ];
+            });
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -54,15 +73,14 @@ class PlanController extends Controller
         try {
             DB::beginTransaction();
 
-            $myUnit = UnitManager::where('manager_id', Auth::id())
-                ->whereNot('end_date', null)
-                ->latest()->first();
+            $lastActive = $this->lastActive();
+            $myUnit = Unit::find($lastActive->unit_id);
 
             if (!$myUnit) {
                 return response()->json(['message' => 'You are not a manager of any unit'], 403);
             }
 
-            foreach ($request->main_activities as $key => $value) {
+            foreach ($request->main_activities as $value) {
 
                 $parent =  Plan::findOrFail($value);
                 Plan::create([
@@ -72,6 +90,36 @@ class PlanController extends Controller
                 ]);
             }
             DB::commit();
+            return "success";
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
+    public function removePlan(StorePlanRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $lastActive = $this->lastActive();
+            $myUnit = Unit::find($lastActive->unit_id);
+
+            if (!$myUnit) {
+                return response()->json(['message' => 'You are not a manager of any unit'], 403);
+            }
+
+            foreach ($request->main_activities as $value) {
+                $plan = Plan::where('id', $value)
+                    ->where('unit_id', $request->unit_id)
+                    ->first();
+
+                if ($plan) {
+                    $plan->delete();
+                }
+            }
+            DB::commit();
+
             return "success";
         } catch (\Throwable $th) {
             throw $th;
