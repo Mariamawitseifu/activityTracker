@@ -4,6 +4,7 @@ namespace App\Traits;
 
 use App\Models\Unit;
 use App\Models\UnitManager;
+use App\Models\UnitStatus;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -11,12 +12,12 @@ trait UnitTrait
 {
     public function getMyUnit()
     {
-        // $lastActive = $this->lastActive();
+        $lastActive = $this->lastActive();
         $myUnit = UnitManager::where('manager_id', Auth::id())
-        ->where('end_date', null)
-        ->latest()->first()->unit;
+            ->where('end_date', null)
+            ->latest()->first()->unit;
 
-        
+
         return $myUnit ?? null;
     }
 
@@ -29,30 +30,29 @@ trait UnitTrait
 
         return $parentUnit ?? null;
     }
-    // public function lastActive()
-    // {
 
-    //     $user = $this->loggedInUser();
 
-    //     if ($user) {
-    //         $lastActive = UnitManager::whereHas('unit', function ($query) use ($user) {
-    //             $query->where('manager_id', $user->id);
-    //         })->latest()->first();
+    public function lastActive()
+    {
+        $lastActive = UnitStatus::whereHas('unit', function ($query) {
+            $query->whereHas('manager', function ($query) {
+                $query->where('end_date', null)
+                    ->where('manager_id', Auth::id());
+            });
+        })->where('status', 1)
+            ->latest()->first();
 
-    //         return $lastActive ? $lastActive : null;
-    //     }
 
-    //     return null;
-    // }
+        return $lastActive ? $lastActive : null;
+    }
 
-    // user
-    // public function loggedInUser()
-    // {
-    //     $user = User::where('user_id', Auth::id())
-    //         ->whereHas('unit')
-    //         ->latest()
-    //         ->first();
 
-    //     return $user;
-    // }
+    public function unitManagerId($unitId)
+    {
+        $unitManager = UnitManager::where('unit_id', $unitId)
+            ->where('end_date', null)
+            ->latest()->first();
+
+        return $unitManager->manager_id;
+    }
 }

@@ -35,6 +35,7 @@ class UnitController extends Controller
             return [
                 'id' => $unit->id,
                 'name' => $unit->name,
+                'manager' => $unit->manager ? $unit->manager->user->name : null,
             ];
         });
     }
@@ -43,8 +44,8 @@ class UnitController extends Controller
     {
         // Gate::authorize('viewAny', Unit::class);
         $myUnit = UnitManager::where('manager_id', Auth::id())
-        ->whereNot('end_date', null)
-        ->latest()->first();
+            ->whereNot('end_date', null)
+            ->latest()->first();
 
         if (!$myUnit) {
             return response()->json(['message' => 'You are not a manager of any unit'], 403);
@@ -52,14 +53,14 @@ class UnitController extends Controller
         return Unit::when(request('search'), function ($query, $search) {
             return $query->where('name', 'like', "%$search%");
         })->where('parent_id', $myUnit->unit_id)
-        ->when(request('unit_type_id'), function ($query, $unit_type_id) {
-            return $query->where('unit_type_id', $unit_type_id);
-        })->latest()->get()->map(function ($unit) {
-            return [
-                'id' => $unit->id,
-                'name' => $unit->name,
-            ];
-        });
+            ->when(request('unit_type_id'), function ($query, $unit_type_id) {
+                return $query->where('unit_type_id', $unit_type_id);
+            })->latest()->get()->map(function ($unit) {
+                return [
+                    'id' => $unit->id,
+                    'name' => $unit->name,
+                ];
+            });
     }
     /**
      * Store a newly created resource in storage.
@@ -73,6 +74,7 @@ class UnitController extends Controller
                 'unit_type_id' => $request->unit_type_id,
                 'parent_id' => $request->parent_id,
             ]);
+
             UnitManager::create([
                 'unit_id' => $unit->id,
                 'manager_id' => $request->manager_id,
@@ -96,7 +98,8 @@ class UnitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUnitRequest $request, Unit $unit) {
+    public function update(UpdateUnitRequest $request, Unit $unit)
+    {
         try {
             $unit->update([
                 'name' => $request->name ?? $unit->name,

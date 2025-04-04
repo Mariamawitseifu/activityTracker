@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('unit_statuses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('unit_id')->constrained('units')->onDelete('cascade');
+            $table->unsignedBigInteger('status')->default(0);
             $table->timestamps();
         });
     }

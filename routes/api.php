@@ -3,12 +3,14 @@
 use App\Http\Controllers\InitiativeController;
 use App\Http\Controllers\MainActivityController;
 use App\Http\Controllers\MeasuringUnitController;
+use App\Http\Controllers\MyUnitController;
 use App\Http\Controllers\ObjectiveController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\SubTaskController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UnitTypeController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\UnitStatusController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([
@@ -18,10 +20,13 @@ Route::group([
     Route::resource('units', UnitController::class);
     Route::get('all-units', [UnitController::class, 'all']);
 
+    Route::get('units-i-manage', [MyUnitController::class, 'index']);
+    Route::post('active-unit/{unit}', [UnitStatusController::class, 'store']);
+
     Route::resource('objectives', ObjectiveController::class);
 
-    Route::resource('main-activities',MainActivityController::class);
-    Route::resource('initiatives',InitiativeController::class);
+    Route::resource('main-activities', MainActivityController::class);
+    Route::resource('initiatives', InitiativeController::class);
     Route::resource('measuring-units', MeasuringUnitController::class);
 
     Route::resource('plans', PlanController::class);
@@ -31,5 +36,4 @@ Route::group([
 
     Route::resource('tasks', TaskController::class);
     Route::resource('subtasks', SubTaskController::class);
-
 });

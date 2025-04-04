@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Unit;
 use App\Models\UnitManager;
+use App\Models\UnitStatus;
 use App\Models\UnitType;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -44,7 +45,7 @@ class UnitSeeder extends Seeder
         ]);
 
         UnitManager::create([
-            'unit_id' => $unit1->id,
+            'unit_id' => $unit2->id,
             'manager_id' => $user1->id,
             'start_date' => now(),
         ]);
@@ -313,5 +314,14 @@ class UnitSeeder extends Seeder
             'start_date' => now(),
         ]);
 
+
+        $units = Unit::all();
+
+        foreach ($units as $value) {
+            UnitStatus::create([
+                'unit_id' => $value->id,
+                'status' => 1,
+            ]);
+        }
     }
 }

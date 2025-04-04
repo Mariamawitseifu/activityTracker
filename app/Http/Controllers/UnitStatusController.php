@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\UnitStatus;
 use App\Http\Requests\StoreUnitStatusRequest;
 use App\Http\Requests\UpdateUnitStatusRequest;
+use App\Models\Unit;
+use Illuminate\Support\Facades\Auth;
 
 class UnitStatusController extends Controller
 {
@@ -27,9 +29,37 @@ class UnitStatusController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUnitStatusRequest $request)
+    public function store(Unit $unit)
     {
-        //
+        $unitManagerId = $this->unitManagerId($unit->id);
+
+        if ($unitManagerId != Auth::id()) {
+            return response()->json([
+                'message' => 'You are not allowed to change session for this unit.',
+            ], 403);
+        }
+
+        $lastActives = UnitStatus::whereHas('unit', function ($query) {
+            $query->whereHas('manager', function ($query) {
+                $query->where('end_date', null)
+                    ->where('manager_id', Auth::id());
+            });
+        })->latest()->get();
+
+        foreach ($lastActives as $active) {
+            $active->update([
+                'status' => 0,
+            ]);
+        }
+
+        UnitStatus::create([
+            'unit_id' => $unit->id,
+            'status' => 1,
+        ]);
+
+        return response()->json([
+            'message' => 'Session started.',
+        ]);
     }
 
     /**
