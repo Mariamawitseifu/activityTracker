@@ -32,8 +32,8 @@ class PlanController extends Controller
         return Plan::when(request('search'), function ($query, $search) {
             return $query->where('main_activity_id', 'like', "%$search%")
                 ->orWhere('unit_id', 'like', "%$search%");
-        })->whereDoesntHave('parent')
-        ->where('unit_id', $myUnit->unit_id)
+        })
+        ->where('unit_id', $myUnit->id)
         ->with(['mainActivity', 'unit'])->latest()->get()->map(function ($plan) {
             return [
                 'id' => $plan->id,
@@ -57,8 +57,6 @@ class PlanController extends Controller
             if (!$myUnit) {
                 return response()->json(['message' => 'You are not a manager of any unit'], 403);
             }
-
-            
 
             foreach ($request->main_activities as $key => $value) {
 

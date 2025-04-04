@@ -15,4 +15,9 @@ class Task extends Model
     protected  $hidden = ['created_at', 'updated_at', 'deleted_at'];
     
     protected $guarded = [];
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
 }
