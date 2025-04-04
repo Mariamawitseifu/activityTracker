@@ -24,10 +24,10 @@ class PlanController extends Controller
 
     public function myPlans()
     {
-        $myUnit = UnitManager::where('manager_id', Auth::id())
-        ->whereNot('end_date', null)
-        ->latest()->first();
-
+        $myUnit = $this->getMyUnit();
+        if (!$myUnit) {
+            return response()->json(['message' => 'You are not a manager of any unit'], 403);
+        }
 
         return Plan::when(request('search'), function ($query, $search) {
             return $query->where('main_activity_id', 'like', "%$search%")

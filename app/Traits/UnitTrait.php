@@ -2,52 +2,61 @@
 
 namespace App\Traits;
 
+use App\Models\Unit;
 use App\Models\UnitManager;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 trait UnitTrait
 {
-    public function getMyUnit(){
-        $lastActive = $this->lastActive();
+    public function getMyUnit()
+    {
+        // $lastActive = $this->lastActive();
 
-        return $lastActive ? $lastActive->unit : null;
+      $user =   User::where('username', Auth::user()->username)
+            ->latest()
+            ->first(); 
+
+            dd($user->id);
+//         $myUnit = UnitManager::where('manager_id', Auth::id())
+//         ->latest()->first();
+// dd(Auth::user()->name);
+//         return $myUnit ?? null;
     }
 
     public function getMyParentUnit()
     {
         $user = $this->loggedInUser();
 
-
-        $parentUnit = $user->unit->unit;
-
+        $unit = $this->getMyUnit();
+        $parentUnit = Unit::where('id', $unit->parent_id)->first();
 
         return $parentUnit ?? null;
     }
-    public function lastActive()
-    {
+    // public function lastActive()
+    // {
 
-        $user = $this->loggedInUser();
+    //     $user = $this->loggedInUser();
 
-        if ($user) {
-            $lastActive = UnitManager::whereHas('unit', function ($query) use ($user) {
-                $query->where('manager_id', $user->id);
-            })->latest()->first();
+    //     if ($user) {
+    //         $lastActive = UnitManager::whereHas('unit', function ($query) use ($user) {
+    //             $query->where('manager_id', $user->id);
+    //         })->latest()->first();
 
-            return $lastActive ? $lastActive : null;
-        }
+    //         return $lastActive ? $lastActive : null;
+    //     }
 
-        return null;
-    }
+    //     return null;
+    // }
 
     // user
-    public function loggedInUser()
-    {
-        $user = User::where('user_id', Auth::id())
-            ->whereHas('unit')
-            ->latest()
-            ->first();
+    // public function loggedInUser()
+    // {
+    //     $user = User::where('user_id', Auth::id())
+    //         ->whereHas('unit')
+    //         ->latest()
+    //         ->first();
 
-        return $user;
-    }
+    //     return $user;
+    // }
 }
