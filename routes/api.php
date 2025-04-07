@@ -32,7 +32,7 @@ Route::group([
 
     Route::post('plans', [PlanController::class, 'store']);
     Route::post('remove-plans', [PlanController::class, 'removePlan']);
-    Route::post('plans/{plan}', [PlanController::class, 'show']);
+    Route::get('plans/{plan}', [PlanController::class, 'show']);
     Route::get('my-plans', [PlanController::class, 'myPlans']);
     Route::get('unit-plan/{unit}', [PlanController::class, 'unitPlan']);
 

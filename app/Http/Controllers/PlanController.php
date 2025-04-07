@@ -27,6 +27,10 @@ class PlanController extends Controller
     public function myPlans()
     {
         $lastActive = $this->lastActive();
+
+        if (!$lastActive) {
+            return response()->json(['message' => 'You are not a manager of any unit'], 403);
+        }
         $myUnit = Unit::find($lastActive->unit_id);
 
         if (!$myUnit) {
