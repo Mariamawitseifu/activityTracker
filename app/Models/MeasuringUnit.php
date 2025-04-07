@@ -19,4 +19,9 @@ class MeasuringUnit extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function mainActivities()
+    {
+        return $this->hasMany(MainActivity::class);
+    }
 }
