@@ -35,7 +35,7 @@ class MainActivityController extends Controller
                 'type' => $request->type,
                 'weight' => $request->weight,
                 'measuring_unit_id' => $request->measuring_unit_id,
-            ])->load(['inititative']);
+            ]);
             return $mainActivity;
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
@@ -82,6 +82,6 @@ class MainActivityController extends Controller
      */
     public function destroy(MainActivity $mainActivity)
     {
-        return response ('not implemented', 501);
+        return response('not implemented', 501);
     }
 }
