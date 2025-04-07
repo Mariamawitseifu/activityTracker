@@ -24,14 +24,6 @@ class MainActivityController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreMainActivityRequest $request)
@@ -79,7 +71,7 @@ class MainActivityController extends Controller
                 'weight' => $request->weight,
                 'measuring_unit_id' => $request->measuring_unit_id,
             ]);
-            return $mainActivity;
+            return $mainActivity->load(['initiative', 'measuringUnit']);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
