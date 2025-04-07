@@ -14,7 +14,13 @@ class MainActivityController extends Controller
     public function index()
     {
         // Gate::authorize('viewAny', MainActivity::class);
-        return MainActivity::all();
+        return MainActivity::when(request('search'), function ($query, $search) {
+            return $query->where('title', 'like', "%$search%")
+                ->orWhere('inititative_id', 'like', "%$search%")
+                ->orWhere('type', 'like', "%$search%")
+                ->orWhere('weight', 'like', "%$search%")
+                ->orWhere('measuring_unit_id', 'like', "%$search%");
+        })->with(['inititative', 'measuringUnit'])->latest()->paginate(15);
     }
 
     /**
@@ -49,7 +55,7 @@ class MainActivityController extends Controller
      */
     public function show(MainActivity $mainActivity)
     {
-        return $mainActivity->load(['inititative']);
+        return $mainActivity->load(['inititative', 'measuringUnit']);
     }
 
     /**
