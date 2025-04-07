@@ -20,7 +20,7 @@ class MainActivityController extends Controller
                 ->orWhere('type', 'like', "%$search%")
                 ->orWhere('weight', 'like', "%$search%")
                 ->orWhere('measuring_unit_id', 'like', "%$search%");
-        })->with(['inititative', 'measuringUnit'])->latest()->paginate(15);
+        })->with(['initiative', 'measuringUnit'])->latest()->paginate(15);
     }
 
     /**
@@ -55,7 +55,7 @@ class MainActivityController extends Controller
      */
     public function show(MainActivity $mainActivity)
     {
-        return $mainActivity->load(['inititative', 'measuringUnit']);
+        return $mainActivity->load(['initiative', 'measuringUnit']);
     }
 
     /**

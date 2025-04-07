@@ -23,8 +23,13 @@ class MainActivity extends Model
         'end_date' => 'datetime',
     ];
 
-    public function inititative()
+    public function initiative()
     {
         return $this->belongsTo(Initiative::class);
+    }
+
+    public function measuringUnit()
+    {
+        return $this->belongsTo(MeasuringUnit::class);
     }
 }
