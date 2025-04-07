@@ -25,7 +25,7 @@ class MainActivity extends Model
 
     public function initiative()
     {
-        return $this->belongsTo(Initiative::class);
+        return $this->belongsTo(Initiative::class, 'initiative_id');
     }
 
     public function measuringUnit()
