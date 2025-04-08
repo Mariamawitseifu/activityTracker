@@ -25,7 +25,7 @@ class StoreSubTaskRequest extends FormRequest
             'task_id' => ['required', 'exists:tasks,id'],
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
-            'date' => ['required', 'date | after_or_equal:today'],
+            'date' => 'required|in:Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday',
         ];
     }
 }

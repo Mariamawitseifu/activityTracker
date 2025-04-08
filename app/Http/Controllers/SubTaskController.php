@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateSubTaskRequest;
 use App\Models\Task;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -16,33 +17,42 @@ class SubTaskController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index( Task $task)
+    public function index(Request $request)
     {
+        $request->validate([
+            'task_id' => 'required|exists:tasks,id',
+        ]);
+
+        $task = Task::findOrFail($request->task_id);
+
         $subTasks = $task->subTasks->groupBy(function ($subTask) {
-            return Carbon::parse($subTask->date)->format('1');
+            return Carbon::parse($subTask->date)->format('l');
         });
+
         $weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
         $groupedSubTasks = [];
-        foreach ($weekDays as $index => $day) {
-            $groupedSubTasks[$day] = $subTasks->get($day, collect())->values();
+        foreach ($weekDays as $day) {
+            $groupedSubTasks[$day] = $subTasks->get($day, collect());
         }
 
-        return response()->json($groupedSubTasks);
+        return $groupedSubTasks;
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSubTaskRequest $request, Task $task)
+    public function store(StoreSubTaskRequest $request)
     {
         try {
+            $task = task::findOrFail($request->task_id);
             if ($task->status === 'done') {
                 return response()->json(
                     ['message' => 'You cannot create a subtask for a completed task'],
                     422
                 );
             }
+
 
             $taskDate = Carbon::parse($task->date);
 
@@ -71,37 +81,12 @@ class SubTaskController extends Controller
             DB::beginTransaction();
 
             $subTask = $task->subTasks()->create([
-               'title' => $request->title,
+                'title' => $request->title,
                 'description' => $request->description,
-                'date' => $request->$requestedDate,
+                'date' => $requestedDate,
                 'task_id' => $request->task_id,
                 'status' => 'todo',
             ]);
-
-            $loggedInUser = User::where('user_id', Auth::id())->first();
-
-            $loggedInUserId = $loggedInUser->id;
-            $data = [
-                'title' => $loggedInUser->user->name . ' has created a sub task',
-                'body' => [
-                    'message' => $loggedInUser->user->name . ' has created a sub task',
-                    'type' => 'task_approval',
-                    'id' => $task->id,
-                    'from' => [
-                        'id' => $loggedInUserId,
-                        'name' => $loggedInUser->user->name,
-                        'profile_image' => User::find($loggedInUserId)->user->profile_image,
-                    ],
-                ],
-            ];
-
-            $myParentUnit = $this->getMyParentUnit();
-
-            if ($myParentUnit != null) {
-                $manager = User::find($myParentUnit->manager_id);
-
-                // $this->notify($data, User::find($unit_manager->user_id));
-            }
 
             DB::commit();
 
@@ -112,7 +97,6 @@ class SubTaskController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
-
     }
 
     /**
@@ -129,7 +113,7 @@ class SubTaskController extends Controller
      */
     public function update(UpdateSubTaskRequest $request, SubTask $subTask)
     {
-try {
+        try {
 
             if ($subTask->parent->status === 'pending') {
                 return response()->json(
@@ -170,6 +154,19 @@ try {
      */
     public function destroy(SubTask $subTask)
     {
-        return response('not implemented', 501);
+        try {
+            DB::beginTransaction();
+
+            // $subTask->remarks()->delete();
+            $subTask->delete();
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Employee sub task deleted successfully',
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 }
