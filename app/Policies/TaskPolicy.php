@@ -13,6 +13,10 @@ class TaskPolicy
      */
     public function viewAny(User $user): Response
     {
+        if ($user->hasPermissionTo('read:task')) {
+            return Response::allow();
+        }
+        
         return $user->hasPermissionTo('read:task')
             ? Response::allow()
             : Response::deny('You do not have permission to view any tasks.');

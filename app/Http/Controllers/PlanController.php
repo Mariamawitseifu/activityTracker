@@ -9,6 +9,7 @@ use App\Models\Unit;
 use App\Models\UnitManager;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PlanController extends Controller
 {
@@ -79,6 +80,7 @@ class PlanController extends Controller
      */
     public function store(StorePlanRequest $request)
     {
+        // Gate::authorize('create', Plan::class);
         try {
             DB::beginTransaction();
 

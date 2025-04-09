@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+
 
 class TaskController extends Controller
 {
@@ -18,6 +20,8 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
+        return Auth::user()->roles->load('permissions');    
+        Gate::authorize('viewAny', Task::class);
         return $this->getTasks($request, Auth::id());
     }
 

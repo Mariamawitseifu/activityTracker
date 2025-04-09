@@ -13,9 +13,9 @@ class MeasuringUnitPolicy
      */
     public function viewAny(User $user): Response
     {
-        return $user->hasPermissionTo(permission: 'view:measuringunit')
+        return $user->hasPermissionTo(permission: 'read:measuringunit')
             ? Response::allow()
-            : Response::deny('You do not have permission to view measuringunit.');
+            : Response::deny('You do not have permission to read measuringunit.');
     }
 
     /**
@@ -23,9 +23,9 @@ class MeasuringUnitPolicy
      */
     public function view(User $user, MeasuringUnit $measuringUnit): Response
     {
-        return $user->hasPermissionTo(permission: 'view:measuringunit')
+        return $user->hasPermissionTo(permission: 'read:measuringunit')
             ? Response::allow()
-            : Response::deny('You do not have permission to view this measuring unit.');
+            : Response::deny('You do not have permission to read this measuring unit.');
     }
 
     /**

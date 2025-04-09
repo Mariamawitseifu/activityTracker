@@ -13,9 +13,9 @@ class ObjectivePolicy
      */
     public function viewAny(User $user): Response
     {
-return $user->hasPermissionTo(permission: 'view:objective')
+return $user->hasPermissionTo(permission: 'read:objective')
             ? Response::allow()
-            : Response::deny('You do not have permission to view objectives.');
+            : Response::deny('You do not have permission to read objectives.');
     }
 
     /**
@@ -23,9 +23,9 @@ return $user->hasPermissionTo(permission: 'view:objective')
      */
     public function view(User $user, Objective $objective): Response
     {
-        return $user->hasPermissionTo(permission: 'view:objective')
+        return $user->hasPermissionTo(permission: 'read:objective')
             ? Response::allow()
-            : Response::deny('You do not have permission to view this objective.');
+            : Response::deny('You do not have permission to read this objective.');
     }
 
     /**
