@@ -58,6 +58,8 @@ class UnitController extends Controller
                     'id' => $unit->id,
                     'name' => $unit->name,
                     'unit_type' => $unit->unitType->name,
+                    'parent' => $unit->parent ? $unit->parent->name : null,
+                    'manager' => $unit->manager ? $unit->manager->user->name : null,
                 ];
             });
     }

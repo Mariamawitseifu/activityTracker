@@ -72,6 +72,11 @@ class PlanController extends Controller
                 return [
                     'id' => $plan->id,
                     'title' => $plan->mainActivity->title,
+                    'initiative' => $plan->mainActivity->initiative->title,
+                    'objective' => $plan->mainActivity->initiative->objective->title,
+                    'weight' => $plan->mainActivity->initiative->objective->weight,
+                    'unit' => $plan->unit->name,
+                    'target' => 100,
                 ];
             });
     }
