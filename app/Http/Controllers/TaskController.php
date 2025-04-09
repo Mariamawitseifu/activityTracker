@@ -20,7 +20,7 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        return Auth::user()->roles->load('permissions');    
+        // return Auth::user()->roles->load('permissions');    
         Gate::authorize('viewAny', Task::class);
         return $this->getTasks($request, Auth::id());
     }
@@ -74,6 +74,7 @@ class TaskController extends Controller
     //      */
     public function store(StoreTaskRequest $request)
     {
+        Gate::authorize('create', Task::class);
         try {
             DB::beginTransaction();
 
@@ -110,6 +111,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        Gate::authorize('view', $task);
         return $task->load('plan.mainActivity', 'subTasks', 'user');
     }
 
@@ -118,6 +120,7 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
+        Gate::authorize('update', $task);
         try {
             $task->update([
                 'title' => $request->title ?? $task->title,
@@ -267,6 +270,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        Gate::authorize('delete', $task);
         try {
             DB::beginTransaction();
 

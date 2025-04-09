@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class SubTaskController extends Controller
 {
@@ -19,6 +20,7 @@ class SubTaskController extends Controller
      */
     public function index(Request $request)
     {
+        Gate::authorize('viewAny', SubTask::class);
         $request->validate([
             'task_id' => 'required|exists:tasks,id',
         ]);
@@ -44,6 +46,7 @@ class SubTaskController extends Controller
      */
     public function store(StoreSubTaskRequest $request)
     {
+        Gate::authorize('create', SubTask::class);
         try {
             $task = task::findOrFail($request->task_id);
             if ($task->status === 'done') {
@@ -104,6 +107,7 @@ class SubTaskController extends Controller
      */
     public function show(SubTask $subTask)
     {
+        Gate::authorize('view', $subTask);
         return $subTask->load('task');
     }
 
@@ -113,6 +117,7 @@ class SubTaskController extends Controller
      */
     public function update(UpdateSubTaskRequest $request, SubTask $subTask)
     {
+        Gate::authorize('update', $subTask);
         try {
 
             if ($subTask->parent->status === 'pending') {
@@ -154,6 +159,7 @@ class SubTaskController extends Controller
      */
     public function destroy(SubTask $subTask)
     {
+        Gate::authorize('delete', $subTask);
         try {
             DB::beginTransaction();
 

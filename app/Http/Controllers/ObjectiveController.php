@@ -14,6 +14,7 @@ class ObjectiveController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Objective::class);
         return Objective::all();
     }
 
@@ -22,6 +23,7 @@ class ObjectiveController extends Controller
      */
     public function store(StoreObjectiveRequest $request)
     {
+        Gate::authorize('create', Objective::class);
         try {
             $objective = Objective::create([
                 'title' => $request->title,
@@ -37,6 +39,7 @@ class ObjectiveController extends Controller
      */
     public function show(Objective $objective)
     {
+        Gate::authorize('view', $objective);
         return $objective;
     }
 
@@ -45,6 +48,7 @@ class ObjectiveController extends Controller
      */
     public function update(UpdateObjectiveRequest $request, Objective $objective)
     {
+        Gate::authorize('update', $objective);
         try {
             $objective->update([
                 'title' => $request->title,
@@ -60,6 +64,7 @@ class ObjectiveController extends Controller
      */
     public function destroy(Objective $objective)
     {
+        Gate::authorize('delete', $objective);
         return response('not implemented', 501);
     }
 }
