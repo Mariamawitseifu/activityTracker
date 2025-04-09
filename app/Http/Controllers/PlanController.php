@@ -9,6 +9,7 @@ use App\Models\Unit;
 use App\Models\UnitManager;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PlanController extends Controller
 {
@@ -70,6 +71,11 @@ class PlanController extends Controller
                 return [
                     'id' => $plan->id,
                     'title' => $plan->mainActivity->title,
+                    'initiative' => $plan->mainActivity->initiative->title,
+                    'objective' => $plan->mainActivity->initiative->objective->title,
+                    'weight' => $plan->mainActivity->initiative->objective->weight,
+                    'unit' => $plan->unit->name,
+                    'target' => 100,
                 ];
             });
     }
@@ -79,6 +85,7 @@ class PlanController extends Controller
      */
     public function store(StorePlanRequest $request)
     {
+        // Gate::authorize('create', Plan::class);
         try {
             DB::beginTransaction();
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Initiative;
 use App\Http\Requests\StoreInitiativeRequest;
 use App\Http\Requests\UpdateInitiativeRequest;
+use Illuminate\Support\Facades\Gate;
 
 class InitiativeController extends Controller
 {
@@ -13,6 +14,7 @@ class InitiativeController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Initiative::class);
         return Initiative::when(request('search'), function ($query, $search) {
             return $query->where('title', 'like', "%$search%");
         })->with('objective')->latest()->paginate(15);
@@ -23,6 +25,7 @@ class InitiativeController extends Controller
      */
     public function store(StoreInitiativeRequest $request)
     {
+        Gate::authorize('create', Initiative::class);
         try {
             $initiative = Initiative::create([
                 'title' => $request->title,

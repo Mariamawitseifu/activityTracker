@@ -13,7 +13,7 @@ class UnitTypePolicy
      */
     public function viewAny(User $user): Response
     {
-        return $user->hasPermissionTo(permission: 'view:unittype')
+        return $user->hasPermissionTo(permission: 'read:unittype')
             ? Response::allow()
             : Response::deny('You do not have permission to view unit types.');
     }
@@ -23,7 +23,7 @@ class UnitTypePolicy
      */
     public function view(User $user, UnitType $unitType): Response
     {
-        return $user->hasPermissionTo(permission: 'view:unittype')
+        return $user->hasPermissionTo(permission: 'read:unittype')
             ? Response::allow()
             : Response::deny('You do not have permission to view this unit type.');
     }

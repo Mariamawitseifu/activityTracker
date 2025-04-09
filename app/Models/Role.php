@@ -2,12 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 class Role extends SpatieRole
 {
-    protected $connections = 'mysql2';
+        use HasFactory;
+        use HasUuids;
+        
+    protected $connection = 'mysql2';
+    protected $primaryKey = 'uuid';
 
     protected $hidden = [
         'pivot',

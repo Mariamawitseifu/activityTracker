@@ -13,7 +13,7 @@ class InitiativePolicy
      */
     public function viewAny(User $user): Response
     {
-        return $user->hasPermissionTo('view:initiative')
+        return $user->hasPermissionTo('read:initiative')
             ? Response::allow()
             : Response::deny('You do not have permission to view any initiatives.');
     }
@@ -23,7 +23,7 @@ class InitiativePolicy
      */
     public function view(User $user, Initiative $initiative): Response
     {
-        return $user->hasPermissionTo('view:initiative')
+        return $user->hasPermissionTo('read:initiative')
             ? Response::allow()
             : Response::deny('You do not have permission to view this initiative.');
     }

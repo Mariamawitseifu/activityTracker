@@ -13,7 +13,7 @@ class MainActivityPolicy
      */
     public function viewAny(User $user): Response
     {
-        return $user->hasPermissionTo(permission: 'view:mainactivity')
+        return $user->hasPermissionTo(permission: 'read:mainactivity')
             ? Response::allow()
             : Response::deny('You do not have permission to view main activities.');
     }
@@ -23,7 +23,7 @@ class MainActivityPolicy
      */
     public function view(User $user, MainActivity $mainActivity): Response
     {
-        return $user->hasPermissionTo(permission: 'view:mainactivity')
+        return $user->hasPermissionTo(permission: 'read:mainactivity')
             ? Response::allow()
             : Response::deny('You do not have permission to view this main activity.');
     }
