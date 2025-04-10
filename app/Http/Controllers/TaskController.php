@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
-use App\Models\User;
+use App\Models\Plan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,6 +78,20 @@ class TaskController extends Controller
         try {
             DB::beginTransaction();
 
+            $isMyPlan = Plan::where('id', $request->plan_id)
+                ->whereHas('unit', function ($query) {
+                    $query->whereHas('manager', function ($query) {
+                        $query->where('manager_id', Auth::id());
+                    });
+                })->exists();
+
+            if (!$isMyPlan) {
+                return response()->json([
+                    'message' => 'You are not allowed to create task for this plan',
+                ], 403);
+            }
+
+
             $myUnit = $this->getMyUnit();
 
             if (!$myUnit != null && Auth::user()->username == 'MOH00003') {
@@ -134,136 +148,89 @@ class TaskController extends Controller
         }
     }
 
-    // public function approveTask(Request $request, Task $task)
-    // {
-    //     $request->validate([
-    //         'status' => 'required|in:approved,rejected',
-    //     ]);
-
-    //     $loggedInUser = User::where('id', Auth::id())->first();
-    //     $myUnit = $this->getMyUnit();
-
-    //     if ($myUnit == null) {
-    //         return response()->json(
-    //             ['message' => 'You are not authorized to approve task'],
-    //             422
-    //         );
-    //     }
-
-    //     $task = User::find($task->id);
-
-    //     $userName = $task->user->name;
-
-    //     $userUnit = $task->unit->unit->id;
-
-    //     if ($task->status === 'pending') {
-
-    //         $task->update([
-    //             'status' => $request->status === 'approved' ? 'todo' : 'rejected',
-    //         ]);
-    //     } else {
-    //         return response()->json(
-    //             ['message' => 'Task is already approved '],
-    //             422
-    //         );
-    //     }
-
-    //     $loggedInUser = User::where('id', Auth::id())->first();
-    //     $data = [
-    //         'title' =>  'Your task has been ' . $request->status,
-    //         'body' => [
-    //             'message' =>  'Your task has been ' . $request->status,
-    //             'type' => 'task',
-    //             'id' => $task->id,
-    //             'from' => [
-    //                 'id' => $loggedInUser->id,
-    //                 'name' => $loggedInUser->user->name,
-    //                 'profile_image' => User::find($loggedInUser->id)->user->profile_image,
-    //             ],
-    //         ],
-    //     ];
-
-    //     // $this->notify($data, User::find($task->user_id));
-
-    //     return $task;
-    // }
-    // public function pendingTasks(Request $request)
-    // {
-
-    //     $request->validate([
-    //         // 'fiscal_year_id' => 'required|uuid|exists:fiscal_years,id',
-    //         'from' => 'nullable|date|before_or_equal:today',
-    //         'to' => 'required_with:from|date|after_or_equal:from|before_or_equal:today',
-    //         // 'kpi_tracker_id' => 'nullable|uuid|exists:k_p_i_trackers,id',
-    //     ]);
-
-    //     $perPage = request('per_page') ?? 50;
-    //     $loggedInUser = User::where('id', Auth::id())->first();
-    //     $myUnit = $this->getMyUnit();
-
-    //     $tasks = Task::latest()
-    //         ->when(! $request->has(['from', 'to']), function ($query) {
-    //             $start = Carbon::now()->startOfWeek()->subDay();
-    //             $end = Carbon::now()->endOfWeek()->subDay();
-    //             $query->whereBetween('date', [$start, $end]);
-    //         }, function ($query) use ($request) {
-    //             $from = $request->from ?: Carbon::now()->startOfWeek();
-    //             $to = $request->to ?: Carbon::now()->endOfWeek();
-    //             $query->whereBetween('date', [$from, $to]);
-    //         })
-    //         // ->whereHas('plan', function ($query) use ($request) {
-    //         //     $query->where('fiscal_year_id', $request->fiscal_year_id);
-    //         // })
-    //         ->whereHas('user', function ($query) use ($myUnit) {
-    //             $query->whereHas('unit', function ($query) use ($myUnit) {
-    //                 $query->where('unit_id', $myUnit->id);
-    //             });
-    //         })->with('user')
-    //         ->where('status', 0)
-    //         ->paginate($perPage);
-
-    //     return response()->json($tasks);
-    // }
-    // public function updateStatus(Request $request, Task $task)
-    // {
-    //     $request->validate([
-    //         'status' =>  'required|in:todo,done,blocked,inprogress',
-    //     ]);
-    //     if ($task->status == 'pending') {
-    //         return response()->json([
-    //             'message' => 'Task is not approved yet'],
-    //             422
-    //         );
-    //     $loggedInUser = User::where('id', Auth::id())->first();
-
-    //     $data = [
-    //         'title' => $loggedInUser->user->name . 'has updated a task',
-    //         'body' => [
-    //             'message' => $loggedInUser->user->name . ' has updated a task',
-    //             'type' => 'task_update',
-    //             'id' => $task->id,
-    //             'from' => [
-    //                 'id' => $loggedInUser->id,
-    //                 'name' => $loggedInUser->user->name,
-    //                 'profile_image' => User::find($loggedInUser->id)->user->profile_image,
-    //             ],
-    //         ],
-    //     ];
-    //     $myParentUnit = $this->getMyParentUnit();
-
-    //     if ($myParentUnit != null) {
-    //         $manager = User::find($myParentUnit->manager_id);
-
-    //         // $this->notify($data, User::find($manager->user_id));
+    public function approveTask(Request $request, Task $task)
+    {
+        $request->validate([
+            'status' => 'required|in:approved,rejected',
+        ]);
 
 
-    //     }
-    //     $task->update([
-    //         'status' => $request->status,
-    //     ]);
-    //     return $task;
-    // }
-    // }
+
+        $isMyChild = $this->isMyChild($task->user_id);
+
+        if (!$isMyChild) {
+            return response()->json([
+                'message' => 'You are not allowed to approve this task',
+            ], 403);
+        }
+
+        if ($task->status === 'pending') {
+
+            $task->update([
+                'status' => $request->status === 'approved' ? 'todo' : 'rejected',
+            ]);
+        } else {
+            return response()->json(
+                ['message' => 'Task is already approved '],
+                422
+            );
+        }
+
+
+        return $task;
+    }
+    public function pendingTasks(Request $request)
+    {
+
+        $request->validate([
+            'from' => 'nullable|date|before_or_equal:today',
+            'to' => 'required_with:from|date|after_or_equal:from|before_or_equal:today',
+            'plan' => 'nullable|uuid|exists:plans,id',
+        ]);
+
+        $perPage = request('per_page') ?? 50;
+        $myUnit = $this->lastActive();
+        $tasks = Task::latest()
+            ->when(! $request->has(['from', 'to']), function ($query) {
+                $start = Carbon::now()->startOfWeek()->subDay();
+                $end = Carbon::now()->endOfWeek()->subDay();
+                $query->whereBetween('date', [$start, $end]);
+            }, function ($query) use ($request) {
+                $from = $request->from ?: Carbon::now()->startOfWeek();
+                $to = $request->to ?: Carbon::now()->endOfWeek();
+                $query->whereBetween('date', [$from, $to]);
+            })
+            ->whereHas('plan', function ($query) use ($myUnit) {
+                $query->whereHas('parent', function ($query) use ($myUnit) {
+                    $query->where('unit_id', $myUnit->unit->id);
+                });
+            })
+            // ->whereHas('user', function ($query) use ($myUnit) {
+            //     $query->whereHas('unit', function ($query) use ($myUnit) {
+            //         $query->where('unit_id', $myUnit->id);
+            //     });
+            // })
+            ->where('status', 0)
+            ->paginate($perPage);
+
+        return response()->json($tasks);
+    }
+    public function changeTaskStatus(Request $request, Task $task)
+    {
+        $request->validate([
+            'status' =>  'required|in:done,blocked,inprogress',
+        ]);
+        if ($task->status == 'pending') {
+            return response()->json([
+                'message' => 'Task is not approved yet'
+            ], 422);
+        }
+
+        $task->update([
+            'status' => $request->status,
+        ]);
+        return $task;
+    }
 
     /**
      * Remove the specified resource from storage.

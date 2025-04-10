@@ -13,7 +13,7 @@ class Plan extends Model
     use HasFactory, HasUuids, SoftDeletes;
 
     protected  $hidden = ['created_at', 'updated_at', 'deleted_at'];
-    
+
     protected $guarded = [];
 
     public function mainActivity()

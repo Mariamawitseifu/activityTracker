@@ -47,6 +47,7 @@ class PlanController extends Controller
             ->with(['mainActivity', 'unit'])->latest()->get()->map(function ($plan) {
                 return [
                     'id' => $plan->id,
+                    'parent' => $plan->parent,
                     'title' => $plan->mainActivity->title,
                     'initiative' => $plan->mainActivity->initiative->title,
                     'objective' => $plan->mainActivity->initiative->objective->title,
