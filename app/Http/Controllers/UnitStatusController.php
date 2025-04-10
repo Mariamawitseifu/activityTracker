@@ -32,7 +32,7 @@ class UnitStatusController extends Controller
      */
     public function store(Unit $unit)
     {
-        Gate::authorize('create', UnitStatus::class);
+        // Gate::authorize('create', UnitStatus::class);
         $unitManagerId = $this->unitManagerId($unit->id);
 
         if ($unitManagerId != Auth::id()) {
