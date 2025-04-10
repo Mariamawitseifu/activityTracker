@@ -80,7 +80,7 @@ class TaskController extends Controller
 
             $myUnit = $this->getMyUnit();
 
-            if (!$myUnit != null) {
+            if (!$myUnit != null && Auth::user()->username == 'MOH00003') {
                 $status = 'todo';
             } else {
                 $status = 'pending';
