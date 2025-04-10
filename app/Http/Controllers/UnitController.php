@@ -16,6 +16,7 @@ class UnitController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Unit::class);
         return Unit::when(request('search'), function ($query, $search) {
             return $query->where('name', 'like', "%$search%");
         })->when(request('unit_type_id'), function ($query, $unit_type_id) {
@@ -67,6 +68,7 @@ class UnitController extends Controller
      */
     public function store(StoreUnitRequest $request)
     {
+        Gate::authorize('create', Unit::class);
         try {
 
             $unit = Unit::create([
@@ -92,6 +94,7 @@ class UnitController extends Controller
      */
     public function show(Unit $unit)
     {
+        Gate::authorize('view', $unit);
         return $unit->load(['unitType', 'manager', 'parent']);
     }
 
@@ -100,6 +103,7 @@ class UnitController extends Controller
      */
     public function update(UpdateUnitRequest $request, Unit $unit)
     {
+        Gate::authorize('update', $unit);
         try {
             $unit->update([
                 'name' => $request->name ?? $unit->name,
@@ -125,6 +129,7 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     {
+        Gate::authorize('delete', $unit);
         return 'not implemented';
     }
 }

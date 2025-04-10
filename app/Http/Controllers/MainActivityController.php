@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MainActivity;
 use App\Http\Requests\StoreMainActivityRequest;
 use App\Http\Requests\UpdateMainActivityRequest;
+use Illuminate\Support\Facades\Gate;
 
 class MainActivityController extends Controller
 {
@@ -13,7 +14,7 @@ class MainActivityController extends Controller
      */
     public function index()
     {
-        // Gate::authorize('viewAny', MainActivity::class);
+        Gate::authorize('viewAny', MainActivity::class);
         return MainActivity::when(request('search'), function ($query, $search) {
             return $query->where('title', 'like', "%$search%")
                 ->orWhere('inititative_id', 'like', "%$search%")
@@ -28,6 +29,7 @@ class MainActivityController extends Controller
      */
     public function store(StoreMainActivityRequest $request)
     {
+        Gate::authorize('create', MainActivity::class);
         try {
             $mainActivity = MainActivity::create([
                 'title' => $request->title,
@@ -47,15 +49,8 @@ class MainActivityController extends Controller
      */
     public function show(MainActivity $mainActivity)
     {
+        Gate::authorize('view', $mainActivity);
         return $mainActivity->load(['initiative', 'measuringUnit']);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MainActivity $mainActivity)
-    {
-        //
     }
 
     /**
@@ -63,6 +58,7 @@ class MainActivityController extends Controller
      */
     public function update(UpdateMainActivityRequest $request, MainActivity $mainActivity)
     {
+        Gate::authorize('update', $mainActivity);
         try {
             $mainActivity->update([
                 'title' => $request->title,
@@ -82,6 +78,7 @@ class MainActivityController extends Controller
      */
     public function destroy(MainActivity $mainActivity)
     {
+        Gate::authorize('delete', $mainActivity);
         return response('not implemented', 501);
     }
 }

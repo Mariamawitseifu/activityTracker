@@ -27,9 +27,11 @@ class UnitStatusPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user): Response
     {
-        return false;
+        return $user->hasPermissionTo('create:unitstatus')
+            ? Response::allow()
+            : Response::deny('You do not have permission to create unit statuses.');
     }
 
     /**

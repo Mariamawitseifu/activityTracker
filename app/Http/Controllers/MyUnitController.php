@@ -10,6 +10,7 @@ class MyUnitController extends Controller
 {
     public function index()
     {
+        
         $lastActive = $this->lastActive();
         $units = Unit::whereHas('manager', function ($query) {
             $query->where('end_date', null)

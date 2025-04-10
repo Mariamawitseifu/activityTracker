@@ -18,6 +18,7 @@ class PlanController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', Plan::class);
         return response('not implemented', 501);
         // return Plan::when(request('search'), function ($query, $search) {
         //     return $query->where('main_activity_id', 'like', "%$search%")
@@ -85,7 +86,7 @@ class PlanController extends Controller
      */
     public function store(StorePlanRequest $request)
     {
-        // Gate::authorize('create', Plan::class);
+        Gate::authorize('create', Plan::class);
         try {
             DB::beginTransaction();
 
@@ -147,6 +148,7 @@ class PlanController extends Controller
      */
     public function show(Plan $plan)
     {
+        Gate::authorize('view', $plan);
         return $plan->load(['mainActivity', 'unit']);
     }
 
@@ -160,6 +162,7 @@ class PlanController extends Controller
      */
     public function destroy(Plan $plan)
     {
+        Gate::authorize('delete', $plan);
         return response('not implemented', 501);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\UnitType;
 use App\Http\Requests\StoreUnitTypeRequest;
 use App\Http\Requests\UpdateUnitTypeRequest;
+use Illuminate\Support\Facades\Gate;
 
 class UnitTypeController extends Controller
 {
@@ -13,6 +14,7 @@ class UnitTypeController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', UnitType::class);
         return UnitType::all();
     }
 
@@ -21,6 +23,7 @@ class UnitTypeController extends Controller
      */
     public function store(StoreUnitTypeRequest $request)
     {
+        Gate::authorize('create', UnitType::class);
         try {
             $unitType = UnitType::create([
                 'name' => $request->name,
@@ -36,6 +39,7 @@ class UnitTypeController extends Controller
      */
     public function show(UnitType $unitType)
     {
+        Gate::authorize('view', $unitType);
         return $unitType;
     }
 
@@ -44,6 +48,7 @@ class UnitTypeController extends Controller
      */
     public function update(UpdateUnitTypeRequest $request, UnitType $unitType)
     {
+        Gate::authorize('update', $unitType);
         try {
             $unitType->update([
                 'name' => $request->name ?? $unitType->name,

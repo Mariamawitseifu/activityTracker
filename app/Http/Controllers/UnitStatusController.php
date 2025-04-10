@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUnitStatusRequest;
 use App\Http\Requests\UpdateUnitStatusRequest;
 use App\Models\Unit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class UnitStatusController extends Controller
 {
@@ -31,6 +32,7 @@ class UnitStatusController extends Controller
      */
     public function store(Unit $unit)
     {
+        Gate::authorize('create', UnitStatus::class);
         $unitManagerId = $this->unitManagerId($unit->id);
 
         if ($unitManagerId != Auth::id()) {

@@ -42,6 +42,7 @@ class InitiativeController extends Controller
      */
     public function show(Initiative $initiative)
     {
+        Gate::authorize('view', $initiative);
         return $initiative->load('objective');
     }
 
@@ -50,6 +51,7 @@ class InitiativeController extends Controller
      */
     public function update(UpdateInitiativeRequest $request, Initiative $initiative)
     {
+        Gate::authorize('update', $initiative);
         try {
             $initiative->update([
                 'title' => $request->title ?? $initiative->title,
@@ -66,6 +68,7 @@ class InitiativeController extends Controller
      */
     public function destroy(Initiative $initiative)
     {
+        Gate::authorize('delete', $initiative);
         return response('not implemented', 501);
     }
 }
