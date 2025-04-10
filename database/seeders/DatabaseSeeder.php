@@ -15,13 +15,13 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            PlanSeeder::class,
             UnitTypeSeeder::class,
             UnitSeeder::class,
             MeasuringUnitSeeder::class,
             ObjectiveSeeder::class,
             InitiativeSeeder::class,
             MainActivitySeeder::class,
+            PlanSeeder::class,
         ]);
     }
 }
