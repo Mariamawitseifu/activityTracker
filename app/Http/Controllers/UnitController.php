@@ -42,6 +42,8 @@ class UnitController extends Controller
 
     public function myChildUnits()
     {
+        Gate::authorize('viewChild', Unit::class);
+        
         $lastActive = $this->lastActive();
         $myUnit = Unit::find($lastActive->unit_id);
 
