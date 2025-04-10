@@ -44,11 +44,15 @@ class UnitSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        UnitManager::create([
+        UnitManager::updateOrCreate([
             'unit_id' => $unit2->id,
             'manager_id' => $user1->id,
+        ], [
             'start_date' => now(),
         ]);
+
+        $user1->assignRole('Manager');
+        $user1->assignRole('Employee');
 
 
         $unit4 = Unit::create([
@@ -56,6 +60,8 @@ class UnitSeeder extends Seeder
             'unit_type_id' => UnitType::where('name', 'State Minister')->first()->id,
             'parent_id' => $unit1->id,
         ]);
+
+
 
         $unit5 = Unit::create([
             'name' => 'HRH Development & Improvement',
@@ -85,9 +91,14 @@ class UnitSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        UnitManager::create([
+        $user2->assignRole('Manager');
+        $user2->assignRole('Employee');
+
+
+        UnitManager::updateOrCreate([
             'unit_id' => $unit7->id,
             'manager_id' => $user2->id,
+        ], [
             'start_date' => now(),
         ]);
 
@@ -112,9 +123,13 @@ class UnitSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        UnitManager::create([
+        $user3->assignRole('Manager');
+        $user3->assignRole('Employee');
+
+        UnitManager::updateOrCreate([
             'unit_id' => $unit9->id,
             'manager_id' => $user3->id,
+        ], [
             'start_date' => now(),
         ]);
 
@@ -124,9 +139,10 @@ class UnitSeeder extends Seeder
             'parent_id' => $unit7->id,
         ]);
 
-        UnitManager::create([
+        UnitManager::updateOrCreate([
             'unit_id' => $unit10->id,
             'manager_id' => $user3->id,
+        ],[
             'start_date' => now(),
         ]);
 
@@ -144,9 +160,13 @@ class UnitSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        UnitManager::create([
+        $user4->assignRole('Manager');
+        $user4->assignRole('Employee');
+
+        UnitManager::updateOrCreate([
             'unit_id' => $unit11->id,
             'manager_id' => $user4->id,
+        ],[
             'start_date' => now(),
         ]);
 
@@ -164,11 +184,15 @@ class UnitSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        UnitManager::create([
+        UnitManager::updateOrCreate([
             'unit_id' => $unit12->id,
             'manager_id' => $user5->id,
+        ], [
             'start_date' => now(),
         ]);
+
+        $user5->assignRole('Manager');
+        $user5->assignRole('Employee');
 
         $unit13 = Unit::create([
             'name' => 'Healthcare Quality Program',
@@ -184,9 +208,13 @@ class UnitSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        UnitManager::create([
+        $user6->assignRole('Manager');
+        $user6->assignRole('Employee');
+
+        UnitManager::updateOrCreate([
             'unit_id' => $unit13->id,
             'manager_id' => $user6->id,
+        ], [
             'start_date' => now(),
         ]);
 
@@ -205,9 +233,13 @@ class UnitSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        UnitManager::create([
+        $user7->assignRole('Manager');
+        $user7->assignRole('Employee');
+
+        UnitManager::updateOrCreate([
             'unit_id' => $unit14->id,
             'manager_id' => $user7->id,
+        ], [
             'start_date' => now(),
         ]);
 
@@ -225,10 +257,12 @@ class UnitSeeder extends Seeder
             'phone' => '251912233637',
             'password' => bcrypt('password'),
         ]);
-
-        UnitManager::create([
+        $user9->assignRole('Manager');
+        $user9->assignRole('Employee');
+        UnitManager::updateOrCreate([
             'unit_id' => $unit15->id,
             'manager_id' => $user9->id,
+        ], [
             'start_date' => now(),
         ]);
 
@@ -246,9 +280,13 @@ class UnitSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        UnitManager::create([
+        $user10->assignRole('Manager');
+        $user10->assignRole('Employee');
+
+        UnitManager::updateOrCreate([
             'unit_id' => $unit16->id,
             'manager_id' => $user10->id,
+        ],[
             'start_date' => now(),
         ]);
 
@@ -265,10 +303,12 @@ class UnitSeeder extends Seeder
             'phone' => '251911263375',
             'password' => bcrypt('password'),
         ]);
-
-        UnitManager::create([
+        $user8->assignRole('Manager');
+        $user8->assignRole('Employee');
+        UnitManager::updateOrCreate([
             'unit_id' => $unit17->id,
             'manager_id' => $user8->id,
+        ],[
             'start_date' => now(),
         ]);
 
@@ -287,10 +327,12 @@ class UnitSeeder extends Seeder
             'phone' => '251912175296',
             'password' => bcrypt('password'),
         ]);
-
-        UnitManager::create([
+        $user11->assignRole('Manager');
+        $user11->assignRole('Employee');
+        UnitManager::updateOrCreate([
             'unit_id' => $unit18->id,
             'manager_id' => $user11->id,
+        ], [
             'start_date' => now(),
         ]);
 
@@ -308,10 +350,12 @@ class UnitSeeder extends Seeder
             'phone' => '251911061646',
             'password' => bcrypt('password'),
         ]);
-
-        UnitManager::create([
+        $user12->assignRole('Manager');
+        $user12->assignRole('Employee');
+        UnitManager::updateOrCreate([
             'unit_id' => $unit19->id,
             'manager_id' => $user12->id,
+        ], [
             'start_date' => now(),
         ]);
 
