@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Plan;
+use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -16,6 +17,14 @@ class PlanPolicy
         return $user->hasPermissionTo('read:plan')
             ? Response::allow()
             : Response::deny('You do not have permission to view any plans.');
+    }
+
+    public function viewManagerPlans(User $user, Unit $unit): Response
+    {
+        if ($user->hasPermissionTo('read:plan')&& $user->id === $unit->manager_id) {
+            return Response::allow();
+        }
+        return Response::deny('You do not have permission to view this unit plans.');
     }
 
     /**
