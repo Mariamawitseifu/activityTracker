@@ -44,12 +44,7 @@ class UnitController extends Controller
     {
         Gate::authorize('viewChild', Unit::class);
 
-        $lastActive = $this->lastActive();
-        $myUnit = Unit::find($lastActive->unit_id);
-
-        if (!$myUnit) {
-            return response()->json(['message' => 'You are not a manager of any unit'], 403);
-        }
+        $myUnit = $this->lastActive();
         return Unit::when(request('search'), function ($query, $search) {
             return $query->where('name', 'like', "%$search%");
         })->where('parent_id', $myUnit->id)

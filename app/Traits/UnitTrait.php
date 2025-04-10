@@ -12,13 +12,11 @@ trait UnitTrait
 {
     public function getMyUnit()
     {
-        // $lastActive = $this->lastActive();
-        // $myUnit = UnitManager::where('manager_id', Auth::id())
-        //     ->where('end_date', null)
-        //     ->latest()->first()->unit;
+        $unit = Unit::whereHas('manager', function ($query) {
+            $query->where('manager_id', Auth::id());
+        })->first();
 
-
-        // return $myUnit ?? null;
+        return $user->unit ?? null;
     }
 
     public function getMyParentUnit()
@@ -54,5 +52,17 @@ trait UnitTrait
             ->latest()->first();
 
         return $unitManager->manager_id;
+    }
+
+    public function isMyChild($userId)
+    {
+        $myUnit = $this->lastActive();
+        $unit = Unit::whereHas('manager', function ($query) use ($userId) {
+            $query->where('manager_id', $userId)
+                ->where('end_date', null);
+        })->where('parent_id', $myUnit->unit_id)
+            ->first();
+
+        return $unit ? true : false;
     }
 }

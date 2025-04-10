@@ -40,6 +40,11 @@ Route::group([
     Route::get('my-child-units', [UnitController::class, 'myChildUnits']);
 
     Route::resource('tasks', TaskController::class);
+    Route::post('change-task-status/{task}', [TaskController::class, 'changeTaskStatus']);
+    Route::post('approve-task/{task}', [TaskController::class, 'approveTask']);
+    Route::get('pending-tasks', [TaskController::class, 'pendingTasks']);
+
+
 
     Route::resource('sub-tasks', SubTaskController::class);
 });
