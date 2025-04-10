@@ -19,7 +19,7 @@ class UnitPolicy
     }
     public function viewChild(User $user): Response
     {
-        return $user->hasPermissionTo(permission: 'read:viewchild')
+        return $user->hasPermissionTo(permission: 'read:childunit')
             ? Response::allow()
             : Response::deny('You do not have permission to view child units.');
     }
