@@ -44,7 +44,7 @@ class PlanController extends Controller
                 ->orWhere('unit_id', 'like', "%$search%");
         })
             ->where('unit_id', $myUnit->id)
-            ->with(['mainActivity', 'unit'])->latest()->paginated()->through(function ($plan) {
+            ->with(['mainActivity', 'unit'])->latest()->paginate()->through(function ($plan) {
                 return [
                     'id' => $plan->id,
                     'parent' => $plan->parent,
@@ -101,7 +101,7 @@ class PlanController extends Controller
             return $query->where('main_activity_id', 'like', "%$search%")
                 ->orWhere('unit_id', 'like', "%$search%");
         })
-            ->where('unit_id', $unit->id)->latest()->paginated()->through(function ($plan) {
+            ->where('unit_id', $unit->id)->latest()->paginate()->through(function ($plan) {
                 return [
                     'id' => $plan->id,
                     'title' => $plan->mainActivity->title,
