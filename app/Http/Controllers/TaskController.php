@@ -27,6 +27,7 @@ class TaskController extends Controller
 
     private function getTasks(Request $request, $userId)
     {
+        Gate::authorize('viewAny', Task::class);
         $perPage = 50;
 
         if ($request->from && $request->to) {
@@ -150,6 +151,7 @@ class TaskController extends Controller
 
     public function approveTask(Request $request, Task $task)
     {
+        Gate::authorize('approveTask', $task);
         $request->validate([
             'status' => 'required|in:approved,rejected',
         ]);
