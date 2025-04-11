@@ -42,6 +42,14 @@ class TaskPolicy
             : Response::deny('You do not have permission to create tasks.');
     }
 
+
+    public function changeStatus(User $user): Response
+    {
+        return $user->hasPermissionTo('create:changestatus')
+            ? Response::allow()
+            : Response::deny('You do not have permission to change status.');
+    }
+
     /**
      * Determine whether the user can update the model.
      */
