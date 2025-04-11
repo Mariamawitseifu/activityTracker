@@ -44,7 +44,8 @@ class UnitController extends Controller
     {
         Gate::authorize('viewChild', Unit::class);
 
-        $myUnit = $this->lastActive();
+        $lastActive = $this->lastActive();
+        $myUnit = $lastActive ? $lastActive->unit : null;
         return Unit::when(request('search'), function ($query, $search) {
             return $query->where('name', 'like', "%$search%");
         })->where('parent_id', $myUnit->id)

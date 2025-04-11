@@ -142,7 +142,7 @@ class UnitSeeder extends Seeder
         UnitManager::updateOrCreate([
             'unit_id' => $unit10->id,
             'manager_id' => $user3->id,
-        ],[
+        ], [
             'start_date' => now(),
         ]);
 
@@ -166,7 +166,7 @@ class UnitSeeder extends Seeder
         UnitManager::updateOrCreate([
             'unit_id' => $unit11->id,
             'manager_id' => $user4->id,
-        ],[
+        ], [
             'start_date' => now(),
         ]);
 
@@ -286,7 +286,7 @@ class UnitSeeder extends Seeder
         UnitManager::updateOrCreate([
             'unit_id' => $unit16->id,
             'manager_id' => $user10->id,
-        ],[
+        ], [
             'start_date' => now(),
         ]);
 
@@ -308,7 +308,7 @@ class UnitSeeder extends Seeder
         UnitManager::updateOrCreate([
             'unit_id' => $unit17->id,
             'manager_id' => $user8->id,
-        ],[
+        ], [
             'start_date' => now(),
         ]);
 
