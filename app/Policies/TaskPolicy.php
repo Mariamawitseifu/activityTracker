@@ -12,11 +12,7 @@ class TaskPolicy
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): Response
-    {
-        if ($user->hasPermissionTo('read:task')) {
-            return Response::allow();
-        }
-        
+    {   
         return $user->hasPermissionTo('read:task')
             ? Response::allow()
             : Response::deny('You do not have permission to view any tasks.');
@@ -32,7 +28,7 @@ class TaskPolicy
             : Response::deny('You do not have permission to view this task.');
     }
 
-    public function pendingTasks(User $user, Task $task): Response
+    public function pendingTasks(User $user): Response
     {
         return $user->hasPermissionTo('read:pendingtask')
             ? Response::allow()
@@ -48,7 +44,8 @@ class TaskPolicy
             ? Response::allow()
             : Response::deny('You do not have permission to create tasks.');
     }
-    public function approveTask(User $user): Response
+    
+    public function approveTask(User $user, Task $task): Response
     {
         return $user->hasPermissionTo('create:approvetask')
             ? Response::allow()
