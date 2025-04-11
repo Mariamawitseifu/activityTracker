@@ -32,6 +32,13 @@ class TaskPolicy
             : Response::deny('You do not have permission to view this task.');
     }
 
+    public function pendingTasks(User $user, Task $task): Response
+    {
+        return $user->hasPermissionTo('read:pendingtask')
+            ? Response::allow()
+            : Response::deny('You do not have permission to view pending tasks.');
+    }
+    
     /**
      * Determine whether the user can create models.
      */
@@ -40,6 +47,12 @@ class TaskPolicy
         return $user->hasPermissionTo('create:task')
             ? Response::allow()
             : Response::deny('You do not have permission to create tasks.');
+    }
+    public function approveTask(User $user): Response
+    {
+        return $user->hasPermissionTo('create:approvetask')
+            ? Response::allow()
+            : Response::deny('You do not have permission to approve tasks.');
     }
 
 
