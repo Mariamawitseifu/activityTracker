@@ -26,6 +26,38 @@ class PlanController extends Controller
         // })->with(['mainActivity', 'unit'])->latest()->paginate(15);
     }
 
+    public function myPlansPaginated()
+    {
+        $lastActive = $this->lastActive();
+
+        if (!$lastActive) {
+            return response()->json(['message' => 'You are not a manager of any unit'], 403);
+        }
+        $myUnit = Unit::find($lastActive->unit_id);
+
+        if (!$myUnit) {
+            return response()->json(['message' => 'You are not a manager of any unit'], 403);
+        }
+
+        return Plan::when(request('search'), function ($query, $search) {
+            return $query->where('main_activity_id', 'like', "%$search%")
+                ->orWhere('unit_id', 'like', "%$search%");
+        })
+            ->where('unit_id', $myUnit->id)
+            ->with(['mainActivity', 'unit'])->latest()->paginated()->through(function ($plan) {
+                return [
+                    'id' => $plan->id,
+                    'parent' => $plan->parent,
+                    'title' => $plan->mainActivity->title,
+                    'initiative' => $plan->mainActivity->initiative->title,
+                    'objective' => $plan->mainActivity->initiative->objective->title,
+                    'weight' => $plan->mainActivity->initiative->objective->weight,
+                    'unit' => $plan->unit->name,
+                    'target' => 100,
+                ];
+            });
+    }
+
     public function myPlans()
     {
         $lastActive = $this->lastActive();
@@ -69,7 +101,7 @@ class PlanController extends Controller
             return $query->where('main_activity_id', 'like', "%$search%")
                 ->orWhere('unit_id', 'like', "%$search%");
         })
-            ->where('unit_id', $unit->id)->latest()->get()->map(function ($plan) {
+            ->where('unit_id', $unit->id)->latest()->paginated()->through(function ($plan) {
                 return [
                     'id' => $plan->id,
                     'title' => $plan->mainActivity->title,

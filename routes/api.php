@@ -34,6 +34,7 @@ Route::group([
     Route::post('remove-plans', [PlanController::class, 'removePlan']);
     Route::get('plans/{plan}', [PlanController::class, 'show']);
     Route::get('my-plans', [PlanController::class, 'myPlans']);
+    Route::get('my-plans-paginated', [PlanController::class, 'myPlansPaginated']);
     Route::get('unit-plan/{unit}', [PlanController::class, 'unitPlan']);
 
 
