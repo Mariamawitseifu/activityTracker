@@ -181,7 +181,7 @@ class TaskController extends Controller
     }
     public function pendingTasks(Request $request)
     {
-        Gate::authorize('changeStatus', Task::class);
+        Gate::authorize('pendingTask', Task::class);
         $request->validate([
             'from' => 'nullable|date|before_or_equal:today',
             'to' => 'required_with:from|date|after_or_equal:from|before_or_equal:today',
@@ -217,6 +217,7 @@ class TaskController extends Controller
     }
     public function changeTaskStatus(Request $request, Task $task)
     {
+        Gate::authorize('changeStatus', $task);
         $request->validate([
             'status' =>  'required|in:done,blocked,inprogress',
         ]);
