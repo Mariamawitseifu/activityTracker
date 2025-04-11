@@ -92,7 +92,7 @@ class PlanController extends Controller
             DB::beginTransaction();
 
             $lastActive = $this->lastActive();
-            $myUnit = Unit::find($lastActive->unit_id);
+            $myUnit = $lastActive->unit;
 
             if (!$myUnit) {
                 return response()->json(['message' => 'You are not a manager of any unit'], 403);
@@ -119,9 +119,8 @@ class PlanController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $lastActive = $this->lastActive();
-            $myUnit = Unit::find($lastActive->unit_id);
+            $myUnit = $lastActive->unit;
 
             if (!$myUnit) {
                 return response()->json(['message' => 'You are not a manager of any unit'], 403);
