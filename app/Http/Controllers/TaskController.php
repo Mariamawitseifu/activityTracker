@@ -152,10 +152,10 @@ class TaskController extends Controller
     public function approveTask(Request $request, Task $task)
     {
         Gate::authorize('approveTask', $task);
+
         $request->validate([
             'status' => 'required|in:approved,rejected',
         ]);
-
 
 
         $isMyChild = $this->isMyChild($task->user_id);
@@ -181,9 +181,11 @@ class TaskController extends Controller
 
         return $task;
     }
+    
     public function pendingTasks(Request $request)
     {
-        Gate::authorize('pendingTask', Task::class);
+        Gate::authorize('pendingTasks', Task::class);
+
         $request->validate([
             'from' => 'nullable|date|before_or_equal:today',
             'to' => 'required_with:from|date|after_or_equal:from|before_or_equal:today',
