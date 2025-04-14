@@ -127,7 +127,7 @@ class TaskController extends Controller
     public function show(Task $task)
     {
         Gate::authorize('view', $task);
-        return $task->load('plan.mainActivity', 'subTasks', 'user');
+        return $task->load('plan.mainActivity', 'subTasks', 'user', 'remarks');
     }
 
     /**
@@ -262,5 +262,19 @@ class TaskController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function addRemark(Request $request, Task $task)
+    {
+        Gate::authorize('addRemark', $task);
+        $request->validate([
+            'remark' => 'required|string',
+        ]);
+
+        $task->remarks()->create([
+            'remark' => $request->remark,
+        ]);
+
+        return $task;
     }
 }

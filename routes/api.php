@@ -6,6 +6,7 @@ use App\Http\Controllers\MeasuringUnitController;
 use App\Http\Controllers\MyUnitController;
 use App\Http\Controllers\ObjectiveController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PlanReportController;
 use App\Http\Controllers\SubTaskController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UnitTypeController;
@@ -45,7 +46,9 @@ Route::group([
     Route::post('approve-task/{task}', [TaskController::class, 'approveTask']);
     Route::get('pending-tasks', [TaskController::class, 'pendingTasks']);
 
-
-
+    Route::resource('plan-reports', PlanReportController::class);
+    
     Route::resource('sub-tasks', SubTaskController::class);
+
+    Route::post('/tasks/{task}/remarks', [TaskController::class, 'addRemark']);
 });
