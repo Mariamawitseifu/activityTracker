@@ -267,14 +267,17 @@ class TaskController extends Controller
     public function addRemark(Request $request, Task $task)
     {
         Gate::authorize('addRemark', $task);
+
         $request->validate([
             'remark' => 'required|string',
+            // 'remarkable_type' => 'required|in:task',
         ]);
 
         $task->remarks()->create([
             'remark' => $request->remark,
+            'remarkable_type' => Task::class
         ]);
 
-        return $task;
+        return $task->load('remarks');
     }
 }

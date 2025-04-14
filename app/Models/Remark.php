@@ -20,4 +20,9 @@ class Remark extends Model
     {
         return $this->belongsTo(User::class, 'creator_id');
     }
+
+    public function remarkable()
+    {
+        return $this->morphTo();
+    }
 }

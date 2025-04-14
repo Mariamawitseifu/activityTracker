@@ -72,10 +72,10 @@ class Task extends Model
         return now()->between($taskDate, $endOfRange);
     }
 
-    // public function remarks()
-    // {
-    //     return $this->morphMany(Remark::class, 'remarkable');
-    // }
+    public function remarks()
+    {
+        return $this->morphMany(Remark::class, 'remarkable');
+    }
 
     // sub task count
     public function getSubTaskCountAttribute()
