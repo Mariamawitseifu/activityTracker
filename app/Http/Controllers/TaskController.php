@@ -270,10 +270,12 @@ class TaskController extends Controller
 
         $request->validate([
             'remark' => 'required|string',
+            // 'remarkable_type' => 'required|in:task',
         ]);
 
         $task->remarks()->create([
             'remark' => $request->remark,
+            'remarkable_type' => Task::class
         ]);
 
         return $task->load('remarks');
