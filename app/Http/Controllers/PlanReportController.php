@@ -17,7 +17,7 @@ class PlanReportController extends Controller
     public function index()
     {
         Gate::authorize('viewAny', PlanReport::class);
-        return PlanReport::latest()->with('plan')->paginate(15);
+        return PlanReport::latest()->with(['plan.mainActivity', 'creator'])->paginate(15);
     }
 
 
@@ -49,9 +49,8 @@ class PlanReportController extends Controller
     public function show(PlanReport $planReport)
     {
         Gate::authorize('view', $planReport);
-        return $planReport->load('plan');
+        return $planReport->load('plan', 'creator');
     }
-
 
     /**
      * Update the specified resource in storage.

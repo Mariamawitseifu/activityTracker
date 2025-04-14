@@ -12,7 +12,7 @@ class PlanReport extends Model
     /** @use HasFactory<\Database\Factories\PlanReportFactory> */
     use HasFactory, HasUuids, SoftDeletes;
 
-    protected  $hidden = ['created_at', 'updated_at', 'deleted_at'];
+    protected  $hidden = ['created_at', 'updated_at', 'deleted_at', 'creator_id', 'plan_id'];
 
     protected $guarded = [];
 

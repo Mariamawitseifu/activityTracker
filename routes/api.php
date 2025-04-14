@@ -29,7 +29,10 @@ Route::group([
 
     Route::resource('main-activities', MainActivityController::class);
     Route::resource('initiatives', InitiativeController::class);
+
+
     Route::resource('measuring-units', MeasuringUnitController::class);
+    Route::get('measuring-units-paginated', [MeasuringUnitController::class, 'indexPaginated']);
 
     Route::post('plans', [PlanController::class, 'store']);
     Route::post('remove-plans', [PlanController::class, 'removePlan']);
