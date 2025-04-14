@@ -17,6 +17,15 @@ class MeasuringUnitController extends Controller
         Gate::authorize('viewAny', MeasuringUnit::class);
         return MeasuringUnit::all();
     }
+
+    /**
+     *      * Display a listing of the resource paginated.
+     */
+    public function indexPaginated()
+    {
+        Gate::authorize('viewAny', MeasuringUnit::class);
+        return MeasuringUnit::paginate(15);
+    }
     /**
      * Store a newly created resource in storage.
      */

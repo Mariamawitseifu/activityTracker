@@ -17,7 +17,7 @@ class PlanReportController extends Controller
     public function index()
     {
         Gate::authorize('viewAny', PlanReport::class);
-        return PlanReport::latest()->with('plan', 'creator')->paginate(15);
+        return PlanReport::latest()->with(['plan.mainActivity', 'creator'])->paginate(15);
     }
 
 

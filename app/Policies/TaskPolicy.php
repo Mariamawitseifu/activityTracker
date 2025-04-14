@@ -44,6 +44,16 @@ class TaskPolicy
             ? Response::allow()
             : Response::deny('You do not have permission to create tasks.');
     }
+
+    /**
+     * Determine whether the user can add remark.
+     */
+    public function addRemark(User $user): Response
+    {
+        return $user->hasPermissionTo('create:addremark')
+            ? Response::allow()
+            : Response::deny('You do not have permission to add remarks.');
+    }
     
     public function approveTask(User $user, Task $task): Response
     {
