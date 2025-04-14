@@ -267,6 +267,7 @@ class TaskController extends Controller
     public function addRemark(Request $request, Task $task)
     {
         Gate::authorize('addRemark', $task);
+
         $request->validate([
             'remark' => 'required|string',
         ]);
@@ -275,6 +276,6 @@ class TaskController extends Controller
             'remark' => $request->remark,
         ]);
 
-        return $task;
+        return $task->load('remarks');
     }
 }
