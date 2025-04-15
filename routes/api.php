@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\CountController;
+use App\Http\Controllers\FiscalYearController;
 use App\Http\Controllers\InitiativeController;
 use App\Http\Controllers\MainActivityController;
 use App\Http\Controllers\MeasuringUnitController;
+use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\MyUnitController;
 use App\Http\Controllers\ObjectiveController;
 use App\Http\Controllers\PlanController;
@@ -58,5 +60,8 @@ Route::group([
     
     Route::resource('sub-tasks', SubTaskController::class);
 
-    Route::post('/tasks/{task}/remarks', [TaskController::class, 'addRemark']);
+    Route::post('tasks/{task}/remarks', [TaskController::class, 'addRemark']);
+
+    Route::resource('monitorings', MonitoringController::class);
+    Route::resource('fiscal-years', FiscalYearController::class);
 });
