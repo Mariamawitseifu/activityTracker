@@ -20,8 +20,6 @@ class DatabaseSeeder extends Seeder
             UnitSeeder::class,
             FiscalYearSeeder::class,
             MeasuringUnitSeeder::class,
-            ObjectiveSeeder::class,
-            InitiativeSeeder::class,
             MainActivitySeeder::class,
             PlanSeeder::class,
         ]);
