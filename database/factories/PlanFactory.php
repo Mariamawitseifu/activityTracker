@@ -20,7 +20,10 @@ class PlanFactory extends Factory
     {
         $mainActivity = \App\Models\MainActivity::factory()->create();
         $unit = Unit::where('name', 'Health System Innovation & Quality')->first();
-        $fiscalYear = FiscalYear::where('name', '2023-2024')->first();
+        $fiscalYear = FiscalYear::firstOrCreate(
+            ['name' => '2023-2024'],
+            ['start_date' => '2023-01-01', 'end_date' => '2024-12-31']
+        );
         return [
             'main_activity_id' => $mainActivity->id,
             'unit_id' => $unit->id,
