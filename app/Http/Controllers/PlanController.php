@@ -75,6 +75,7 @@ class PlanController extends Controller
             return $query->where('main_activity_id', 'like', "%$search%")
                 ->orWhere('unit_id', 'like', "%$search%");
         })
+            ->whereDoesntHave('subPlans')
             ->where('unit_id', $myUnit->id)
             ->with(['mainActivity', 'unit'])->latest()->get()->map(function ($plan) {
                 return [

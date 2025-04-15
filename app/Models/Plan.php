@@ -33,4 +33,10 @@ class Plan extends Model
     {
         return $this->hasMany(PlanReport::class);
     }
+
+    // subPlans
+    public function subPlans()
+    {
+        return $this->hasMany(Plan::class, 'parent_id');
+    }
 }
