@@ -21,7 +21,6 @@ class MainActivitySeeder extends Seeder
         foreach ($mainActivities as $value) {
             Plan::updateOrCreate([
                 'main_activity_id' => $value->id,
-
                 'unit_id' => $unit->id,
             ]);
         }
