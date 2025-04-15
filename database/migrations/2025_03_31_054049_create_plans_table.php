@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignUuid('main_activity_id')->constrained('main_activities');
             $table->foreignUuid('unit_id')->constrained('units');
             $table->foreignUuid('parent_id')->nullable()->constrained('plans');
+            $table->foreignUuid('fiscal_year_id')->constrained('fiscal_years');
             $table->timestamps();
             $table->softDeletes();
         });

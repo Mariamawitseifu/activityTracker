@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\FiscalYear;
 use App\Models\Objective;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UnitTypeSeeder::class,
             UnitSeeder::class,
+            FiscalYearSeeder::class,
             MeasuringUnitSeeder::class,
             ObjectiveSeeder::class,
             InitiativeSeeder::class,
