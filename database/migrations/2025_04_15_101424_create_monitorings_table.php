@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('plan_id')->constrained('plans');
             $table->string('actual_value');
-            $table->date('month');
+            $table->string('month');
             $table->timestamps();
         });
     }
