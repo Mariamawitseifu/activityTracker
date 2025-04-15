@@ -25,11 +25,20 @@ class MonitoringController extends Controller
     {
         Gate::authorize('create', Monitoring::class);
 
+        //month must be before today
+        $month = date('F', strtotime($request->month));
+        $today = date('F');
+        if ($month > $today) {
+            return response()->json([
+                'message' => 'Month must be before today',
+            ], 422);
+        }
+
         try {
             $monitoring = Monitoring::create([
                 'plan_id' => $request->plan_id,
                 'actual_value' => $request->actual_value,
-                'month' => $request->month,
+                'month' => $request->$month,
             ]);
             return $monitoring;
         } catch (\Throwable $th) {
