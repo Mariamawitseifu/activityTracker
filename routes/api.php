@@ -33,7 +33,6 @@ Route::group([
     Route::resource('main-activities', MainActivityController::class);
     Route::resource('initiatives', InitiativeController::class);
 
-
     Route::resource('measuring-units', MeasuringUnitController::class);
     Route::get('measuring-units-paginated', [MeasuringUnitController::class, 'indexPaginated']);
 
@@ -57,7 +56,7 @@ Route::group([
 
 
     Route::resource('plan-reports', PlanReportController::class);
-    
+
     Route::resource('sub-tasks', SubTaskController::class);
 
     Route::post('tasks/{task}/remarks', [TaskController::class, 'addRemark']);

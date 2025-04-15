@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Initiative;
+use App\Models\Objective;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +14,6 @@ class InitiativeSeeder extends Seeder
      */
     public function run(): void
     {
-        Initiative::factory(10)->create();
+        //
     }
 }

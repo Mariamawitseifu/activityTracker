@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\MeasuringUnit;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,12 @@ class MeasuringUnitSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\MeasuringUnit::factory(10)->create();
+        MeasuringUnit::create([
+            'name' => 'Number',
+        ]);
+
+        MeasuringUnit::create([
+            'name' => 'Percentage',
+        ]);
     }
 }
