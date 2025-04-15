@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\FiscalYear;
 use App\Models\Initiative;
 use App\Models\MainActivity;
 use App\Models\MeasuringUnit;
@@ -18,27 +19,6 @@ class MainActivitySeeder extends Seeder
      */
     public function run(): void
     {
-
-        $mainActivities = MainActivity::factory(128)->create();
-
-        $unit = Unit::where('name', 'Health System Innovation & Quality')->first();
-
-        $fiscalYearRecord = FiscalYear::where('name', '2023-2024')->first();
-
-        if (!$fiscalYearRecord) {
-            $this->command->error('Fiscal Year 2023-2024 does not exist!');
-            return;
-        }
-
-        foreach ($mainActivities as $value) {
-            Plan::updateOrCreate([
-                'main_activity_id' => $value->id,
-                'unit_id' => $unit->id,
-            ],
-            [
-                'fiscal_year_id' => $fiscalYearRecord->id,
-            ]);
-        }
         $objective1 = Objective::updateOrCreate([
             'title' => 'Harnessing Innovation for Health System Quality, Equity, and Safety',
         ]);
