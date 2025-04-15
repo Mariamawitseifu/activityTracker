@@ -22,7 +22,7 @@ Route::group([
 ], function () {
 
     Route::resource('fiscal-years', FiscalYearController::class);
-    Route::get('get-fiscal-year', [FiscalYearController::class, 'all']);
+    Route::get('get-fiscal-year', [FiscalYearController::class, 'index']);
 
 
     Route::resource('unit-types', UnitTypeController::class);
