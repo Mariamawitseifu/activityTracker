@@ -39,23 +39,10 @@ class PlanController extends Controller
             return response()->json(['message' => 'You are not a manager of any unit'], 403);
         }
 
-        return Plan::when(request('search'), function ($query, $search) {
-            return $query->where('main_activity_id', 'like', "%$search%")
-                ->orWhere('unit_id', 'like', "%$search%");
-        })
-            ->where('unit_id', $myUnit->id)
-            ->with(['mainActivity', 'unit'])->latest()->paginate()->through(function ($plan) {
-                return [
-                    'id' => $plan->id,
-                    'parent' => $plan->parent,
-                    'title' => $plan->mainActivity->title,
-                    'initiative' => $plan->mainActivity->initiative->title,
-                    'objective' => $plan->mainActivity->initiative->objective->title,
-                    'weight' => $plan->mainActivity->weight,
-                    'unit' => $plan->unit->name,
-                    'target' => $plan->mainActivity->target,
-                ];
-            });
+        $search = request('search');
+        $plans = $this->getPlansWithSearchAndUnit($search, $myUnit);
+
+        return $plans;
     }
 
     public function myPlans()
@@ -71,24 +58,10 @@ class PlanController extends Controller
             return response()->json(['message' => 'You are not a manager of any unit'], 403);
         }
 
-        return Plan::when(request('search'), function ($query, $search) {
-            return $query->where('main_activity_id', 'like', "%$search%")
-                ->orWhere('unit_id', 'like', "%$search%");
-        })
-            ->whereDoesntHave('subPlans')
-            ->where('unit_id', $myUnit->id)
-            ->with(['mainActivity', 'unit'])->latest()->get()->map(function ($plan) {
-                return [
-                    'id' => $plan->id,
-                    'parent' => $plan->parent,
-                    'title' => $plan->mainActivity->title,
-                    'initiative' => $plan->mainActivity->initiative->title,
-                    'objective' => $plan->mainActivity->initiative->objective->title,
-                    'weight' => $plan->mainActivity->weight,
-                    'unit' => $plan->unit->name,
-                    'target' => $plan->mainActivity->target,
-                ];
-            });
+        $search = request('search');
+        $plans = $this->getPlansWithSearchAndUnit($search, $myUnit);
+
+        return $plans;
     }
 
     public function unitPlan(Unit $unit)
@@ -199,4 +172,28 @@ class PlanController extends Controller
         Gate::authorize('delete', $plan);
         return response('not implemented', 501);
     }
+ 
+public function getPlansWithSearchAndUnit($search, $unit)
+{
+    return Plan::when($search, function ($query) use ($search) {
+            return $query->where('main_activity_id', 'like', "%$search%")
+                ->orWhere('unit_id', 'like', "%$search%");
+        })
+        ->where('unit_id', $unit->id)
+        ->latest()
+        ->paginate()
+        ->through(function ($plan) {
+            return [
+                'id' => $plan->id,
+                'title' => $plan->mainActivity->title,
+                'initiative' => $plan->mainActivity->initiative->title,
+                'objective' => $plan->mainActivity->initiative->objective->title,
+                'weight' => $plan->mainActivity->weight,
+                'unit' => $plan->unit->name,
+                'target' => $plan->mainActivity->target,
+                'fiscal_year' => $plan->fiscalYear->name,
+            ];
+        });
+}
+
 }
