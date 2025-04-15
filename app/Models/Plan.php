@@ -39,4 +39,10 @@ class Plan extends Model
     {
         return $this->hasMany(Plan::class, 'parent_id');
     }
+
+    //fiscal year
+    public function fiscalYear()
+    {
+        return $this->belongsTo(FiscalYear::class);
+    }
 }

@@ -19,4 +19,9 @@ class FiscalYear extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function plans()
+    {
+        return $this->hasMany(Plan::class);
+    }
 }
