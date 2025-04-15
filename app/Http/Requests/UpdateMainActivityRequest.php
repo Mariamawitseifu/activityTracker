@@ -24,6 +24,7 @@ class UpdateMainActivityRequest extends FormRequest
         return [
             'title' => ['nullable', 'string', 'max:255'],
             'inititative_id' => ['nullable', 'exists:inititives,id'],
+            'target' => ['nullable', 'string', 'max:255'],
             'type'=> ['nullable', 'string', 'in:main activity,KPI'],
             'weight' => ['nullable', 'integer'],
             'measuring_unit_id' => ['nullable', 'uuid', 'exists:measuring_units,id'],

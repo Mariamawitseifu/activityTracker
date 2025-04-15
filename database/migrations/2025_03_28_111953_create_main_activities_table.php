@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('main_activities', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
+            $table->string('target');
             $table->foreignUuid('initiative_id')->constrained('initiatives');
             $table->enum('type', ['KPI', 'main activity']);
             $table->foreignUuid('measuring_unit_id')->constrained('measuring_units');

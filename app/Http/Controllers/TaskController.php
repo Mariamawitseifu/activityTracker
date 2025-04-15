@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\Plan;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,6 +61,7 @@ class TaskController extends Controller
             }
 
             $task->sub_tasks = $groupedSubTasks;
+            
 
             return $task;
         });
@@ -68,8 +70,6 @@ class TaskController extends Controller
 
         return response()->json($tasks);
     }
-
-
     //     /**
     //      * Store a newly created resource in storage.
     //      */
@@ -235,6 +235,21 @@ class TaskController extends Controller
             'status' => $request->status,
         ]);
         return $task;
+    }
+
+    //count by user
+
+    public function countByUser(User $user)
+    {
+        // Gate::authorize('countByUser', Task::class);
+        $perPage = 50;
+
+        $tasks = Task::latest()
+            ->where('user_id', $user->id)
+            ->with('plan.mainActivity', 'subTasks')
+            ->paginate($perPage);
+
+        return response()->json($tasks);
     }
 
     /**

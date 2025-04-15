@@ -33,6 +33,7 @@ class MainActivityController extends Controller
         try {
             $mainActivity = MainActivity::create([
                 'title' => $request->title,
+                'target' => $request->target,
                 'initiative_id' => $request->initiative_id,
                 'type' => $request->type,
                 'weight' => $request->weight,
@@ -61,11 +62,12 @@ class MainActivityController extends Controller
         Gate::authorize('update', $mainActivity);
         try {
             $mainActivity->update([
-                'title' => $request->title,
-                'initiative_id' => $request->initiative_id,
-                'type' => $request->type,
-                'weight' => $request->weight,
-                'measuring_unit_id' => $request->measuring_unit_id,
+                'title' => $request->title ?? $mainActivity->title,
+                'initiative_id' => $request->initiative_id ?? $mainActivity->initiative_id,
+                'target' => $request->target ?? $mainActivity->target,
+                'type' => $request->type ?? $mainActivity->type,
+                'weight' => $request->weight ?? $mainActivity->weight,
+                'measuring_unit_id' => $request->measuring_unit_id ?? $mainActivity->measuring_unit_id,
             ]);
             return $mainActivity->load(['initiative', 'measuringUnit']);
         } catch (\Exception $e) {

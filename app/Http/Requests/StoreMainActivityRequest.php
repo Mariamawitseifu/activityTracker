@@ -24,6 +24,7 @@ class StoreMainActivityRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'initiative_id' => ['required', 'exists:initiatives,id'],
+            'target' => ['required', 'string', 'max:255'],
             'type' => ['required', 'string', 'in:main activity,KPI'],
             'weight' => ['required', 'integer'],
             'measuring_unit_id' => ['required', 'uuid', 'exists:measuring_units,id'],
