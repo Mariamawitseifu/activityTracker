@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CountController;
 use App\Http\Controllers\InitiativeController;
 use App\Http\Controllers\MainActivityController;
 use App\Http\Controllers\MeasuringUnitController;
@@ -48,6 +49,10 @@ Route::group([
     Route::post('change-task-status/{task}', [TaskController::class, 'changeTaskStatus']);
     Route::post('approve-task/{task}', [TaskController::class, 'approveTask']);
     Route::get('pending-tasks', [TaskController::class, 'pendingTasks']);
+    Route::get('count-tasks/{user}', [TaskController::class, 'countByUser']);
+
+    Route::get('count', [CountController::class, 'index']);
+
 
     Route::resource('plan-reports', PlanReportController::class);
     
