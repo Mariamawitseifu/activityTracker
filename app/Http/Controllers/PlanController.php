@@ -51,7 +51,7 @@ class PlanController extends Controller
                     'title' => $plan->mainActivity->title,
                     'initiative' => $plan->mainActivity->initiative->title,
                     'objective' => $plan->mainActivity->initiative->objective->title,
-                    'weight' => $plan->mainActivity->initiative->objective->weight,
+                    'weight' => $plan->mainActivity->weight,
                     'unit' => $plan->unit->name,
                     'target' => $plan->mainActivity->target,
                 ];
@@ -84,7 +84,7 @@ class PlanController extends Controller
                     'title' => $plan->mainActivity->title,
                     'initiative' => $plan->mainActivity->initiative->title,
                     'objective' => $plan->mainActivity->initiative->objective->title,
-                    'weight' => $plan->mainActivity->initiative->objective->weight,
+                    'weight' => $plan->mainActivity->weight,
                     'unit' => $plan->unit->name,
                     'target' => $plan->mainActivity->target,
                 ];
@@ -108,7 +108,7 @@ class PlanController extends Controller
                     'title' => $plan->mainActivity->title,
                     'initiative' => $plan->mainActivity->initiative->title,
                     'objective' => $plan->mainActivity->initiative->objective->title,
-                    'weight' => $plan->mainActivity->initiative->objective->weight,
+                    'weight' => $plan->mainActivity->weight,
                     'unit' => $plan->unit->name,
                     'target' => $plan->mainActivity->target,
                 ];
