@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('monitorings', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('fiscal_year_id')->constrained('fiscal_years');
             $table->foreignUuid('plan_id')->constrained('plans');
             $table->string('actual_value');
             $table->date('month');

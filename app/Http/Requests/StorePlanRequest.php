@@ -25,6 +25,7 @@ class StorePlanRequest extends FormRequest
             'main_activities' => ['required', 'array'],
             'main_activities.*' => ['required', 'exists:plans,id'],
             'unit_id' => ['required', 'exists:units,id'],
+            'fiscal_year_id' => ['required', 'exists:fiscal_years,id'],
         ];
     }
 }

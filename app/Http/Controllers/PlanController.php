@@ -136,6 +136,7 @@ class PlanController extends Controller
                 $parent =  Plan::findOrFail($value);
                 Plan::create([
                     'main_activity_id' => $parent->main_activity_id,
+                    'fiscal_year_id' => $request->fiscal_year_id,
                     'unit_id' => $request->unit_id,
                     'parent_id' => $value,
                 ]);

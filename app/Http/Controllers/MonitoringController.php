@@ -27,7 +27,6 @@ class MonitoringController extends Controller
 
         try {
             $monitoring = Monitoring::create([
-                'fiscal_year_id' => $request->fiscal_year_id,
                 'plan_id' => $request->plan_id,
                 'actual_value' => $request->actual_value,
                 'month' => $request->month,
@@ -58,7 +57,6 @@ class MonitoringController extends Controller
         Gate::authorize('update', $monitoring);
         try {
             $monitoring->update([
-                'fiscal_year_id' => $request->fiscal_year_id ?? $monitoring->fiscal_year_id,
                 'plan_id' => $request->plan_id ?? $monitoring->plan_id,
                 'actual_value' => $request->actual_value ?? $monitoring->actual_value,
                 'month' => $request->month ?? $monitoring->month,

@@ -26,6 +26,7 @@ class UpdatePlanRequest extends FormRequest
             'main_activity_id.*' => ['nullable', 'array', 'exists:main_activities,id'],
             'unit_id' => ['nullable', 'exists:units,id'],
             'parent_id' => ['nullable', 'exists:plans,id'],
+            'fiscal_year_id' => ['nullable', 'exists:fiscal_years,id'],
         ];
     }
 }

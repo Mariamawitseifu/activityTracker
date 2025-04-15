@@ -22,7 +22,6 @@ class UpdateMonitoringRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fiscal_year_id' => 'nullable|exists:fiscal_years,id',
             'plan_id' => 'nullable|exists:plans,id',
             'actual_value' => 'nullable',
             'month' => 'nullable|date_format:m',

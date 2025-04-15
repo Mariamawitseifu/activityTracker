@@ -22,7 +22,6 @@ class StoreMonitoringRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fiscal_year_id' => 'required|exists:fiscal_years,id',
             'plan_id' => 'required|exists:plans,id',
             'actual_value' => 'required',
             'month' => 'required|date_format:m',

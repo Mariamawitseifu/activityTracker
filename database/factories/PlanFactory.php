@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\FiscalYear;
 use App\Models\Unit;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,10 +20,11 @@ class PlanFactory extends Factory
     {
         $mainActivity = \App\Models\MainActivity::factory()->create();
         $unit = Unit::where('name', 'Health System Innovation & Quality')->first();
-
+        $fiscalYear = FiscalYear::where('name', '2023-2024')->first();
         return [
             'main_activity_id' => $mainActivity->id,
             'unit_id' => $unit->id,
+            'fiscal_year_id' => $fiscalYear->id,
         ];
     }
 }
