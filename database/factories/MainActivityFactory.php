@@ -19,7 +19,7 @@ class MainActivityFactory extends Factory
         return [
             'title' => $this->faker->sentence(),
             'initiative_id' => \App\Models\Initiative::factory(),
-            'target' => $this->faker->sentence(),
+            'target' => $this->faker->integer,
             'type' => $this->faker->randomElement(['KPI', 'main activity']),
             'measuring_unit_id' => \App\Models\MeasuringUnit::factory(),
             'weight' => $this->faker->numberBetween(1, 100),
