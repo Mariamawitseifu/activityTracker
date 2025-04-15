@@ -86,7 +86,7 @@ class PlanController extends Controller
                     'objective' => $plan->mainActivity->initiative->objective->title,
                     'weight' => $plan->mainActivity->initiative->objective->weight,
                     'unit' => $plan->unit->name,
-                    'target' => 100,
+                    'target' => $plan->mainActivity->target,
                 ];
             });
     }
