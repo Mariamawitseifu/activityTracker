@@ -33,7 +33,7 @@ class MainActivityController extends Controller
         try {
             $mainActivity = MainActivity::create([
                 'title' => $request->title,
-                'target' => $request->target,
+                'target' => $request->target ?? null,
                 'initiative_id' => $request->initiative_id,
                 'type' => $request->type,
                 'weight' => $request->weight,
