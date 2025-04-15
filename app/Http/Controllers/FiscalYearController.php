@@ -14,7 +14,6 @@ class FiscalYearController extends Controller
      */
     public function index()
     {
-        Gate::authorize('viewAny', FiscalYear::class);
         return FiscalYear::get();
     }
 
