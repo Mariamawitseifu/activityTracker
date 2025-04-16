@@ -24,7 +24,7 @@ class UpdateMonitoringRequest extends FormRequest
         return [
             'plan_id' => 'nullable|exists:plans,id',
             'actual_value' => 'nullable',
-            'month' => 'required|date_format:F',
+            'month' => 'nullable|in:January,February,March,April,May,June,July,August,September,October,November,December',
         ];
     }
 }

@@ -24,7 +24,7 @@ class StoreMonitoringRequest extends FormRequest
         return [
             'plan_id' => 'required|exists:plans,id',
             'actual_value' => 'required',
-            // 'month' => 'required|date_format:F',
+            'month' => 'required|in:January,February,March,April,May,June,July,August,September,October,November,December',
         ];
     }
 }
