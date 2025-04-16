@@ -27,6 +27,7 @@ class StoreMainActivityRequest extends FormRequest
             'target' => ['nullable', 'string', 'max:255'],
             'type' => ['required', 'string', 'in:main activity,KPI'],
             'weight' => ['required', 'integer'],
+            'target' => ['required', 'integer'],
             'measuring_unit_id' => ['required', 'uuid', 'exists:measuring_units,id'],
         ];
     }
