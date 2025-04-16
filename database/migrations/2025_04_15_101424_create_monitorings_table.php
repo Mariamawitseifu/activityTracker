@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('actual_value');
             $table->string('month');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
