@@ -13,6 +13,6 @@ class ObjectiveSeeder extends Seeder
      */
     public function run(): void
     {
-        Objective::factory(2)->create();
+        //
     }
 }

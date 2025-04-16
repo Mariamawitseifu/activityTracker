@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MainActivity extends Model
 {
-    /** @use HasFactory<\Database\Factories\MainActivityFactory> */
     use HasFactory, HasUuids;
 
     protected $guarded = [];

@@ -20,6 +20,11 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'middleware' => 'auth:api',
 ], function () {
+
+    Route::resource('fiscal-years', FiscalYearController::class);
+    Route::get('get-fiscal-year', [FiscalYearController::class, 'index']);
+
+
     Route::resource('unit-types', UnitTypeController::class);
     Route::resource('units', UnitController::class);
     Route::get('all-units', [UnitController::class, 'all']);
@@ -32,7 +37,6 @@ Route::group([
 
     Route::resource('main-activities', MainActivityController::class);
     Route::resource('initiatives', InitiativeController::class);
-
 
     Route::resource('measuring-units', MeasuringUnitController::class);
     Route::get('measuring-units-paginated', [MeasuringUnitController::class, 'indexPaginated']);
@@ -57,11 +61,10 @@ Route::group([
 
 
     Route::resource('plan-reports', PlanReportController::class);
-    
+
     Route::resource('sub-tasks', SubTaskController::class);
 
     Route::post('tasks/{task}/remarks', [TaskController::class, 'addRemark']);
 
     Route::resource('monitorings', MonitoringController::class);
-    Route::resource('fiscal-years', FiscalYearController::class);
 });
