@@ -31,6 +31,13 @@ class MonitoringController extends Controller
         $plan = Plan::findOrFail($request->plan_id);
         $fiscalYear = $plan->fiscal_year;
     
+        // Check if fiscal year exists
+        if (!$fiscalYear) {
+            return response()->json([
+                'message' => 'The plan does not have a valid fiscal year.',
+            ], 422);
+        }
+    
         // Get fiscal year start date and extract year and month
         $fiscalYearStart = new \DateTime($fiscalYear->start_date);
         $fiscalYearStartYear = $fiscalYearStart->format('Y');
@@ -67,22 +74,45 @@ class MonitoringController extends Controller
             ], 422);
         }
     
+        // Check for existing monitoring record
+        $existingMonitoring = Monitoring::where('plan_id', $request->plan_id)
+            ->where('month', $request->month)
+            ->first();
+    
+        if ($existingMonitoring) {
+            return response()->json([
+                'message' => 'Monitoring record for this plan and month already exists.',
+            ], 422);
+        }
+    
+        // Validate actual_value is a numeric value
+        if (!is_numeric($request->actual_value)) {
+            return response()->json([
+                'message' => 'The actual value must be a valid number.',
+            ], 422);
+        }
+    
+        // Store the monitoring record
         try {
-            // Store the monitoring record
             $monitoring = Monitoring::create([
                 'plan_id' => $request->plan_id,
                 'actual_value' => $request->actual_value,
                 'month' => $request->month, 
             ]);
     
-            return response()->json($monitoring);
+            return response()->json([
+                'message' => 'Monitoring record created successfully.',
+                'monitoring' => $monitoring,
+            ]);
         } catch (\Throwable $th) {
+    
             return response()->json([
                 'message' => 'Error creating monitoring',
                 'error' => $th->getMessage(),
             ], 500);
         }
     }
+    
     
     /**
      * Display the specified resource.
