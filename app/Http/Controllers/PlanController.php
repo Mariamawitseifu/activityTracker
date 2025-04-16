@@ -71,7 +71,7 @@ class PlanController extends Controller
                     'weight' => $plan->mainActivity->weight,
                     'unit' => $plan->unit->name,
                     'target' => $plan->mainActivity->target,
-                    'fiscal_year' => $plan->fiscalYear,
+                    'fiscal_year' => $plan->fiscalYear->name,
                 ];
             });
     }
@@ -96,7 +96,7 @@ class PlanController extends Controller
                     'weight' => $plan->mainActivity->weight,
                     'unit' => $plan->unit->name,
                     'target' => $plan->mainActivity->target,
-                    'fiscal_year' => $plan->fiscalYear,
+                    'fiscal_year' => $plan->fiscalYear->name,
                 ];
             });
     }
