@@ -27,18 +27,18 @@ class MonitoringController extends Controller
         Gate::authorize('create', Monitoring::class);
 
         //use year from my plans fiscal year
-        $plan = Plan::findOrFail($request->plan_id);
-        $fiscalYear = $plan->fiscal_year;
+        // $plan = Plan::findOrFail($request->plan_id);
+        // $fiscalYear = $plan->fiscal_year;
         
-        $year = date('Y', strtotime($fiscalYear->start_date));
+        // $year = date('Y', strtotime($fiscalYear->start_date));
 
-        //month must be in fiscal year
-        $month = date('F', strtotime($request->month));
-        if ($month < $year) {
-            return response()->json([
-                'message' => 'Month must be in fiscal year',
-            ], 422);
-        }
+        // //month must be in fiscal year
+        // $month = date('F', strtotime($request->month));
+        // if ($month < $year) {
+        //     return response()->json([
+        //         'message' => 'Month must be in fiscal year',
+        //     ], 422);
+        // }
 
         //month must be before today
         $month = date('F', strtotime($request->month));
