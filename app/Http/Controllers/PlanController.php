@@ -61,7 +61,7 @@ class PlanController extends Controller
         return Plan::when($search, function ($query) use ($search) {
             return $query->where('main_activity_id', 'like', "%$search%")
                 ->orWhere('unit_id', 'like', "%$search%");
-        })->latest()
+        })->where('unit_id', $myUnit->id)->latest()
             ->get()
             ->map(function ($plan) {
                 return [
