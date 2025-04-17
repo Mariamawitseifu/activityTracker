@@ -47,6 +47,10 @@ class SubTask extends Model
         return (new static)->statusMap;
     }
 
+    public function remarks()
+    {
+        return $this->morphMany(Remark::class, 'remarkable');
+    }
     // public function remarks()
     // {
     //     return $this->morphMany(Remark::class, 'remarkable');

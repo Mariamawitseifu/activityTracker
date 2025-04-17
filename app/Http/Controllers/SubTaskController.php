@@ -41,6 +41,28 @@ class SubTaskController extends Controller
         return $groupedSubTasks;
     }
 
+
+    public function updateStatus(Request $request, SubTask $subTask)
+    {
+        $request->validate([
+            'status' => 'required|in:todo,done',
+        ]);
+
+        $subTask->remarks()->updateOrCreate([
+            'status_from' => $subTask->status,
+            'status_to' => $request->status,
+        ], [
+            'note' => $request->remark ?? 'task status updated to ' . $request->status,
+        ]);
+
+        $subTask->update([
+            'status' => $request->status,
+        ]);
+
+        return $subTask;
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */
