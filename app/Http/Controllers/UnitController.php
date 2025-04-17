@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Unit;
 use App\Http\Requests\StoreUnitRequest;
 use App\Http\Requests\UpdateUnitRequest;
+use App\Models\SubTask;
+use App\Models\Task;
 use App\Models\UnitManager;
+use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -61,6 +66,83 @@ class UnitController extends Controller
                 ];
             });
     }
+
+    public function myTeams(Request $request,)
+    {
+        $request->validate([
+            'search' => 'string|nullable',
+            'from' => 'nullable|date|before_or_equal:today',
+            'to' => 'required_with:from|date|after_or_equal:from',
+        ]);
+
+        $perPage  = $request->per_page ?? 10;
+        $lastActive = $this->lastActive();
+        $myUnit = $lastActive ? $lastActive->unit : null;
+
+        if ($myUnit) {
+            $search = $request->search;
+
+            $userIds = User::when($search, function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%");
+            })->pluck('id');
+
+            $units = Unit::when(request('search'), function ($query, $search) {
+                return $query->where('name', 'like', "%$search%");
+            })->where('parent_id', $myUnit->id)
+                ->when(request('unit_type_id'), function ($query, $unit_type_id) {
+                    return $query->where('unit_type_id', $unit_type_id);
+                })->latest()->get();
+
+
+            $managers = $units->pluck('manager.user.id');
+
+            $employees = User::when($search, function ($query) use ($userIds) {
+                $query->whereIn('id', $userIds);
+            })
+                ->where('id', '!=', Auth::id())
+                ->whereIn('id', $managers)
+                ->paginate($perPage)
+                ->through(function ($employee) use ($request) {
+                    if ($request->from && $request->to) {
+                        $start = Carbon::parse($request->from);
+                        $end = Carbon::parse($request->to);
+                    } else {
+                        $start = Carbon::now()->startOfWeek()->subDay();
+                        $end = Carbon::now()->endOfWeek()->subDay();
+                    }
+
+                    $taskCounts = Task::where('user_id', $employee->id)->whereBetween('date', [$start, $end])
+                        ->whereHas('plan')->count();
+
+                    $subTaskCounts = SubTask::whereHas('task', function ($query) use ($employee, $start, $end) {
+                        $query->where('user_id', $employee->id)->whereBetween('date', [$start, $end])
+                            ->whereHas('plan');
+                    })->count();
+
+                    $pendingTasks = Task::where('user_id', $employee->id)->whereBetween('date', [$start, $end])
+                        ->whereHas('plan')->where('status', 0)->count();
+
+                    $units = $this->managerUnit($employee->id)->pluck('name')->toArray();
+                    $units = implode(', ', $units);
+                    $units = $units ? $units : 'No Unit Assigned';
+
+                    return [
+                        'id' => $employee->id,
+                        'name' => $employee->name ?? null,
+                        'unit' =>  $units,
+                        'tasks_count' => $taskCounts,
+                        'sub_tasks_count' => $subTaskCounts,
+                        'pending_tasks_count' =>   $pendingTasks,
+                    ];
+                });
+            return response()->json($employees);
+        } else {
+            return response()->json([
+                'message' => 'You are not assigned to any unit',
+            ], 403);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      */

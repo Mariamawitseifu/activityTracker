@@ -65,4 +65,16 @@ trait UnitTrait
 
         return $unit ? true : false;
     }
+
+    public function managerUnit($userId)
+    {
+        $myUnit = $this->lastActive();
+        $units = Unit::whereHas('manager', function ($query) use ($userId) {
+            $query->where('manager_id', $userId)
+                ->where('end_date', null);
+        })->where('parent_id', $myUnit->unit_id)
+            ->get();
+
+        return $units ? $units : null;
+    }
 }

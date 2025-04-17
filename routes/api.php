@@ -69,6 +69,9 @@ Route::group([
     Route::resource('sub-tasks', SubTaskController::class);
 
     Route::post('tasks/{task}/remarks', [TaskController::class, 'addRemark']);
+    Route::get('my-teams', [UnitController::class, 'myTeams']);
+    Route::get('get-user-tasks/{user}', [TaskController::class, 'byUser']);
+
 
     Route::resource('monitorings', MonitoringController::class);
     Route::post('array-monitorings', [MonitoringController::class, 'storeArrayMonitorings']);
