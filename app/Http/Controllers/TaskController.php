@@ -26,6 +26,14 @@ class TaskController extends Controller
         return $this->getTasks($request, Auth::id());
     }
 
+    public function byUser(Request $request, User $user)
+    {
+        $tasks = $this->getTasks($request, $user->id);
+
+        return $tasks;
+    }
+
+
     private function getTasks(Request $request, $userId)
     {
         Gate::authorize('viewAny', Task::class);
@@ -61,7 +69,7 @@ class TaskController extends Controller
             }
 
             $task->sub_tasks = $groupedSubTasks;
-            
+
 
             return $task;
         });
@@ -181,7 +189,7 @@ class TaskController extends Controller
 
         return $task;
     }
-    
+
     public function pendingTasks(Request $request)
     {
         Gate::authorize('pendingTasks', Task::class);
