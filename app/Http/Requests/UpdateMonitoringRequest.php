@@ -23,8 +23,8 @@ class UpdateMonitoringRequest extends FormRequest
     {
         return [
             'plan_id' => 'nullable|exists:plans,id',
-            'actual_value' => 'nullable',
-            'month' => 'required', 'date_format:Y-m'
+            'actual_value' => 'nullable|numeric|min:0',
+            'month' => 'nullable|date_format:Y-m|before_or_equal:now', 
         ];
     }
 }

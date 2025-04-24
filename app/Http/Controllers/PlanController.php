@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Plan;
 use App\Http\Requests\StorePlanRequest;
 use App\Http\Requests\UpdatePlanRequest;
+use App\Models\FiscalYear;
 use App\Models\Unit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -207,5 +208,11 @@ class PlanController extends Controller
                     'fiscal_year' => $plan->fiscalYear->name,
                 ];
             });
+    }
+
+    //get plan by fiscal id
+    public function getPlansByFiscalYear(FiscalYear $fiscalYear)
+    {
+        return $fiscalYear->plans()->latest()->paginate(15);
     }
 }

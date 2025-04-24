@@ -48,6 +48,7 @@ Route::group([
     Route::get('my-plans', [PlanController::class, 'myPlans']);
     Route::get('my-plans-paginated', [PlanController::class, 'myPlansPaginated']);
     Route::get('unit-plan/{unit}', [PlanController::class, 'unitPlan']);
+    Route::get('plans-by-fiscal-year/{fiscal_year}', [PlanController::class, 'getPlansByFiscalYear']);
 
 
     Route::get('my-child-units', [UnitController::class, 'myChildUnits']);
@@ -57,6 +58,8 @@ Route::group([
     Route::post('approve-task/{task}', [TaskController::class, 'approveTask']);
     Route::get('pending-tasks', [TaskController::class, 'pendingTasks']);
     Route::get('count-tasks/{user}', [TaskController::class, 'countByUser']);
+    Route::get('task-by-fiscalyear/{fiscal_year}', [TaskController::class, 'getTasksByFiscalYear']);
+
 
     Route::get('count', [CountController::class, 'index']);
 
