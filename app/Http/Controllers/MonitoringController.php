@@ -62,11 +62,30 @@ class MonitoringController extends Controller
 
     public function storeArrayMonitorings(StoreArrayMonitoringsRequest $request)
     {
+        Gate::authorize('create', Monitoring::class);
+    
+        $plan = Plan::with('fiscalYear')->find($request->monitorings[0]['plan_id']);
+        if (!$plan) {
+            return response()->json([
+                'message' => 'Plan not found',
+            ], 404);
+        }
+
+        $fiscalYear = $plan->fiscalYear;
+
+        $month = Carbon::parse($request->month . '-01');
+
+        if($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
+            return response()->json([
+                'message' => 'Invalid year or month , must be between ' . $fiscalYear->start_date . ' and ' . $fiscalYear->end_date,
+            ], 422);
+        }
+
         try {
             foreach ($request->monitorings as $monitoring) {
                 Monitoring::create([
-                    'month' => Carbon::parse($request->month['month'] . '-01'),
                     'plan_id' => $monitoring['plan_id'],
+                    'month' => $month,
                     'actual_value' => $monitoring['actual_value'],
                 ]);
             }
@@ -75,10 +94,7 @@ class MonitoringController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
-    }
-
-
-    
+    }    
 
     /**
      * Display the specified resource.

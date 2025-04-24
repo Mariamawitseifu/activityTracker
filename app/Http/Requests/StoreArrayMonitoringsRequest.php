@@ -23,11 +23,12 @@ class StoreArrayMonitoringsRequest extends FormRequest
      */
     public function rules(): array
     {
-        $myplanCount = Plan::count();
+        
+        // $myplanCount = Plan::count();
 
         return [
-            'monitorings' => 'required|array|size:'.$myplanCount,
-            'month' => 'required|date_format:Y-m|before_or_equal:now', 
+            'monitorings' => 'required|array',
+            // 'month' => 'required|date_format:Y-m|before_or_equal:now', 
             'monitorings.*.plan_id' => 'required|uuid|exists:plans,id|distinct',
             'monitorings.*.actual_value' => 'required|numeric',
         ];
