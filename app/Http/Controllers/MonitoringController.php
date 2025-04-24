@@ -41,7 +41,7 @@ class MonitoringController extends Controller
 
         if($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
             return response()->json([
-                'message' => 'Invalid month',
+                'message' => 'Invalid year or month , must be between ' . $fiscalYear->start_date . ' and ' . $fiscalYear->end_date,
             ], 422);
         }
     
