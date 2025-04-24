@@ -71,4 +71,5 @@ Route::group([
     Route::post('tasks/{task}/remarks', [TaskController::class, 'addRemark']);
 
     Route::resource('monitorings', MonitoringController::class);
+    Route::post('array-monitorings', [MonitoringController::class, 'storeArrayMonitorings']);
 });
