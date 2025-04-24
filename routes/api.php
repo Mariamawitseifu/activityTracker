@@ -75,4 +75,5 @@ Route::group([
 
 
     Route::resource('monitorings', MonitoringController::class);
+    Route::post('array-monitorings', [MonitoringController::class, 'storeArrayMonitorings']);
 });

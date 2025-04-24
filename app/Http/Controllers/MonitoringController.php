@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreArrayMonitoringsRequest;
 use App\Models\Monitoring;
 use App\Http\Requests\StoreMonitoringRequest;
 use App\Http\Requests\UpdateMonitoringRequest;
 use App\Models\Plan;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Facades\Request;
 
 class MonitoringController extends Controller
 {
@@ -41,7 +42,7 @@ class MonitoringController extends Controller
 
         if($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
             return response()->json([
-                'message' => 'Invalid month',
+                'message' => 'Invalid year or month , must be between ' . $fiscalYear->start_date . ' and ' . $fiscalYear->end_date,
             ], 422);
         }
     
@@ -56,6 +57,27 @@ class MonitoringController extends Controller
             return response()->json(['message' => $e->getMessage()], 500);
         }
     }
+
+    //create array monitorings
+
+    public function storeArrayMonitorings(StoreArrayMonitoringsRequest $request)
+    {
+        try {
+            foreach ($request->monitorings as $monitoring) {
+                Monitoring::create([
+                    'month' => Carbon::parse($request->month['month'] . '-01'),
+                    'plan_id' => $monitoring['plan_id'],
+                    'actual_value' => $monitoring['actual_value'],
+                ]);
+            }
+            
+            return response()->json(['message' => 'Monitorings created successfully'], 201);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+
     
 
     /**
