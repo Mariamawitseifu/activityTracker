@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateMonitoringRequest extends FormRequest
+class StoreUnitEmployeeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class UpdateMonitoringRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'plan_id' => 'nullable|exists:plans,id',
-            'actual_value' => 'nullable|numeric|min:0',
-            'month' => 'nullable|date_format:Y-m|before_or_equal:now', 
+            'unit_id' => 'required|exists:units,id',
+            'employee_id' => 'required|exists:users,id',
+            'status' => 'nullable|in:active,inactive',
         ];
     }
 }

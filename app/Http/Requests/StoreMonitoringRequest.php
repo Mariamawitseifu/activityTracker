@@ -23,9 +23,8 @@ class StoreMonitoringRequest extends FormRequest
     {
         return [
             'plan_id' => 'required|exists:plans,id',
-            'actual_value' => 'required',
-            'month' => 'required', 'date_format:Y-m'
-
+            'actual_value' => 'required|numeric|min:0',
+            'month' => 'required|date_format:Y-m|before_or_equal:now', 
         ];
     }
 }

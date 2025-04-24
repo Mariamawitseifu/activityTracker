@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\FiscalYear;
 use App\Models\Plan;
 use App\Models\User;
 use Carbon\Carbon;
@@ -303,4 +304,11 @@ class TaskController extends Controller
 
         return $task->load('remarks');
     }
+
+    public function getTasksByFiscalYear (FiscalYear $fiscalYear)
+    {
+        return $fiscalYear->tasks()->latest()->paginate(15);
+    }
+    
 }
+

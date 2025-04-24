@@ -34,7 +34,7 @@ class MainActivitySeeder extends Seeder
             'target' => 4.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.5,
+            'weight' => 0.37,
         ]);
 
 
@@ -44,7 +44,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 1.0,
+            'weight' => 0.37,
         ]);
 
         $mainActivity3 = MainActivity::updateOrCreate([
@@ -53,7 +53,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.5,
+            'weight' => 0.74,
         ]);
 
         $mainActivity4 = MainActivity::updateOrCreate([
@@ -62,7 +62,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.8,
+            'weight' => 1.49,
         ]);
 
         $mainActivity5 = MainActivity::updateOrCreate([
@@ -71,7 +71,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 1.0,
+            'weight' => 0.74,
         ]);
 
         $mainActivity6 = MainActivity::updateOrCreate([
@@ -80,7 +80,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.8,
+            'weight' => 0.74,
         ]);
 
         $mainActivity7 = MainActivity::updateOrCreate([
@@ -89,7 +89,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 1.0,
+            'weight' => 0.74,
         ]);
 
 
@@ -104,7 +104,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.5,
+            'weight' => 0.44,
         ]);
 
         $mainActivity9 = MainActivity::updateOrCreate([
@@ -113,7 +113,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.5,
+            'weight' => 0.32,
         ]);
 
         $mainActivity10 = MainActivity::updateOrCreate([
@@ -122,7 +122,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.300,
+            'weight' => 0.32,
         ]);
 
         $mainActivity11 = MainActivity::updateOrCreate([
@@ -131,7 +131,7 @@ class MainActivitySeeder extends Seeder
             'target' => 42.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.100,
+            'weight' => 0.16,
         ]);
 
         $mainActivity12 = MainActivity::updateOrCreate([
@@ -140,7 +140,7 @@ class MainActivitySeeder extends Seeder
             'target' => 4.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.100,
+            'weight' => 0.08,
         ]);
 
         $mainActivity13 = MainActivity::updateOrCreate([
@@ -149,7 +149,7 @@ class MainActivitySeeder extends Seeder
             'target' => 4.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.200,
+            'weight' => 0.32,
         ]);
 
         $mainActivity14 = MainActivity::updateOrCreate([
@@ -158,7 +158,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.200,
+            'weight' => 0.32,
         ]);
 
         $Initiative3 = Initiative::updateOrCreate([
@@ -172,7 +172,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.300,
+            'weight' => 0.52,
         ]);
 
         $mainActivity16 = MainActivity::updateOrCreate([
@@ -181,7 +181,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.100,
+            'weight' => 0.52,
         ]);
 
         $mainActivity17 = MainActivity::updateOrCreate([
@@ -190,7 +190,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.125,
+            'weight' => 0.52,
         ]);
 
         $mainActivity18 = MainActivity::updateOrCreate([
@@ -199,7 +199,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 1.175,
+            'weight' => 0.52,
         ]);
 
         $mainActivity19 = MainActivity::updateOrCreate([
@@ -208,7 +208,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 1.600,
+            'weight' => 0.52,
         ]);
 
 
@@ -224,7 +224,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.200,
+            'weight' => 0.20,
         ]);
 
         $mainActivity21 = MainActivity::updateOrCreate([
@@ -233,7 +233,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.200,
+            'weight' => 0.20,
         ]);
 
         $mainActivity22 = MainActivity::updateOrCreate([
@@ -242,7 +242,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.200,
+            'weight' => 0.81,
         ]);
 
         $mainActivity23 = MainActivity::updateOrCreate([
@@ -251,7 +251,7 @@ class MainActivitySeeder extends Seeder
             'target' => 6.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.200,
+            'weight' => 0.41,
         ]);
 
         $mainActivity24 = MainActivity::updateOrCreate([
@@ -260,7 +260,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.200,
+            'weight' => 0.20,
         ]);
 
         $mainActivity25 = MainActivity::updateOrCreate([
@@ -269,7 +269,7 @@ class MainActivitySeeder extends Seeder
             'target' => 4.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.460,
+            'weight' => 0.20,
         ]);
 
         $mainActivity26 = MainActivity::updateOrCreate([
@@ -278,7 +278,7 @@ class MainActivitySeeder extends Seeder
             'target' => 4.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.160,
+            'weight' => 0.81,
         ]);
 
         $mainActivity27 = MainActivity::updateOrCreate([
@@ -287,7 +287,7 @@ class MainActivitySeeder extends Seeder
             'target' => 4.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.400,
+            'weight' => 0.41,
         ]);
 
         $Initiative5 = Initiative::updateOrCreate([
@@ -301,7 +301,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.300,
+            'weight' => 1,
         ]);
 
         $mainActivity29 = MainActivity::updateOrCreate([
@@ -310,7 +310,7 @@ class MainActivitySeeder extends Seeder
             'target' => 4.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.160,
+            'weight' => 2,
         ]);
 
         $mainActivity30 = MainActivity::updateOrCreate([
@@ -319,7 +319,7 @@ class MainActivitySeeder extends Seeder
             'target' => 2.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.160,
+            'weight' => 1.5,
         ]);
 
         $mainActivity31 = MainActivity::updateOrCreate([
@@ -328,7 +328,7 @@ class MainActivitySeeder extends Seeder
             'target' => 3.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.460,
+            'weight' => 1,
         ]);
 
         $mainActivity32 = MainActivity::updateOrCreate([
@@ -337,7 +337,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.260,
+            'weight' => 1,
         ]);
 
         $Initiative6 = Initiative::updateOrCreate([
@@ -351,7 +351,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.060,
+            'weight' => 1.04,
         ]);
 
         $mainActivity34 = MainActivity::updateOrCreate([
@@ -360,7 +360,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.120,
+            'weight' => 0.26,
         ]);
 
         $mainActivity35 = MainActivity::updateOrCreate([
@@ -369,7 +369,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.060,
+            'weight' => 0.26,
         ]);
 
         $mainActivity36 = MainActivity::updateOrCreate([
@@ -378,7 +378,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.279,
+            'weight' => 0.52,
         ]);
 
         $mainActivity37 = MainActivity::updateOrCreate([
@@ -387,7 +387,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.279,
+            'weight' => 0.52,
         ]);
 
 
@@ -402,7 +402,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.279,
+            'weight' => 0.97,
         ]);
 
         $mainActivity39 = MainActivity::updateOrCreate([
@@ -411,7 +411,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.279,
+            'weight' => 0.78,
         ]);
 
         $mainActivity40 = MainActivity::updateOrCreate([
@@ -420,7 +420,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.279,
+            'weight' => 0.20,
         ]);
 
 
@@ -435,7 +435,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.279,
+            'weight' => 0.98,
         ]);
 
         $mainActivity42 = MainActivity::updateOrCreate([
@@ -444,7 +444,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.279,
+            'weight' => 0.49,
         ]);
 
         $mainActivity43 = MainActivity::updateOrCreate([
@@ -453,7 +453,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.950,
+            'weight' => 0.49,
         ]);
 
         $mainActivity44 = MainActivity::updateOrCreate([
@@ -462,7 +462,7 @@ class MainActivitySeeder extends Seeder
             'target' => 100,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Percentage')->first()->id,
-            'weight' => 0.500,
+            'weight' => 0.49,
         ]);
 
         $mainActivity45 = MainActivity::updateOrCreate([
@@ -471,7 +471,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.250,
+            'weight' => 0.49,
         ]);
 
         $mainActivity46 = MainActivity::updateOrCreate([
@@ -480,7 +480,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.250,
+            'weight' => 0.49,
         ]);
 
         $mainActivity47 = MainActivity::updateOrCreate([
@@ -489,7 +489,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.125,
+            'weight' => 0.49,
         ]);
 
         $Initiative9 = Initiative::updateOrCreate([
@@ -503,7 +503,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.025,
+            'weight' => 0.54,
         ]);
 
         $mainActivity49 = MainActivity::updateOrCreate([
@@ -512,7 +512,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.525,
+            'weight' => 0.54,
         ]);
 
         $mainActivity50 = MainActivity::updateOrCreate([
@@ -521,7 +521,7 @@ class MainActivitySeeder extends Seeder
             'target' => 2.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.425,
+            'weight' => 0.54,
         ]);
 
         $mainActivity51 = MainActivity::updateOrCreate([
@@ -530,7 +530,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.425,
+            'weight' => 0.54,
         ]);
 
         $mainActivity52 = MainActivity::updateOrCreate([
@@ -539,7 +539,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.425,
+            'weight' => 0.54,
         ]);
 
         $mainActivity53 = MainActivity::updateOrCreate([
@@ -548,7 +548,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.500,
+            'weight' => 0.54,
         ]);
 
         $Initiative10 = Initiative::updateOrCreate([
@@ -562,7 +562,7 @@ class MainActivitySeeder extends Seeder
             'target' => 2.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.250,
+            'weight' => 0.16,
         ]);
 
         $mainActivity55 = MainActivity::updateOrCreate([
@@ -571,7 +571,7 @@ class MainActivitySeeder extends Seeder
             'target' => 2.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.250,
+            'weight' => 0.16,
         ]);
 
         $mainActivity56 = MainActivity::updateOrCreate([
@@ -580,7 +580,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.300,
+            'weight' => 0.33,
         ]);
 
         $mainActivity57 = MainActivity::updateOrCreate([
@@ -589,7 +589,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.950,
+            'weight' => 0.33,
         ]);
 
         $mainActivity58 = MainActivity::updateOrCreate([
@@ -598,7 +598,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.250,
+            'weight' => 0.65,
         ]);
 
         $mainActivity59 = MainActivity::updateOrCreate([
@@ -607,7 +607,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.500,
+            'weight' => 0.33,
         ]);
 
         $mainActivity60 = MainActivity::updateOrCreate([
@@ -616,7 +616,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.250,
+            'weight' => 0.33,
         ]);
 
         $mainActivity61 = MainActivity::updateOrCreate([
@@ -625,7 +625,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.600,
+            'weight' => 0.33,
         ]);
 
         $mainActivity62 = MainActivity::updateOrCreate([
@@ -634,7 +634,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.400,
+            'weight' => 0.33,
         ]);
 
         $mainActivity63 = MainActivity::updateOrCreate([
@@ -643,7 +643,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.400,
+            'weight' => 0.33,
         ]);
 
 
@@ -659,7 +659,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.400,
+            'weight' => 0.71,
         ]);
 
         $mainActivity65 = MainActivity::updateOrCreate([
@@ -668,7 +668,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.400,
+            'weight' => 0.20,
         ]);
 
         $mainActivity66 = MainActivity::updateOrCreate([
@@ -677,7 +677,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.400,
+            'weight' => 0.20,
         ]);
 
         $mainActivity67 = MainActivity::updateOrCreate([
@@ -686,7 +686,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.950,
+            'weight' => 0.20,
         ]);
 
         $mainActivity68 = MainActivity::updateOrCreate([
@@ -695,7 +695,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.500,
+            'weight' => 0.20,
         ]);
 
         $mainActivity69 = MainActivity::updateOrCreate([
@@ -704,7 +704,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.500,
+            'weight' => 0.20,
         ]);
 
         $mainActivity70 = MainActivity::updateOrCreate([
@@ -713,7 +713,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.250,
+            'weight' => 0.20,
         ]);
 
         $mainActivity71 = MainActivity::updateOrCreate([
@@ -722,7 +722,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.250,
+            'weight' => 0.20,
         ]);
 
         $mainActivity72 = MainActivity::updateOrCreate([
@@ -731,7 +731,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.250,
+            'weight' => 0.20,
         ]);
 
         $mainActivity73 = MainActivity::updateOrCreate([
@@ -740,7 +740,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.250,
+            'weight' => 0.20,
         ]);
 
         $mainActivity74 = MainActivity::updateOrCreate([
@@ -749,7 +749,7 @@ class MainActivitySeeder extends Seeder
             'target' => 1.0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0.300,
+            'weight' => 0.20,
         ]);
 
         $mainActivity75 = MainActivity::updateOrCreate([
@@ -758,7 +758,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.20,
         ]);
 
         $mainActivity76 = MainActivity::updateOrCreate([
@@ -767,7 +767,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.10,
         ]);
 
         $mainActivity77 = MainActivity::updateOrCreate([
@@ -776,7 +776,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.10,
         ]);
 
         $mainActivity78 = MainActivity::updateOrCreate([
@@ -785,7 +785,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.11,
         ]);
 
 
@@ -800,7 +800,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 1.65,
         ]);
 
         $mainActivity80 = MainActivity::updateOrCreate([
@@ -809,7 +809,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 1.55,
         ]);
 
         $mainActivity81 = MainActivity::updateOrCreate([
@@ -818,7 +818,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.65,
         ]);
 
         $mainActivity82 = MainActivity::updateOrCreate([
@@ -827,7 +827,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.33,
         ]);
 
         $mainActivity83 = MainActivity::updateOrCreate([
@@ -836,7 +836,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.65,
         ]);
 
         $mainActivity84 = MainActivity::updateOrCreate([
@@ -845,7 +845,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.33,
         ]);
 
         $mainActivity85 = MainActivity::updateOrCreate([
@@ -854,7 +854,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 1.30,
         ]);
 
 
@@ -869,7 +869,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 1.08,
         ]);
 
         $mainActivity87 = MainActivity::updateOrCreate([
@@ -878,7 +878,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.54,
         ]);
 
         $mainActivity88 = MainActivity::updateOrCreate([
@@ -887,7 +887,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.54,
         ]);
 
         $mainActivity89 = MainActivity::updateOrCreate([
@@ -896,7 +896,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.54,
         ]);
 
         $mainActivity90 = MainActivity::updateOrCreate([
@@ -905,7 +905,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.27,
         ]);
 
         $mainActivity91 = MainActivity::updateOrCreate([
@@ -914,7 +914,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.27,
         ]);
 
         $Initiative14 = Initiative::updateOrCreate([
@@ -928,7 +928,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 1.30,
         ]);
 
         $mainActivity93 = MainActivity::updateOrCreate([
@@ -937,7 +937,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.33,
         ]);
 
         $mainActivity94 = MainActivity::updateOrCreate([
@@ -946,7 +946,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.33,
         ]);
 
         $mainActivity95 = MainActivity::updateOrCreate([
@@ -955,7 +955,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.65,
         ]);
 
 
@@ -975,7 +975,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.56,
         ]);
 
         $mainActivity97 = MainActivity::updateOrCreate([
@@ -984,7 +984,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.56,
         ]);
 
         $mainActivity98 = MainActivity::updateOrCreate([
@@ -993,7 +993,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.56,
         ]);
 
         $mainActivity99 = MainActivity::updateOrCreate([
@@ -1002,7 +1002,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.56,
         ]);
 
         $mainActivity100 = MainActivity::updateOrCreate([
@@ -1011,7 +1011,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.56,
         ]);
 
         $mainActivity101 = MainActivity::updateOrCreate([
@@ -1020,7 +1020,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.56,
         ]);
 
         $mainActivity102 = MainActivity::updateOrCreate([
@@ -1029,7 +1029,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.56,
         ]);
 
         $Initiative16 = Initiative::updateOrCreate([
@@ -1043,7 +1043,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.43,
         ]);
 
         $mainActivity104 = MainActivity::updateOrCreate([
@@ -1052,7 +1052,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.43,
         ]);
 
         $mainActivity105 = MainActivity::updateOrCreate([
@@ -1061,7 +1061,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.43,
         ]);
 
         $mainActivity106 = MainActivity::updateOrCreate([
@@ -1070,7 +1070,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.43,
         ]);
 
         $mainActivity107 = MainActivity::updateOrCreate([
@@ -1079,7 +1079,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.43,
         ]);
 
         $mainActivity108 = MainActivity::updateOrCreate([
@@ -1088,7 +1088,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.43,
         ]);
 
 
@@ -1103,7 +1103,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 1.85,
         ]);
 
 
@@ -1113,7 +1113,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.75,
         ]);
 
 
@@ -1129,7 +1129,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.33,
         ]);
 
 
@@ -1140,7 +1140,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.33,
         ]);
 
         $mainActivity113 = MainActivity::updateOrCreate([
@@ -1149,7 +1149,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.33,
         ]);
 
         $mainActivity114 = MainActivity::updateOrCreate([
@@ -1158,7 +1158,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.65,
         ]);
 
         $mainActivity115 = MainActivity::updateOrCreate([
@@ -1167,7 +1167,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.16,
         ]);
 
 
@@ -1182,7 +1182,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.28,
         ]);
 
         $mainActivity117 = MainActivity::updateOrCreate([
@@ -1191,7 +1191,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.28,
         ]);
 
         $mainActivity118 = MainActivity::updateOrCreate([
@@ -1200,7 +1200,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.28,
         ]);
 
         $mainActivity119 = MainActivity::updateOrCreate([
@@ -1209,7 +1209,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.14,
         ]);
 
         $mainActivity120 = MainActivity::updateOrCreate([
@@ -1218,7 +1218,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.28,
         ]);
 
         $mainActivity121 = MainActivity::updateOrCreate([
@@ -1227,7 +1227,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.56,
         ]);
 
         $mainActivity122 = MainActivity::updateOrCreate([
@@ -1236,7 +1236,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.14,
         ]);
 
         $Initiative20 = Initiative::updateOrCreate([
@@ -1250,7 +1250,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.325,
         ]);
 
         $mainActivity124 = MainActivity::updateOrCreate([
@@ -1259,7 +1259,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.325,
         ]);
 
         $mainActivity125 = MainActivity::updateOrCreate([
@@ -1268,7 +1268,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.325,
         ]);
 
         $mainActivity126 = MainActivity::updateOrCreate([
@@ -1277,7 +1277,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.325,
         ]);
 
         $Initiative21 = Initiative::updateOrCreate([
@@ -1291,7 +1291,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.35,
         ]);
 
         $mainActivity128 = MainActivity::updateOrCreate([
@@ -1300,7 +1300,7 @@ class MainActivitySeeder extends Seeder
             'target' => 0,
             'type' => 'Main Activity',
             'measuring_unit_id' => MeasuringUnit::where('name', 'Number')->first()->id,
-            'weight' => 0,
+            'weight' => 0.3,
         ]);
     }
 }

@@ -34,44 +34,26 @@ class MonitoringController extends Controller
                 'message' => 'Plan not found',
             ], 404);
         }
-    
+
         $fiscalYear = $plan->fiscalYear;
-        $start = Carbon::parse($fiscalYear->start_date)->startOfMonth();
-        $end = Carbon::parse($fiscalYear->end_date)->startOfMonth();
-    
-        // Parse the month name from request
-        $inputMonthName = strtolower($request->month);
-        $matchedMonth = null;
-    
-        // Iterate over each month in the fiscal year
-        $current = $start->copy();
-        while ($current <= $end) {
-            if (strtolower($current->format('F')) === $inputMonthName) {
-                $matchedMonth = $current->format('Y-m-01');
-                break;
-            }
-            $current->addMonth();
-        }
-    
-        if (!$matchedMonth) {
+
+        $month = Carbon::parse($request->month . '-01');
+
+        if($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
             return response()->json([
-                'message' => 'The given month is not within the fiscal year range.',
+                'message' => 'Invalid month',
             ], 422);
         }
     
         try {
             $monitoring = Monitoring::create([
                 'plan_id' => $request->plan_id,
+                'month' => $month,
                 'actual_value' => $request->actual_value,
-                'month' => $matchedMonth,
             ]);
-    
             return $monitoring;
-        } catch (\Throwable $th) {
-            return response()->json([
-                'message' => 'Error creating monitoring',
-                'error' => $th->getMessage(),
-            ], 500);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
         }
     }
     
@@ -98,43 +80,26 @@ class MonitoringController extends Controller
                 'message' => 'Plan not found',
             ], 404);
         }
+
         $fiscalYear = $plan->fiscalYear;
-        $start = Carbon::parse($fiscalYear->start_date)->startOfMonth();
-        $end = Carbon::parse($fiscalYear->end_date)->startOfMonth();
 
-        // Parse the month name from request
-        $inputMonthName = strtolower($request->month);
-        $matchedMonth = null;
+        $month = Carbon::parse($request->month . '-01');
 
-        // Iterate over each month in the fiscal year
-        $current = $start->copy();
-        while ($current <= $end) {
-            if (strtolower($current->format('F')) === $inputMonthName) {
-                $matchedMonth = $current->format('Y-m-01');
-                break;
-            }
-            $current->addMonth();
-
-        }
-        if (!$matchedMonth) {
+        if($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
             return response()->json([
-                'message' => 'The given month is not within the fiscal year range.',
+                'message' => 'Invalid month',
             ], 422);
         }
 
         try {
             $monitoring->update([
-                'plan_id' => $request->plan_id ?? $monitoring->plan_id,
                 'actual_value' => $request->actual_value ?? $monitoring->actual_value,
-                'month' => $matchedMonth ?? $monitoring->month,
+                'month' => $month ?? $monitoring->month,
+                'plan_id' => $request->plan_id ?? $monitoring->plan_id
             ]);
-
             return $monitoring;
-        } catch (\Throwable $th) {
-            return response()->json([
-                'message' => 'Error updating monitoring',
-                'error' => $th->getMessage(),
-            ], 500);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
         }
     }
 
