@@ -19,4 +19,18 @@ class Monitoring extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function fiscalYear()
+    {
+        return $this->belongsTo(FiscalYear::class);
+    }
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
 }
