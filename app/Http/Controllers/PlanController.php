@@ -29,9 +29,11 @@ class PlanController extends Controller
     public function myPlansPaginated()
     {
         $lastActive = $this->lastActive();
+        $search = request('search');
 
         if (!$lastActive) {
-            return response()->json(['message' => 'You are not a manager of any unit'], 403);
+            $myUnit = $this->employeeUnit(Auth::id());
+            return $this->getPlansWithSearchAndUnit($search, $myUnit);
         }
         $myUnit = Unit::find($lastActive->unit_id);
 
@@ -39,7 +41,6 @@ class PlanController extends Controller
             return response()->json(['message' => 'You are not a manager of any unit'], 403);
         }
 
-        $search = request('search');
         $plans = $this->getPlansWithSearchAndUnit($search, $myUnit);
 
         return $plans;
