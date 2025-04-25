@@ -7,6 +7,7 @@ use App\Http\Requests\StorePlanRequest;
 use App\Http\Requests\UpdatePlanRequest;
 use App\Models\FiscalYear;
 use App\Models\Unit;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
@@ -48,8 +49,28 @@ class PlanController extends Controller
     {
         $lastActive = $this->lastActive();
 
+        $search = request('search');
+
         if (!$lastActive) {
-            return response()->json(['message' => 'You are not a manager of any unit'], 403);
+            $myUnit = $this->employeeUnit(Auth::id());
+            return Plan::when($search, function ($query) use ($search) {
+                return $query->where('main_activity_id', 'like', "%$search%")
+                    ->orWhere('unit_id', 'like', "%$search%");
+            })->where('unit_id', $myUnit->id)->latest()
+                ->get()
+                ->map(function ($plan) {
+                    return [
+                        'id' => $plan->id,
+                        'title' => $plan->mainActivity->title,
+                        'initiative' => $plan->mainActivity->initiative->title,
+                        'objective' => $plan->mainActivity->initiative->objective->title,
+                        'weight' => $plan->mainActivity->weight,
+                        'unit' => $plan->unit->name,
+                        'target' => $plan->mainActivity->target,
+                        'total_actual' => $plan->total_actual,
+                        'monitorings' => $plan->monitorings,
+                    ];
+                });
         }
         $myUnit = Unit::find($lastActive->unit_id);
 
@@ -57,7 +78,6 @@ class PlanController extends Controller
             return response()->json(['message' => 'You are not a manager of any unit'], 403);
         }
 
-        $search = request('search');
         return Plan::when($search, function ($query) use ($search) {
             return $query->where('main_activity_id', 'like', "%$search%")
                 ->orWhere('unit_id', 'like', "%$search%");
@@ -72,7 +92,8 @@ class PlanController extends Controller
                     'weight' => $plan->mainActivity->weight,
                     'unit' => $plan->unit->name,
                     'target' => $plan->mainActivity->target,
-                    'fiscal_year' => $plan->fiscalYear->name,
+                    'total_actual' => $plan->total_actual,
+                    'monitorings' => $plan->monitorings,
                 ];
             });
     }
@@ -97,7 +118,7 @@ class PlanController extends Controller
                     'weight' => $plan->mainActivity->weight,
                     'unit' => $plan->unit->name,
                     'target' => $plan->mainActivity->target,
-                    'fiscal_year' => $plan->fiscalYear->name,
+                    'monitorings' => $plan->monitorings,
                 ];
             });
     }
@@ -205,7 +226,7 @@ class PlanController extends Controller
                     'weight' => $plan->mainActivity->weight,
                     'unit' => $plan->unit->name,
                     'target' => $plan->mainActivity->target,
-                    'fiscal_year' => $plan->fiscalYear->name,
+                    'monitorings' => $plan->monitorings,
                 ];
             });
     }

@@ -54,6 +54,7 @@ Route::group([
 
 
     Route::get('my-child-units', [UnitController::class, 'myChildUnits']);
+    Route::get('my-child-employees', [EmployeeController::class, 'myChildEmployees']);
 
     Route::resource('tasks', TaskController::class);
     Route::post('change-task-status/{task}', [TaskController::class, 'changeTaskStatus']);

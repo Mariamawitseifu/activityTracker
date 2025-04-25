@@ -26,7 +26,7 @@ class StoreEmployeeRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => 'nullable|email|unique:' . User::class . ',email',
-            'username' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:' . User::class . ',username',
             'phone' => 'nullable|starts_with:251|digits:12|unique:' . User::class . ',phone',
             'started_date' => 'required|date',
             'end_date' => 'nullable|date',

@@ -10,14 +10,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Monitoring extends Model
 {
     /** @use HasFactory<\Database\Factories\MonitoringFactory> */
-    use HasFactory,HasUuids, SoftDeletes;
-    
+    use HasFactory, HasUuids, SoftDeletes;
+
     protected $guarded = [];
 
     protected $hidden = [
         'created_at',
         'updated_at',
         'deleted_at',
+    ];
+
+    protected $casts = [
+        'month' => 'date:M Y',
     ];
 
     public function plan()

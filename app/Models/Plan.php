@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Plan extends Model
@@ -44,5 +45,21 @@ class Plan extends Model
     public function fiscalYear()
     {
         return $this->belongsTo(FiscalYear::class);
+    }
+
+    public function getTotalActualAttribute()
+    {
+        return $this->monitorings()->sum('actual_value');
+    }
+
+
+    /**
+     * Get all of the monitorings for the Plan
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function monitorings(): HasMany
+    {
+        return $this->hasMany(Monitoring::class, 'plan_id', 'id');
     }
 }

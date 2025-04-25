@@ -27,8 +27,8 @@ class MonitoringController extends Controller
      */
     public function store(StoreMonitoringRequest $request)
     {
-        Gate::authorize('create', Monitoring::class);
-    
+        // Gate::authorize('create', Monitoring::class);
+
         $plan = Plan::with('fiscalYear')->find($request->plan_id);
         if (!$plan) {
             return response()->json([
@@ -40,12 +40,12 @@ class MonitoringController extends Controller
 
         $month = Carbon::parse($request->month . '-01');
 
-        if($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
+        if ($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
             return response()->json([
                 'message' => 'Invalid year or month , must be between ' . $fiscalYear->start_date . ' and ' . $fiscalYear->end_date,
             ], 422);
         }
-    
+
         try {
             $monitoring = Monitoring::create([
                 'plan_id' => $request->plan_id,
@@ -63,7 +63,7 @@ class MonitoringController extends Controller
     public function storeArrayMonitorings(StoreArrayMonitoringsRequest $request)
     {
         Gate::authorize('create', Monitoring::class);
-    
+
         $plan = Plan::with('fiscalYear')->find($request->monitorings[0]['plan_id']);
         if (!$plan) {
             return response()->json([
@@ -75,7 +75,7 @@ class MonitoringController extends Controller
 
         $month = Carbon::parse($request->month . '-01');
 
-        if($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
+        if ($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
             return response()->json([
                 'message' => 'Invalid year or month , must be between ' . $fiscalYear->start_date . ' and ' . $fiscalYear->end_date,
             ], 422);
@@ -89,12 +89,12 @@ class MonitoringController extends Controller
                     'actual_value' => $monitoring['actual_value'],
                 ]);
             }
-            
+
             return response()->json(['message' => 'Monitorings created successfully'], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
-    }    
+    }
 
     /**
      * Display the specified resource.
@@ -123,7 +123,7 @@ class MonitoringController extends Controller
 
         $month = Carbon::parse($request->month . '-01');
 
-        if($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
+        if ($month < Carbon::parse($fiscalYear->start_date) || $month > Carbon::parse($fiscalYear->end_date)) {
             return response()->json([
                 'message' => 'Invalid month',
             ], 422);
