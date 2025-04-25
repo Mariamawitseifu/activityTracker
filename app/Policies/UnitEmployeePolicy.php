@@ -18,6 +18,13 @@ class UnitEmployeePolicy
             : Response::deny('You do not have permission to view unit employees.');
     }
 
+    public function viewChild(User $user): Response
+    {
+        return $user->hasPermissionTo(permission: 'read:childemployees')
+            ? Response::allow()
+            : Response::deny('You do not have permission to view child employees.');
+    }
+
     /**
      * Determine whether the user can view the model.
      */

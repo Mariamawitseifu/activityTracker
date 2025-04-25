@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\EmployeeUnit;
 use App\Models\Unit;
 use App\Models\UnitManager;
 use App\Models\UnitStatus;
@@ -76,5 +77,13 @@ trait UnitTrait
             ->get();
 
         return $units ? $units : null;
+    }
+
+    public function employeeUnit($userId)
+    {
+        return  EmployeeUnit::where('user_id', $userId)
+            ->where('end_date', null)
+            ->with('unit')
+            ->latest()->first()->unit;
     }
 }

@@ -28,7 +28,7 @@ class StoreArrayMonitoringsRequest extends FormRequest
 
         return [
             'monitorings' => 'required|array',
-            // 'month' => 'required|date_format:Y-m|before_or_equal:now', 
+            'month' => 'required|date_format:Y-m|before_or_equal:now', 
             'monitorings.*.plan_id' => 'required|uuid|exists:plans,id|distinct',
             'monitorings.*.actual_value' => 'required|numeric',
         ];

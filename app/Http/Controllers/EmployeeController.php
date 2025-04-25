@@ -6,11 +6,13 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\EmployeeUnit;
 use App\Models\Role;
+use App\Models\UnitEmployee;
 use App\Models\UnitManager;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class EmployeeController extends Controller
@@ -75,6 +77,23 @@ class EmployeeController extends Controller
         $employees = $collection1->merge($collection2);
 
 
+        return $employees;
+    }
+
+    public function myChildEmployees()
+    {
+        // Gate::authorize('viewChild', EmployeeUnit::class);
+
+        $lastActive = $this->lastActive();
+        $myUnit = $lastActive ? $lastActive->unit : null;
+
+        $employees = EmployeeUnit::where('unit_id', $myUnit->id)
+            ->where('end_date', null)
+            ->with('user.roles')
+            ->paginate(10)
+            ->through(function ($query) {
+                return $this->formattedUser($query);
+            });
         return $employees;
     }
 
