@@ -73,6 +73,7 @@ Route::group([
     Route::post('tasks/{task}/remarks', [TaskController::class, 'addRemark']);
     Route::get('my-teams', [UnitController::class, 'myTeams']);
     Route::get('get-user-tasks/{user}', [TaskController::class, 'byUser']);
+    Route::post('update-sub-task-status/{subTask}', [SubTaskController::class, 'updateStatus']);
 
 
     Route::resource('monitorings', MonitoringController::class);

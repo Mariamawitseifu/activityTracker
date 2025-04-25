@@ -67,14 +67,4 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Task::class, 'user_id', 'id');
     }
-
-    /**
-     * Get all of the tasks for the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function tasks(): HasMany
-    {
-        return $this->hasMany(Task::class, 'user_id', 'id');
-    }
 }
