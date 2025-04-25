@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CountController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FiscalYearController;
 use App\Http\Controllers\InitiativeController;
 use App\Http\Controllers\MainActivityController;
@@ -28,6 +29,7 @@ Route::group([
 
     Route::resource('unit-types', UnitTypeController::class);
     Route::resource('units', UnitController::class);
+    Route::resource('employees', EmployeeController::class);
     Route::get('all-units', [UnitController::class, 'all']);
 
     Route::get('units-i-manage', [MyUnitController::class, 'index']);
