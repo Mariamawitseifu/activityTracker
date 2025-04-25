@@ -21,9 +21,13 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'username',
         'password',
+        'otp',
+        'otp_sent_at',
+        'verified_at',
     ];
-
     protected $hidden = [
         'password',
         'remember_token',
@@ -47,10 +51,12 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public function unit()
+    //   employeeUnit
+    public function employeeUnit()
     {
-        return $this->hasOne(Unit::class, 'manager_id', 'id');
+        return $this->hasMany(EmployeeUnit::class, 'user_id', 'id');
     }
+
 
     /**
      * Get all of the tasks for the User
