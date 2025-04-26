@@ -181,7 +181,7 @@ class EmployeeController extends Controller
             ]);
 
             // if (isset($request->roles)) {
-            //     $user->assignRole($request->roles);
+            //     $employee->user->syncRoles($request->roles);
             // }
 
             DB::commit();
