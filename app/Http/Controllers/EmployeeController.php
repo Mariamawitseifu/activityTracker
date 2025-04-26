@@ -180,9 +180,9 @@ class EmployeeController extends Controller
                 'phone' => $request->phone ?? $employee->user->phone,
             ]);
 
-            if (isset($request->roles)) {
-                $user->assignRole($request->roles);
-            }
+            // if (isset($request->roles)) {
+            //     $user->assignRole($request->roles);
+            // }
 
             DB::commit();
 
