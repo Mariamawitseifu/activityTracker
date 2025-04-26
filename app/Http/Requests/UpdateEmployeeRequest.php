@@ -30,7 +30,7 @@ class UpdateEmployeeRequest extends FormRequest
             'end_date' => 'nullable|date',
             'unit_id' => 'nullable|uuid|exists:units,id',
             'roles' => 'nullable|array',
-            'roles.*' => 'required|uuid|exists:roles,uuid',
+            'roles.*' => 'required|uuid',
         ];
     }
 }
