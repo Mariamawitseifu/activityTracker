@@ -16,7 +16,7 @@ class ManagerController extends Controller
 
         $managers = User::whereHas('roles', function ($query) {
             $query->where('name', 'manager');
-        })->paginate();
+        })->get();
 
         return response()->json($managers);
     }
