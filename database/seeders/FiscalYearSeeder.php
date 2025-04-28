@@ -14,8 +14,8 @@ class FiscalYearSeeder extends Seeder
     public function run(): void
     {
         FiscalYear::firstOrCreate([
-            'name' => '2023-2024',
-            'start_date' => '2024-04-01',
+            'name' => '2025-2026',
+            'start_date' => '2025-01-01',
             'end_date' => '2025-12-31',
         ]);
     }

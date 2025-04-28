@@ -18,6 +18,7 @@ class PermissionSeeder extends Seeder
 
         $manager = Role::where('name', 'Manager')->first();
         $manager->syncPermissions([
+            'read:users',
             'read:childemployees',
             'read:childunit',
             'read:unitstatus',
