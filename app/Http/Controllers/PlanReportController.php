@@ -31,7 +31,7 @@ class PlanReportController extends Controller
             $dayOfWeek = date('l', strtotime($request->date));
             if (!in_array($dayOfWeek, ['Friday', 'Saturday', 'Sunday'])) {
                 return response()->json(['message' => 'You can only create a plan report on Friday, Saturday, or Sunday.'], 422);
-            }            
+            }
             $planReport = PlanReport::create([
                 'plan_id' => $request->plan_id,
                 'description' => $request->description,
@@ -62,7 +62,7 @@ class PlanReportController extends Controller
             $dayOfWeek = date('l', strtotime($request->date));
             if (!in_array($dayOfWeek, ['Friday', 'Saturday', 'Sunday'])) {
                 return response()->json(['message' => 'You can only create a plan report on Friday, Saturday, or Sunday.'], 422);
-            }   
+            }
             $planReport->update([
                 'plan_id' => $request->plan_id ?? $planReport->plan_id,
                 'description' => $request->description ?? $planReport->description,
