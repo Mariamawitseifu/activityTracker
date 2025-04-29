@@ -58,9 +58,10 @@ class MonitoringController extends Controller
         }
 
         try {
-            $monitoring = Monitoring::create([
+            $monitoring = Monitoring::updateOrCreate([
                 'plan_id' => $request->plan_id,
                 'month' => $month,
+            ], [
                 'actual_value' => $request->actual_value,
             ]);
             return $monitoring;
