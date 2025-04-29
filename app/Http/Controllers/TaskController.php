@@ -55,7 +55,7 @@ class TaskController extends Controller
                 $query->where('plan_id', $request->plan_id);
             })
             ->whereHas('plan')
-            ->with('plan.mainActivity', 'subTasks')
+            ->with('remarks', 'plan.mainActivity', 'subTasks')
             ->where('user_id', $userId)
             ->paginate($perPage);
 
@@ -305,10 +305,8 @@ class TaskController extends Controller
         return $task->load('remarks');
     }
 
-    public function getTasksByFiscalYear (FiscalYear $fiscalYear)
+    public function getTasksByFiscalYear(FiscalYear $fiscalYear)
     {
         return $fiscalYear->tasks()->latest()->paginate(15);
     }
-    
 }
-

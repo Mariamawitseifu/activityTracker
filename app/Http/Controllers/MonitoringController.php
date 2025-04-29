@@ -30,6 +30,17 @@ class MonitoringController extends Controller
         // Gate::authorize('create', Monitoring::class);
 
         $plan = Plan::with('fiscalYear')->find($request->plan_id);
+        $lastActive = $this->lastActive();
+        $myUnit = $lastActive ? $lastActive->unit : null;
+        $myPlan = Plan::where('id', $request->plan_id)
+            ->where('unit_id', $myUnit->id)->first();
+
+        if ($myPlan) {
+            return response()->json([
+                'message' => 'You are not allowed to monitor your plan',
+            ], 403);
+        }
+
         if (!$plan) {
             return response()->json([
                 'message' => 'Plan not found',
@@ -132,8 +143,6 @@ class MonitoringController extends Controller
         try {
             $monitoring->update([
                 'actual_value' => $request->actual_value ?? $monitoring->actual_value,
-                'month' => $month ?? $monitoring->month,
-                'plan_id' => $request->plan_id ?? $monitoring->plan_id
             ]);
             return $monitoring;
         } catch (\Exception $e) {
