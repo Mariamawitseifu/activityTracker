@@ -75,6 +75,8 @@ Route::group([
     Route::get('my-teams', [UnitController::class, 'myTeams']);
     Route::get('get-user-tasks/{user}', [TaskController::class, 'byUser']);
     Route::post('update-sub-task-status/{subTask}', [SubTaskController::class, 'updateStatus']);
+    Route::get('my-day', [SubTaskController::class, 'myDay']);
+
 
 
     Route::resource('monitorings', MonitoringController::class);
@@ -83,6 +85,4 @@ Route::group([
 
     Route::get('task-count', [CountController::class, 'taskCount']);
     Route::get('get-managers', [ManagerController::class, 'getManagers']);
-
-    
 });
