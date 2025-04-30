@@ -41,6 +41,33 @@ class SubTaskController extends Controller
         return $groupedSubTasks;
     }
 
+    public function myDay(Request $request)
+    {
+        $request->validate([
+            'fiscal_year_id' => 'required|exists:fiscal_years,id',
+        ]);
+
+        $start = Carbon::now()->startOfWeek()->subDay();
+        $end = Carbon::now()->endOfWeek()->subDay();
+
+        return SubTask::whereHas('task', function ($query) use ($request, $start, $end) {
+            $query->whereHas('plan', function ($query2) use ($request) {
+                $query2->where('fiscal_year_id', $request->fiscal_year_id);
+            })->where('user_id', Auth::id())->whereBetween('date', [$start, $end]);
+        })->get()->filter(function ($subTask) {
+            $today = Carbon::now();
+            $taskDate = Carbon::parse($subTask->date);
+
+            return $taskDate->dayOfWeek === $today->dayOfWeek;
+        })->map(function ($subTask) {
+            return [
+                'id' => $subTask->id,
+                'title' => $subTask->title,
+                'task_title' => $subTask->task->title,
+                'status' => $subTask->status,
+            ];
+        })->values();
+    }
 
     public function updateStatus(Request $request, SubTask $subTask)
     {
