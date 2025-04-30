@@ -16,6 +16,7 @@ class PermissionSeeder extends Seeder
     {
         Permission::updateOrCreate(['name' => 'read:childemployees']);
         Permission::updateOrCreate(['name' => 'create:addremark']);
+        Permission::updateOrCreate(['name' => 'read:myday']);
 
         $manager = Role::where('name', 'Manager')->first();
         $manager->syncPermissions([
@@ -54,6 +55,7 @@ class PermissionSeeder extends Seeder
             'delete:monitoring',
             'create:addremark',
             'read:myteams',
+            'read:myday'
         ]);
     }
 }
