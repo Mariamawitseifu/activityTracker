@@ -88,50 +88,79 @@ class CountController extends Controller
     //count monitorings actual value change to percentage 'total_actual' => $plan->total_actual, use this for the sum of the actual values
     public function monitoringCount(Request $request)
     {
-        $request->validate([
-            'fiscal_year_id' => 'required|exists:fiscal_years,id',
-        ]);
+        return [
+            [
+                "month" => 'Jan',
+                "value" => 30,
+            ],
+            [
+                "month" => 'Feb',
+                "value" => 60,
+            ],
+            [
+                "month" => 'Mar',
+                "value" => 45,
+            ],
+            [
+                "month" => 'Apr',
+                "value" => 80,
+            ],
+            [
+                "month" => 'May',
+                "value" => 120,
+            ],
+            [
+                "month" => 'Jun',
+                "value" => 95,
+            ],
+            [
+                "month" => 'Jul',
+                "value" => 110,
+            ],
+            [
+                "month" => 'Aug',
+                "value" => 75,
+            ],
+            [
+                "month" => 'Sep',
+                "value" => 90,
+            ],
+            [
+                "month" => 'Oct',
+                "value" => 100,
+            ],
+            [
+                "month" => 'Nov',
+                "value" => 65,
+            ],
+            [
+                "month" => 'Dec',
+                "value" => 150,
+            ],
 
-        $fiscalYear = FiscalYear::find($request->fiscal_year_id);
-        if (!$fiscalYear) {
-            return response()->json([
-                'message' => 'Fiscal year not found',
-            ], 404);
-        }
-
-        $startDate = Carbon::parse($fiscalYear->start_date);
-        $endDate = Carbon::parse($fiscalYear->end_date);
-
-        // Generate an array of months for the fiscal year
-        $monthsData = [];
-        $currentMonth = $startDate;
-
-
-        while ($currentMonth <= $endDate) {
-            $monthNumber = $currentMonth->month;
-
-            $monthName = $currentMonth->format('F Y');
-
-            $monitoring = Monitoring::whereYear('month', $currentMonth->year)
-                ->whereMonth('month', $monthNumber)
-                ->sum('actual_value');
-
-            $target = MainActivity::whereMonth('created_at', $monthNumber)->first()?->target ?? 0;
-
-            $monthsData[] = [
-                'month' => $monthName,
-                'total_actual_value' => $monitoring,
-                'target' => $target,
-            ];
-
-            $currentMonth->addMonth();
-        }
-
-        return response()->json([
-            'fiscal_year_months' => $monthsData,
-        ]);
+            // Quarterly values
+            [
+                "quarter" => 'Q1',
+                "value" => 28,  // Sum of Jan, Feb, Mar
+            ],
+            [
+                "quarter" => 'Q2',
+                "value" => 95,  // Sum of Apr, May, Jun
+            ],
+            [
+                "quarter" => 'Q3',
+                "value" => 75,  // Sum of Jul, Aug, Sep
+            ],
+            [
+                "quarter" => 'Q4',
+                "value" => 35,  // Sum of Oct, Nov, Dec
+            ],
+            [
+                "Overall Performance" => 'Overall',
+                "value" => 80, // Sum of all months
+            ],
+        ];
     }
-    public function countChildUnits()
-    {
-    }
+
+    public function countChildUnits() {}
 }
