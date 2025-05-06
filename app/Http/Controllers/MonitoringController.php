@@ -149,4 +149,5 @@ class MonitoringController extends Controller
         Gate::authorize('delete', $monitoring);
         return ("not implemented");
     }
+
 }

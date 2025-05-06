@@ -82,7 +82,7 @@ Route::group([
 
 
     Route::get('task-count', [CountController::class, 'taskCount']);
+    Route::get('monitoring-count', [CountController::class, 'monitoringCount']);
+    Route::get('child-units-count', [CountController::class, 'countChildUnits']);
     Route::get('get-managers', [ManagerController::class, 'getManagers']);
-
-    
 });
