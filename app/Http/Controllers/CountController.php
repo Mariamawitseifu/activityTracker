@@ -162,68 +162,97 @@ class CountController extends Controller
 
             // Overall Performance
             "Overall Performance" => [
-                "Overall Performance" => 'Overall',
-                "value" => (65+85+95+90)/4,  // Sum of all months
+                "OverallPerformance" => 'Overall',
+                "value" => (65 + 85 + 95 + 90) / 4,  // Sum of all months
             ],
         ];
     }
 
-    public function quarterlyCount()
+    public function montitorCount(Request $request)
     {
-        $lastActive = $this->lastActive();
+        $fiscalYearId = request('fiscal_year_id');
 
-        if (!$lastActive) {
-            return response()->json(['message' => 'You are not associated with any active unit'], 403);
+        if (!$fiscalYearId) {
+            return response()->json(['message' => 'Fiscal year ID is required'], 422);
         }
 
-        // Retrieve user's associated unit.
-        $myUnit = Unit::find($lastActive->unit_id);
+        $fiscalYear = FiscalYear::find($fiscalYearId);
+
+        if (!$fiscalYear || !$fiscalYear->start_date || !$fiscalYear->end_date) {
+            return response()->json(['message' => 'Fiscal year not found or incomplete date range'], 404);
+        }
+
+        $user = Auth::user();
+        $lastActive = $this->lastActive(); // Reuse from PlanController
+        $myUnit = $lastActive?->unit ?? $this->employeeUnit($user->id);
 
         if (!$myUnit) {
             return response()->json(['message' => 'You are not a manager of any unit'], 403);
         }
 
-        // Get all plans for the current user's unit.
-        $plans = Plan::where('unit_id', $myUnit->id)->get();
+        $plans = Plan::where('fiscal_year_id', $fiscalYear->id)
+            ->where('unit_id', $myUnit->id)
+            ->with(['mainActivity', 'monitorings'])
+            ->get();
 
-        if ($plans->isEmpty()) {
-            return response()->json(['message' => 'No plans found for your unit'], 404);
-        // Initialize aggregates.
-        $aggregate = 0;
-        $totalPlans = $plans->count();
-        // Loop through plans and calculate monitoring performance.
-        foreach ($plans as $plan) {
-            $target = $plan->mainActivity->target;
-            $actual = $plan->total_actual;
-            if ($target > 0) {
-                $aggregate += ($target/$actual ) * 100;
+        $monthlyPerformance = [];
+
+        $start = Carbon::parse($fiscalYear->start_date)->startOfMonth();
+        $end = Carbon::parse($fiscalYear->end_date)->endOfMonth();
+
+        $current = $start->copy();
+        while ($current->lte($end)) {
+            $month = $current->month;
+            $year = $current->year;
+
+            $totalPerformance = 0;
+            $planCount = 0;
+
+            foreach ($plans as $plan) {
+                $target = $plan->mainActivity->target;
+
+                $monitoring = $plan->monitorings
+                    ->first(function ($m) use ($month, $year) {
+                        $date = Carbon::parse($m->monitoring_date);
+                        return $date->month == $month && $date->year == $year;
+                    });
+
+                if ($monitoring && $target > 0) {
+                    $performance = ($monitoring->actual / $target) * 100;
+                    $totalPerformance += $performance;
+                    $planCount++;
+                }
             }
+
+            $monthlyPerformance[$current->format('M Y' )] = $planCount > 0
+                ? round($totalPerformance / $planCount, 2)
+                : null;
+
+            $current->addMonth();
         }
 
-        // Calculate the monitoring percentage across all plans.
-        $monitoringPercentage = $aggregate / $totalPlans;
-
         return response()->json([
-            'monitoring_percentage' => $monitoringPercentage,
-            'total_plans' => $totalPlans,
+            'fiscal_year' => $fiscalYear->name,
+            'unit' => $myUnit->name,
+            'monthly_performance' => $monthlyPerformance,
         ]);
     }
 
-    }
 
-    public function countChildUnits() {
+    public function countChildUnits()
+    {
         // My child unit performance
         $lastActive = $this->lastActive();
         if (!$lastActive) {
             return response()->json(['message' => 'You are not associated with any active unit'], 403);
         }
-    
+
         // Retrieve user's associated unit.
         $myUnit = Unit::find($lastActive->unit_id);
         if (!$myUnit) {
             return response()->json(['message' => 'You are not a manager of any unit'], 403);
         }
-    
+
         // Query child units by parent_id, similar to the myChildUnits() method.
         $childUnits = Unit::where('parent_id', $myUnit->id)
             ->when(request('search'), function ($query, $search) {
@@ -233,20 +262,20 @@ class CountController extends Controller
                 return $query->where('unit_type_id', $unit_type_id);
             })
             ->get();
-    
+
         if ($childUnits->isEmpty()) {
             return response()->json(['message' => 'No child units found for your unit'], 404);
         }
-    
+
         // Initialize an array to store the results for each child unit
         $results = [];
-    
+
         // Loop through child units and calculate monitoring performance.
         foreach ($childUnits as $childUnit) {
             $plans = Plan::where('unit_id', $childUnit->id)->get();
             $totalPlans = $plans->count();  // Count the number of plans for this child unit
             $aggregate = 0;
-    
+
             if ($totalPlans > 0) {
                 foreach ($plans as $plan) {
                     $target = $plan->mainActivity->target;
@@ -261,21 +290,22 @@ class CountController extends Controller
                 // No plans, set percentage to 0
                 $monitoringPercentage = 0;
             }
-    
+
             // Store the result for this child unit with its name and monitoring percentage
             $results[] = [
                 'unit_name' => $childUnit->name,
                 'value' => $monitoringPercentage
             ];
         }
-    
+
         // Return the response with the child units and their corresponding values
         return response()->json([
             'data' => $results
         ]);
     }
-    
-    public function kpiGradeCount() {
+
+    public function kpiGradeCount()
+    {
         //search by unit and month 
         $search = request('search');
         $month = request('month');
@@ -309,36 +339,51 @@ class CountController extends Controller
         $monitoringPercentage = $aggregate / $totalPlans;
         if ($search) {
             return [
-                'kpi' => [
-                    [ 'Grade' => 'Very Good',
-                    'value' => 100],
-                   ['Grade' => 'Good',
-                    'value' => 80],
-                    ['Grade' => 'Acceptable',
-                    'value' => 60],
-                    ['Grade' => 'Low',
-                    'value' => 40],
-                    ['Grade' => 'Very Low',
-                    'value' => 20],
+
+                [
+                    'Grade' => 'Very Good',
+                    'value' => 100
+                ],
+                [
+                    'Grade' => 'Good',
+                    'value' => 80
+                ],
+                [
+                    'Grade' => 'Acceptable',
+                    'value' => 60
+                ],
+                [
+                    'Grade' => 'Low',
+                    'value' => 40
+                ],
+                [
+                    'Grade' => 'Very Low',
+                    'value' => 20
                 ],
             ];
         } else {
             return [
-                'kpi' => [
-                    [ 'Grade' => 'Very Good',
-                    'value' => 100],
-                   ['Grade' => 'Good',
-                    'value' => 80],
-                    ['Grade' => 'Acceptable',
-                    'value' => 60],
-                    ['Grade' => 'Low',
-                    'value' => 40],
-                    ['Grade' => 'Very Low',
-                    'value' => 20],
+                [
+                    'Grade' => 'Very Good',
+                    'value' => 100
+                ],
+                [
+                    'Grade' => 'Good',
+                    'value' => 80
+                ],
+                [
+                    'Grade' => 'Acceptable',
+                    'value' => 60
+                ],
+                [
+                    'Grade' => 'Low',
+                    'value' => 40
+                ],
+                [
+                    'Grade' => 'Very Low',
+                    'value' => 20
                 ],
             ];
-            
-
         }
     }
 
@@ -348,30 +393,30 @@ class CountController extends Controller
         if (!$lastActive) {
             return response()->json(['message' => 'You are not associated with any active unit'], 403);
         }
-    
+
         // Retrieve user's associated unit.
         $myUnit = Unit::find($lastActive->unit_id);
         if (!$myUnit) {
             return response()->json(['message' => 'You are not a manager of any unit'], 403);
         }
-    
+
         // Get all plans for the current user's unit.
         $plans = Plan::where('unit_id', $myUnit->id)->get();
         if ($plans->isEmpty()) {
             return response()->json(['message' => 'No plans found for your unit'], 404);
         }
-    
+
         $results = [];
-    
+
         foreach ($plans as $plan) {
             $mainActivity = $plan->mainActivity;
-    
+
             if ($mainActivity && $mainActivity->target > 0 && $plan->total_actual > 0) {
                 $target = $mainActivity->target;
                 $actual = $plan->total_actual;
-    
-                $monitoringPercentage = ( $target /$actual ) * 100;
-    
+
+                $monitoringPercentage = ($target / $actual) * 100;
+
                 $results[] = [
                     'plan_name' => $mainActivity->title,
                     'target' => $target,
@@ -381,11 +426,7 @@ class CountController extends Controller
                 ];
             }
         }
-    
-        return response()->json([
-            'total_plans' => count($results),
-            'plans' => $results,
-        ]);
-    }
 
+        return $results;
+    }
 }

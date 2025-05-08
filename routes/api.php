@@ -85,7 +85,7 @@ Route::group([
 
     Route::get('task-count', [CountController::class, 'taskCount']);
     Route::get('monitoring-count', [CountController::class, 'monitoringCount']);
-    Route::get('quarterly-count', [CountController::class, 'quarterlyCount']);
+    Route::get('quarterly-count', [CountController::class, 'montitorCount']);
     Route::get('child-units-count', [CountController::class, 'countChildUnits']);
     Route::get('kpi-grade-count', [CountController::class, 'kpiGradeCount']);
     Route::get('performance', [CountController::class, 'keyPerformanceIndicator']);
