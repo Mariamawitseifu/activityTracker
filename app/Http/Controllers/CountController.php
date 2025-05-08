@@ -171,72 +171,104 @@ class CountController extends Controller
     public function montitorCount(Request $request)
     {
         $fiscalYearId = request('fiscal_year_id');
-
+    
         if (!$fiscalYearId) {
             return response()->json(['message' => 'Fiscal year ID is required'], 422);
         }
-
+    
         $fiscalYear = FiscalYear::find($fiscalYearId);
-
+    
         if (!$fiscalYear || !$fiscalYear->start_date || !$fiscalYear->end_date) {
             return response()->json(['message' => 'Fiscal year not found or incomplete date range'], 404);
         }
-
+    
         $user = Auth::user();
         $lastActive = $this->lastActive(); // Reuse from PlanController
         $myUnit = $lastActive?->unit ?? $this->employeeUnit($user->id);
-
+    
         if (!$myUnit) {
             return response()->json(['message' => 'You are not a manager of any unit'], 403);
         }
-
+    
         $plans = Plan::where('fiscal_year_id', $fiscalYear->id)
             ->where('unit_id', $myUnit->id)
             ->with(['mainActivity', 'monitorings'])
             ->get();
-
+    
         $monthlyPerformance = [];
-
+        $quarterlyBuckets = [[], [], [], []]; 
+        $overallTotal = 0;
+        $overallCount = 0;
+    
         $start = Carbon::parse($fiscalYear->start_date)->startOfMonth();
         $end = Carbon::parse($fiscalYear->end_date)->endOfMonth();
-
+    
         $current = $start->copy();
+        $monthIndex = 0;
+    
         while ($current->lte($end)) {
             $month = $current->month;
             $year = $current->year;
-
+    
             $totalPerformance = 0;
             $planCount = 0;
-
+    
             foreach ($plans as $plan) {
                 $target = $plan->mainActivity->target;
-
+    
                 $monitoring = $plan->monitorings
                     ->first(function ($m) use ($month, $year) {
                         return $m->month->month == $month && $m->month->year == $year;
                     });
-
+    
                 if ($monitoring && $target > 0) {
                     $performance = ( $target / $monitoring->actual_value) * 100;
                     $totalPerformance += $performance;
                     $planCount++;
                 }
             }
-
+    
+            $value = $planCount > 0 ? round($totalPerformance / $planCount, 2) : 0;
+    
             $monthlyPerformance[] = [
                 'month' => $current->format('M'),
-                'value' => $planCount > 0
-                    ? round($totalPerformance / $planCount, 2) * 100
-                    : 0,
+                'value' => $value,
             ];
-
+    
+            if (!is_null($value)) {
+                $quarterIndex = intdiv($monthIndex, 3); 
+                $quarterlyBuckets[$quarterIndex][] = $value;
+    
+                $overallTotal += $value;
+                $overallCount++;
+            }
+    
+            // Move to the next month
             $current->addMonth();
+            $monthIndex++;
         }
-
-        return ['Monthly' => $monthlyPerformance];
+    
+        // Calculate quarterly averages
+        $quarterlyPerformance = [];
+        foreach ($quarterlyBuckets as $i => $quarter) {
+            $valid = array_filter($quarter, fn($v) => !is_null($v));
+            $avg = count($valid) > 0 ? round(array_sum($valid) / count($valid), 2) : 0;
+            $quarterlyPerformance[] = [
+                'quarter' => 'Q' . ($i + 1),
+                'value' => $avg,
+            ];
+        }
+    
+        // Overall performance
+        $overall = $overallCount > 0 ? round($overallTotal / $overallCount, 2) : 0;
+    
+        return [
+            'Monthly' => $monthlyPerformance,
+            'Quarterly' => $quarterlyPerformance,
+            'Overall' => $overall,
+        ];
     }
-
-
+    
     public function countChildUnits()
     {
         // My child unit performance
