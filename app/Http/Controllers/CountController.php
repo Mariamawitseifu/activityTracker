@@ -161,7 +161,7 @@ class CountController extends Controller
             ],
 
             // Overall Performance
-            "Overall Performance" => [
+            "OverallPerformance" => [
                 "OverallPerformance" => 'Overall',
                 "value" => (65 + 85 + 95 + 90) / 4,  // Sum of all months
             ],
@@ -213,29 +213,27 @@ class CountController extends Controller
 
                 $monitoring = $plan->monitorings
                     ->first(function ($m) use ($month, $year) {
-                        $date = Carbon::parse($m->monitoring_date);
-                        return $date->month == $month && $date->year == $year;
+                        return $m->month->month == $month && $m->month->year == $year;
                     });
 
                 if ($monitoring && $target > 0) {
-                    $performance = ($monitoring->actual / $target) * 100;
+                    $performance = ( $target / $monitoring->actual_value) * 100;
                     $totalPerformance += $performance;
                     $planCount++;
                 }
             }
 
-            $monthlyPerformance[$current->format('M Y' )] = $planCount > 0
-                ? round($totalPerformance / $planCount, 2)
-                : null;
+            $monthlyPerformance[] = [
+                'month' => $current->format('M'),
+                'value' => $planCount > 0
+                    ? round($totalPerformance / $planCount, 2) * 100
+                    : 0,
+            ];
 
             $current->addMonth();
         }
 
-        return response()->json([
-            'fiscal_year' => $fiscalYear->name,
-            'unit' => $myUnit->name,
-            'monthly_performance' => $monthlyPerformance,
-        ]);
+        return ['Monthly' => $monthlyPerformance];
     }
 
 
