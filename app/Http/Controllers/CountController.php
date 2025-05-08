@@ -96,39 +96,39 @@ class CountController extends Controller
                 ],
                 [
                     "month" => 'Feb',
-                    "value" => 60,
+                    "value" => 20,
                 ],
                 [
                     "month" => 'Mar',
-                    "value" => 45,
+                    "value" => 15,
                 ],
                 [
                     "month" => 'Apr',
-                    "value" => 80,
+                    "value" => 30,
                 ],
                 [
                     "month" => 'May',
-                    "value" => 120,
+                    "value" => 10,
                 ],
                 [
                     "month" => 'Jun',
-                    "value" => 95,
+                    "value" => 45,
                 ],
                 [
                     "month" => 'Jul',
-                    "value" => 110,
+                    "value" => 10,
                 ],
                 [
                     "month" => 'Aug',
-                    "value" => 75,
+                    "value" => 65,
                 ],
                 [
                     "month" => 'Sep',
-                    "value" => 90,
+                    "value" => 20,
                 ],
                 [
                     "month" => 'Oct',
-                    "value" => 100,
+                    "value" => 10,
                 ],
                 [
                     "month" => 'Nov',
@@ -136,7 +136,7 @@ class CountController extends Controller
                 ],
                 [
                     "month" => 'Dec',
-                    "value" => 150,
+                    "value" => 15,
                 ],
             ],
 
@@ -144,26 +144,26 @@ class CountController extends Controller
             "Quarterly" => [
                 [
                     "quarter" => 'Q1',
-                    "value" => 135,  // Sum of Jan, Feb, Mar
+                    "value" => 65,  // Sum of Jan, Feb, Mar
                 ],
                 [
                     "quarter" => 'Q2',
-                    "value" => 295,  // Sum of Apr, May, Jun
+                    "value" => 85,  // Sum of Apr, May, Jun
                 ],
                 [
                     "quarter" => 'Q3',
-                    "value" => 275,  // Sum of Jul, Aug, Sep
+                    "value" => 95,  // Sum of Jul, Aug, Sep
                 ],
                 [
                     "quarter" => 'Q4',
-                    "value" => 315,  // Sum of Oct, Nov, Dec
+                    "value" => 90,  // Sum of Oct, Nov, Dec
                 ],
             ],
 
             // Overall Performance
             "Overall Performance" => [
                 "Overall Performance" => 'Overall',
-                "value" => 820, // Sum of all months
+                "value" => (65+85+95+90)/4,  // Sum of all months
             ],
         ];
     }
@@ -310,30 +310,30 @@ class CountController extends Controller
         if ($search) {
             return [
                 'kpi' => [
-                    ['Very Good' => 50,
+                    [ 'Grade' => 'Very Good',
                     'value' => 100],
-                    ['Good' => 40,
+                   ['Grade' => 'Good',
                     'value' => 80],
-                    ['Acceptable' => 30,
+                    ['Grade' => 'Acceptable',
                     'value' => 60],
-                    ['Low' => 20,
+                    ['Grade' => 'Low',
                     'value' => 40],
-                    ['Very Low' => 10,
+                    ['Grade' => 'Very Low',
                     'value' => 20],
                 ],
             ];
         } else {
             return [
                 'kpi' => [
-                    ['Very Good' => 50,
+                    [ 'Grade' => 'Very Good',
                     'value' => 100],
-                    ['Good' => 40,
+                   ['Grade' => 'Good',
                     'value' => 80],
-                    ['Acceptable' => 30,
+                    ['Grade' => 'Acceptable',
                     'value' => 60],
-                    ['Low' => 20,
+                    ['Grade' => 'Low',
                     'value' => 40],
-                    ['Very Low' => 10,
+                    ['Grade' => 'Very Low',
                     'value' => 20],
                 ],
             ];
@@ -366,7 +366,7 @@ class CountController extends Controller
         foreach ($plans as $plan) {
             $mainActivity = $plan->mainActivity;
     
-            if ($mainActivity && $mainActivity->target > 0) {
+            if ($mainActivity && $mainActivity->target > 0 && $plan->total_actual > 0) {
                 $target = $mainActivity->target;
                 $actual = $plan->total_actual;
     
@@ -387,6 +387,5 @@ class CountController extends Controller
             'plans' => $results,
         ]);
     }
-    
 
 }
