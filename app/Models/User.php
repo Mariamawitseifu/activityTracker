@@ -3,23 +3,31 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasUuids, HasRoles;
 
     protected $connection = 'mysql2';
 
     protected $fillable = [
         'name',
         'email',
+        'phone',
+        'username',
         'password',
+        'otp',
+        'otp_sent_at',
+        'verified_at',
     ];
-
     protected $hidden = [
         'password',
         'remember_token',
@@ -41,5 +49,22 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    //   employeeUnit
+    public function employeeUnit()
+    {
+        return $this->hasMany(EmployeeUnit::class, 'user_id', 'id');
+    }
+
+
+    /**
+     * Get all of the tasks for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class, 'user_id', 'id');
     }
 }

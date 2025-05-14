@@ -14,11 +14,12 @@ class UnitTypeSeeder extends Seeder
     public function run(): void
     {
         $unitTypes = [
-            ['name' => 'Kilogram'],
-            ['name' => 'Gram'],
-            ['name' => 'Liter'],
-            ['name' => 'Milliliter'],
-            ['name' => 'Piece'],
+            ['name' => 'Minister'],
+            ['name' => 'State Minister'],
+            ['name' => 'LEO - Lead Executive Officer'],
+            ['name' => 'Desk'],
+            ['name' => 'Team'],
+            ['name' => 'Individual'],
         ];
 
         foreach ($unitTypes as $unitType) {

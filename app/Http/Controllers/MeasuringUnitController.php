@@ -14,22 +14,24 @@ class MeasuringUnitController extends Controller
      */
     public function index()
     {
+        Gate::authorize('viewAny', MeasuringUnit::class);
         return MeasuringUnit::all();
     }
 
     /**
-     * Show the form for creating a new resource.
+     *      * Display a listing of the resource paginated.
      */
-    public function create()
+    public function indexPaginated()
     {
-        //
+        Gate::authorize('viewAny', MeasuringUnit::class);
+        return MeasuringUnit::paginate(15);
     }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreMeasuringUnitRequest $request)
     {
+        Gate::authorize('create', MeasuringUnit::class);
         try {
             $measuringUnit = MeasuringUnit::create([
                 'name' => $request->name,
@@ -45,6 +47,7 @@ class MeasuringUnitController extends Controller
      */
     public function show(MeasuringUnit $measuringUnit)
     {
+        Gate::authorize('view', $measuringUnit);
         return $measuringUnit;
     }
 
@@ -54,6 +57,7 @@ class MeasuringUnitController extends Controller
      */
     public function update(UpdateMeasuringUnitRequest $request, MeasuringUnit $measuringUnit)
     {
+        Gate::authorize('update', $measuringUnit);
         try {
             $measuringUnit->update([
                 'name' => $request->name,
@@ -69,6 +73,7 @@ class MeasuringUnitController extends Controller
      */
     public function destroy(MeasuringUnit $measuringUnit)
     {
+        Gate::authorize('delete', $measuringUnit);
         return response()->json(['message' => 'not implemented'], 501);
     }
 }

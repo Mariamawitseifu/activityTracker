@@ -13,4 +13,15 @@ class MeasuringUnit extends Model
     use HasFactory, HasUuids, SoftDeletes;
 
     protected $guarded = [];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    public function mainActivities()
+    {
+        return $this->hasMany(MainActivity::class);
+    }
 }

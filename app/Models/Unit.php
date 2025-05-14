@@ -15,14 +15,22 @@ class Unit extends Model
     protected  $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     protected $guarded = [];
+    protected $casts = [
+        'is_main' => 'boolean',
+    ];
 
     public function unitType()
     {
         return $this->belongsTo(UnitType::class);
     }
 
-    public function unitManager()
+    public function manager()
     {
         return $this->hasOne(UnitManager::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Unit::class, 'parent_id');
     }
 }

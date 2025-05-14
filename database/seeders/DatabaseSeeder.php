@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\FiscalYear;
 use App\Models\Objective;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -14,17 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
         $this->call([
             UnitTypeSeeder::class,
             UnitSeeder::class,
-            ObjectiveSeeder::class,
-            InititativeSeeder::class,
+            FiscalYearSeeder::class,
+            MeasuringUnitSeeder::class,
+            MainActivitySeeder::class,
+            PlanSeeder::class,
         ]);
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }
