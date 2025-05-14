@@ -20,7 +20,6 @@ class PlanReportController extends Controller
         return PlanReport::latest()->with(['plan.mainActivity', 'creator'])->paginate(15);
     }
 
-
     /**
      * Store a newly created resource in storage.
      */
@@ -61,7 +60,7 @@ class PlanReportController extends Controller
         try {
             $dayOfWeek = date('l', strtotime($request->date));
             if (!in_array($dayOfWeek, ['Friday', 'Saturday', 'Sunday'])) {
-                return response()->json(['message' => 'You can only create a plan report on Friday, Saturday, or Sunday.'], 422);
+                return response()->json(['message' => 'You can only update a plan report on Friday, Saturday, or Sunday.'], 422);
             }
             $planReport->update([
                 'plan_id' => $request->plan_id ?? $planReport->plan_id,

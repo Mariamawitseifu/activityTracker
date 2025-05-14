@@ -58,8 +58,14 @@ class Plan extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function monitorings(): HasMany
-    {
-        return $this->hasMany(Monitoring::class, 'plan_id', 'id');
-    }
+    // public function monitorings(): HasMany
+    // {
+    //     return $this->hasMany(Monitoring::class, 'plan_id', 'id');
+    // }
+
+    public function monitorings()
+{
+    return $this->hasMany(Monitoring::class);
+}
+
 }
